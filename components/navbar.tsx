@@ -26,7 +26,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 ${
         scrolled
-          ? 'bg-[#0a0c10]/90 backdrop-blur-md border-b border-[var(--border-subtle)]'
+          ? 'bg-[var(--bone)]/85 backdrop-blur-md border-b border-[var(--champagne-line)]'
           : 'bg-transparent'
       }`}
     >
@@ -65,7 +65,7 @@ export default function Navbar() {
           </a>
           <a
             href="#formules"
-            className="relative px-6 py-2.5 text-sm font-sans tracking-widest uppercase font-medium text-[#0a0c10] bg-[var(--gold)] hover:bg-[var(--gold-light)] transition-all duration-300 rounded-full overflow-hidden group"
+            className="relative px-6 py-2.5 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] hover:bg-[var(--champagne)]/85 transition-all duration-300 rounded-full overflow-hidden group"
           >
             Réserver
           </a>
@@ -85,7 +85,7 @@ export default function Navbar() {
       <div
         className={`md:hidden transition-all duration-500 overflow-hidden ${
           open ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
-        } bg-[#0a0c10]/95 backdrop-blur-md`}
+        } bg-[var(--bone)]/95 backdrop-blur-md`}
       >
         <nav className="flex flex-col px-6 pb-8 pt-4 gap-6">
           {navLinks.map((link) => (
@@ -108,7 +108,7 @@ export default function Navbar() {
           <a
             href="#formules"
             onClick={() => setOpen(false)}
-            className="w-full text-center px-6 py-3 text-sm font-sans tracking-widest uppercase font-medium text-[#0a0c10] bg-[var(--gold)] rounded-full"
+            className="w-full text-center px-6 py-3 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] rounded-full"
           >
             Réserver
           </a>

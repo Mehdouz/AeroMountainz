@@ -4,50 +4,88 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Brand palette — deep night sky meets dawn gold */
-  --background: #0a0c10;
-  --foreground: #f0ece4;
+  /* Foundation — Bone, Midnight, Ink */
+  --bone: #FAF6EE;
+  --bone-2: #F2EDE2;
+  --ink: #1A1A1A;
+  --midnight: #0F1E3D;
+  --midnight-2: #0A1730;
 
-  --surface: #111520;
-  --surface-2: #181d2a;
+  /* Accents — Champagne (primary), Lake (tertiary) */
+  --champagne: #C9A961;
+  --lake: #4A8FB0;
 
-  --gold: #c8a96e;
-  --gold-light: #e8c98a;
-  --gold-dim: rgba(200, 169, 110, 0.15);
+  /* Semantic — muted state colors */
+  --sage: #6B8E6F;
+  --terracotta: #B5715C;
 
-  --sky-blue: #6ba3c8;
-  --sky-mist: rgba(107, 163, 200, 0.12);
+  /* Hairlines & dim variants */
+  --champagne-line: rgba(201, 169, 97, 0.4);
+  --champagne-dim: rgba(201, 169, 97, 0.12);
+  --ink-line: rgba(26, 26, 26, 0.08);
+  --lake-mist: rgba(74, 143, 176, 0.08);
 
-  --text-primary: #f0ece4;
-  --text-secondary: rgba(240, 236, 228, 0.65);
-  --text-muted: rgba(240, 236, 228, 0.35);
+  /* Text hierarchy on Bone */
+  --ink-65: rgba(26, 26, 26, 0.65);
+  --ink-40: rgba(26, 26, 26, 0.40);
 
-  --border-subtle: rgba(240, 236, 228, 0.08);
-  --border-gold: rgba(200, 169, 110, 0.3);
+  /* Page tokens */
+  --background: var(--bone);
+  --foreground: var(--ink);
+
+  /* Back-compat aliases — old token names map to new palette so existing
+     components keep working until they're individually migrated. */
+  --surface: var(--bone-2);
+  --surface-2: var(--bone-2);
+  --gold: var(--champagne);
+  --gold-light: var(--champagne);
+  --gold-dim: var(--champagne-dim);
+  --sky-blue: var(--lake);
+  --sky-mist: var(--lake-mist);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-65);
+  --text-muted: var(--ink-40);
+  --border-subtle: var(--ink-line);
+  --border-gold: var(--champagne-line);
 
   --radius: 0.5rem;
 
   /* Shadcn compatibility */
-  --card: var(--surface);
-  --card-foreground: var(--foreground);
-  --primary: var(--gold);
-  --primary-foreground: #0a0c10;
-  --secondary: var(--surface-2);
-  --secondary-foreground: var(--foreground);
-  --muted: var(--surface-2);
-  --muted-foreground: var(--text-secondary);
-  --border: var(--border-subtle);
-  --input: var(--surface-2);
-  --ring: var(--gold);
-  --accent: var(--gold-dim);
-  --accent-foreground: var(--gold-light);
+  --card: var(--bone-2);
+  --card-foreground: var(--ink);
+  --primary: var(--champagne);
+  --primary-foreground: var(--midnight);
+  --secondary: var(--bone-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bone-2);
+  --muted-foreground: var(--ink-65);
+  --border: var(--ink-line);
+  --input: var(--bone-2);
+  --ring: var(--champagne);
+  --accent: var(--champagne-dim);
+  --accent-foreground: var(--midnight);
 }
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-bone: var(--bone);
+  --color-bone-2: var(--bone-2);
+  --color-ink: var(--ink);
+  --color-midnight: var(--midnight);
+  --color-midnight-2: var(--midnight-2);
+  --color-champagne: var(--champagne);
+  --color-champagne-line: var(--champagne-line);
+  --color-champagne-dim: var(--champagne-dim);
+  --color-lake: var(--lake);
+  --color-sage: var(--sage);
+  --color-terracotta: var(--terracotta);
+
+  /* Aliases for back-compat */
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-gold: var(--gold);
@@ -59,6 +97,7 @@
   --color-text-muted: var(--text-muted);
   --color-border-subtle: var(--border-subtle);
   --color-border-gold: var(--border-gold);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
@@ -67,6 +106,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -81,13 +121,13 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--bone);
+    color: var(--ink);
     overflow-x: hidden;
   }
   ::selection {
-    background: rgba(200, 169, 110, 0.3);
-    color: #f0ece4;
+    background: var(--champagne-dim);
+    color: var(--midnight);
   }
 }
 
@@ -96,18 +136,39 @@
   will-change: transform;
 }
 
-/* Gold shimmer animation */
+/* Section in Midnight scope — flips text/surface aliases so any descendant
+   component using --text-primary, --surface, --border-subtle, etc. renders
+   correctly on a dark navy background without per-component overrides. */
+.section-midnight {
+  --surface: var(--midnight-2);
+  --surface-2: var(--midnight-2);
+  --text-primary: var(--bone);
+  --text-secondary: rgba(250, 246, 238, 0.70);
+  --text-muted: rgba(250, 246, 238, 0.45);
+  --border-subtle: rgba(250, 246, 238, 0.10);
+  --card: var(--midnight-2);
+  --card-foreground: var(--bone);
+  --muted: var(--midnight-2);
+  --muted-foreground: rgba(250, 246, 238, 0.70);
+  --border: rgba(250, 246, 238, 0.10);
+  --input: var(--midnight-2);
+  background-color: var(--midnight);
+  color: var(--bone);
+}
+
+/* Champagne shimmer — calibrated for light Bone background */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 
-.gold-shimmer {
+.gold-shimmer,
+.champagne-shimmer {
   background: linear-gradient(
     90deg,
-    var(--gold) 0%,
-    var(--gold-light) 50%,
-    var(--gold) 100%
+    var(--champagne) 0%,
+    var(--midnight) 50%,
+    var(--champagne) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -137,9 +198,9 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--bone);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--champagne);
   border-radius: 2px;
 }

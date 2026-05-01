@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${cormorant.variable} bg-[#0a0c10]`}>
+    <html lang="fr" className={`${inter.variable} ${cormorant.variable} bg-bone`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   )

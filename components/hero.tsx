@@ -43,8 +43,8 @@ export default function Hero() {
           onLoad={() => setLoaded(true)}
         />
         {/* Dark overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0c10] via-[#0a0c10]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0c10]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/60 via-transparent to-transparent" />
       </div>
 
       {/* Clouds parallax layer */}
@@ -74,20 +74,20 @@ export default function Hero() {
 
         {/* Main heading */}
         <h1
-          className={`font-serif text-5xl sm:text-6xl lg:text-8xl font-light leading-none text-[var(--text-primary)] mb-6 transition-all duration-1000 delay-500 ${
+          className={`font-serif text-5xl sm:text-6xl lg:text-8xl font-light leading-none text-[var(--bone)] mb-6 transition-all duration-1000 delay-500 ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           Vol en
           <br />
-          <span className="italic text-[var(--gold-light)]">montgolfière</span>
+          <span className="italic text-[var(--champagne)]">montgolfière</span>
           <br />
           à Annecy
         </h1>
 
         {/* Subtitle */}
         <p
-          className={`text-base sm:text-lg text-[var(--text-secondary)] max-w-md leading-relaxed mb-10 font-sans transition-all duration-1000 delay-700 ${
+          className={`text-base sm:text-lg text-[var(--bone)]/75 max-w-md leading-relaxed mb-10 font-sans transition-all duration-1000 delay-700 ${
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
@@ -104,7 +104,7 @@ export default function Hero() {
         >
           <a
             href="#formules"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--gold)] text-[#0a0c10] font-sans text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-[var(--gold-light)] transition-all duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--champagne)] text-[var(--midnight)] font-sans text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-[var(--champagne)]/85 transition-all duration-300 hover:scale-[1.02]"
           >
             Réserver mon vol
           </a>
@@ -119,7 +119,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-        <span className="text-[var(--text-muted)] text-xs tracking-[0.3em] uppercase font-mono">
+        <span className="text-[var(--bone)]/50 text-xs tracking-[0.3em] uppercase font-mono">
           Défiler
         </span>
         <ChevronDown className="text-[var(--gold)] animate-bounce" size={18} />

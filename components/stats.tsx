@@ -66,7 +66,7 @@ function StatCard({
 
 export default function Stats() {
   return (
-    <section className="relative z-10 -mt-2 py-20 lg:py-28">
+    <section className="section-midnight relative z-10 -mt-2 py-20 lg:py-28">
       {/* Decorative line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-[var(--gold)] to-transparent" />
 

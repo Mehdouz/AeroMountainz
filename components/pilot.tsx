@@ -29,7 +29,7 @@ export default function Pilot() {
   }, [])
 
   return (
-    <section id="pilote" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="pilote" className="section-midnight py-24 lg:py-32 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-r from-[var(--gold)]/3 to-transparent pointer-events-none" />
 
@@ -49,7 +49,7 @@ export default function Pilot() {
                 className="object-cover"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0c10]/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)]/60 via-transparent to-transparent" />
             </div>
 
             {/* Floating stat card */}

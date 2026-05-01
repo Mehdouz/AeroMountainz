@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import ParallaxBalloon from './parallax-balloon'
 
 const steps = [
   {
@@ -101,11 +102,14 @@ function Step({ step, index }: { step: (typeof steps)[0]; index: number }) {
 
 export default function Journey() {
   return (
-    <section id="journey" className="py-24 lg:py-32 relative">
+    <section id="journey" className="py-24 lg:py-32 relative overflow-hidden">
+      {/* Parallax montgolfière en arrière-plan à gauche */}
+      <ParallaxBalloon />
+
       {/* Ambient glow */}
       <div className="absolute right-0 top-1/3 w-96 h-96 bg-[var(--sky-blue)]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left — heading */}
           <div className="lg:sticky lg:top-32 self-start">

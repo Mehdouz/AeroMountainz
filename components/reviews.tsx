@@ -84,9 +84,7 @@ function ReviewCard({ review, delay }: { review: (typeof reviews)[0]; delay: num
 
 export default function Reviews() {
   return (
-    <section className="py-24 lg:py-32 relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-[var(--surface)]/30 pointer-events-none" />
+    <section className="section-midnight py-24 lg:py-32 relative">
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6">

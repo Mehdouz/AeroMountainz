@@ -42,7 +42,7 @@ export default function CtaSection() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#0a0c10]/75" />
+        <div className="absolute inset-0 bg-[var(--midnight)]/75" />
       </div>
 
       {/* Content */}
@@ -56,17 +56,17 @@ export default function CtaSection() {
         </p>
 
         <h2
-          className={`font-serif text-5xl lg:text-7xl font-light text-[var(--text-primary)] leading-tight mb-6 transition-all duration-700 delay-100 ${
+          className={`font-serif text-5xl lg:text-7xl font-light text-[var(--bone)] leading-tight mb-6 transition-all duration-700 delay-100 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           Réservez votre vol
           <br />
-          <span className="italic text-[var(--gold-light)]">au-dessus d&apos;Annecy</span>
+          <span className="italic text-[var(--champagne)]">au-dessus d&apos;Annecy</span>
         </h2>
 
         <p
-          className={`text-sm lg:text-base text-[var(--text-secondary)] max-w-lg mx-auto leading-relaxed font-sans mb-10 transition-all duration-700 delay-200 ${
+          className={`text-sm lg:text-base text-[var(--bone)]/75 max-w-lg mx-auto leading-relaxed font-sans mb-10 transition-all duration-700 delay-200 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
@@ -80,7 +80,7 @@ export default function CtaSection() {
         >
           <a
             href="tel:+33673940721"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--gold)] text-[#0a0c10] font-sans text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-[var(--gold-light)] transition-all duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--champagne)] text-[var(--midnight)] font-sans text-sm font-semibold tracking-widest uppercase rounded-full hover:bg-[var(--champagne)]/85 transition-all duration-300 hover:scale-[1.02]"
           >
             <Phone size={15} />
             06 73 94 07 21
@@ -95,7 +95,7 @@ export default function CtaSection() {
 
         {/* Location */}
         <p
-          className={`mt-10 text-xs text-[var(--text-muted)] font-mono tracking-widest transition-all duration-700 delay-500 ${
+          className={`mt-10 text-xs text-[var(--bone)]/50 font-mono tracking-widest transition-all duration-700 delay-500 ${
             visible ? 'opacity-100' : 'opacity-0'
           }`}
         >

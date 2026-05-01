@@ -32,7 +32,7 @@ export default function CloudBreak({ quote, author }: CloudBreakProps) {
           fill
           className="object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0c10] via-transparent to-[#0a0c10]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bone)] via-transparent to-[var(--bone)]" />
       </div>
 
       {/* Quote */}

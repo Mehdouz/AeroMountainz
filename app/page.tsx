@@ -13,15 +13,15 @@ import Footer from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="bg-[#0a0c10] min-h-screen">
+    <main className="bg-bone min-h-screen">
       <Navbar />
       <Hero />
       <Stats />
-
+{/*
       <CloudBreak
         quote="Le silence, la lumière, le lac en contrebas. Une heure suspendue entre ciel et montagne."
         author="Une passagère, été 2024"
-      />
+      /> */}
 
       <Formulas />
 

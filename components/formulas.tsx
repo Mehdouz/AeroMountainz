@@ -87,7 +87,7 @@ function FormulaCard({
     >
       {formula.highlight && (
         <div className="absolute -top-3 left-8">
-          <span className="bg-[var(--gold)] text-[#0a0c10] text-xs font-sans font-semibold tracking-widest uppercase px-4 py-1 rounded-full">
+          <span className="bg-[var(--champagne)] text-[var(--midnight)] text-xs font-sans font-semibold tracking-widest uppercase px-4 py-1 rounded-full">
             Le plus choisi
           </span>
         </div>
@@ -127,7 +127,7 @@ function FormulaCard({
           href="tel:+33673940721"
           className={`w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full text-sm font-sans font-medium tracking-widest uppercase transition-all duration-300 ${
             formula.highlight
-              ? 'bg-[var(--gold)] text-[#0a0c10] hover:bg-[var(--gold-light)]'
+              ? 'bg-[var(--champagne)] text-[var(--midnight)] hover:bg-[var(--champagne)]/85'
               : 'border border-[var(--border-gold)] text-[var(--gold)] hover:bg-[var(--gold-dim)]'
           }`}
         >
@@ -140,7 +140,7 @@ function FormulaCard({
 
 export default function Formulas() {
   return (
-    <section id="formules" className="py-24 lg:py-32">
+    <section id="formules" className="section-midnight py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
           <div>
