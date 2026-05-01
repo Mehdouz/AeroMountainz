@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'lenis/dist/lenis.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -116,9 +117,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-  html {
-    scroll-behavior: smooth;
   }
   body {
     background-color: var(--bone);

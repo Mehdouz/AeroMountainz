@@ -43,7 +43,7 @@ export default function Pilot() {
           >
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5]">
               <Image
-                src="/images/pilot-yannick.jpg"
+                src="/images/pilote-yannick-dacheux.jpg"
                 alt="Yannick Dacheux, pilote montgolfière Annecy"
                 fill
                 className="object-cover"
