@@ -3,16 +3,27 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone } from 'lucide-react'
+import type { NavLink } from '@/lib/types/content'
 
-const navLinks = [
-  { label: 'Vols', href: '#formules' },
-  { label: 'Le déroulé', href: '#journey' },
-  { label: 'Le pilote', href: '#pilote' },
-  { label: 'Galerie', href: '#galerie' },
-  { label: 'FAQ', href: '#faq' },
-]
+type Props = {
+  navLinks: NavLink[]
+  brandName: string
+  brandTagline: string
+  phone: string
+  phoneDisplay: string
+  reserveLabel?: string
+  reserveHref?: string
+}
 
-export default function Navbar() {
+export default function Navbar({
+  navLinks,
+  brandName,
+  brandTagline,
+  phone,
+  phoneDisplay,
+  reserveLabel = 'Réserver',
+  reserveHref = '#formules',
+}: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -21,6 +32,8 @@ export default function Navbar() {
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  const phoneHref = `tel:${phone}`
 
   return (
     <header
@@ -31,17 +44,15 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
-        {/* Logo */}
         <Link href="/" className="flex flex-col leading-none group">
           <span className="font-serif text-xl font-semibold tracking-wider text-[var(--text-primary)]">
-            AERO
+            {brandName}
           </span>
           <span className="font-serif text-xs tracking-[0.3em] text-[var(--gold)] uppercase">
-            Mountains
+            {brandTagline}
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -54,24 +65,22 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA + phone */}
         <div className="hidden md:flex items-center gap-5">
           <a
-            href="tel:+33673940721"
+            href={phoneHref}
             className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors"
           >
             <Phone size={14} />
-            <span className="font-mono tracking-wider">06 73 94 07 21</span>
+            <span className="font-mono tracking-wider">{phoneDisplay}</span>
           </a>
           <a
-            href="#formules"
+            href={reserveHref}
             className="relative px-6 py-2.5 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] hover:bg-[var(--champagne)]/85 transition-all duration-300 rounded-full overflow-hidden group"
           >
-            Réserver
+            {reserveLabel}
           </a>
         </div>
 
-        {/* Mobile burger */}
         <button
           className="md:hidden text-[var(--text-primary)] p-2"
           onClick={() => setOpen((p) => !p)}
@@ -81,7 +90,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       <div
         className={`md:hidden transition-all duration-500 overflow-hidden ${
           open ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
@@ -99,18 +107,18 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="tel:+33673940721"
+            href={phoneHref}
             className="flex items-center gap-2 text-sm text-[var(--text-secondary)]"
           >
             <Phone size={14} />
-            <span className="font-mono">06 73 94 07 21</span>
+            <span className="font-mono">{phoneDisplay}</span>
           </a>
           <a
-            href="#formules"
+            href={reserveHref}
             onClick={() => setOpen(false)}
             className="w-full text-center px-6 py-3 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] rounded-full"
           >
-            Réserver
+            {reserveLabel}
           </a>
         </nav>
       </div>

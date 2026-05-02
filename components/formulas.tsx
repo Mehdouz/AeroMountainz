@@ -1,60 +1,15 @@
 import { ArrowRight, Check } from 'lucide-react'
 import Reveal from './reveal'
-
-const formulas = [
-  {
-    tag: 'Découverte',
-    title: 'Baptême\ndécouverte',
-    price: '250 €',
-    priceDetail: 'par personne',
-    description:
-      'Rejoignez le vol partagé au lever du soleil. Idéal pour une première expérience magique au-dessus du lac d\'Annecy.',
-    features: [
-      '1 à 5 personnes',
-      'Vol d\'environ 1 heure',
-      'Départ à l\'aube',
-      'Toast champenois',
-    ],
-    highlight: false,
-  },
-  {
-    tag: 'Populaire',
-    title: 'Vol privatif\nduo',
-    price: '650 €',
-    priceDetail: 'pour 2 personnes',
-    description:
-      'Un vol en exclusivité pour deux. Romantique, intime, inoubliable. Le cadre parfait pour une demande en mariage.',
-    features: [
-      '2 personnes uniquement',
-      'Vol d\'1h en privatif',
-      'Personnalisation possible',
-      'Champagne & surprise',
-    ],
-    highlight: true,
-  },
-  {
-    tag: 'Sur mesure',
-    title: 'Vol privatif\nfamille',
-    price: 'Sur devis',
-    priceDetail: 'à partir de 5 pers.',
-    description:
-      'Offrez à vos proches une expérience hors du commun. Formule adaptée à vos envies, pour tout groupe jusqu\'à 5 personnes.',
-    features: [
-      'Jusqu\'à 5 personnes',
-      'Itinéraire personnalisé',
-      'Accompagnement dédié',
-      'Possibilité bon cadeau',
-    ],
-    highlight: false,
-  },
-]
+import type { Formula } from '@/lib/types/content'
 
 function FormulaCard({
   formula,
   index,
+  phoneHref,
 }: {
-  formula: (typeof formulas)[0]
+  formula: Formula
   index: number
+  phoneHref: string
 }) {
   return (
     <Reveal
@@ -105,7 +60,7 @@ function FormulaCard({
           <span className="text-xs text-[var(--text-muted)] font-sans">{formula.priceDetail}</span>
         </div>
         <a
-          href="tel:+33673940721"
+          href={phoneHref}
           className={`w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full text-sm font-sans font-medium tracking-widest uppercase transition-all duration-300 ${
             formula.highlight
               ? 'bg-[var(--champagne)] text-[var(--midnight)] hover:bg-[var(--champagne)]/85'
@@ -119,7 +74,8 @@ function FormulaCard({
   )
 }
 
-export default function Formulas() {
+export default function Formulas({ items, phone }: { items: Formula[]; phone: string }) {
+  const phoneHref = `tel:${phone}`
   return (
     <section id="formules" className="section-midnight py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -140,8 +96,8 @@ export default function Formulas() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {formulas.map((formula, i) => (
-            <FormulaCard key={formula.title} formula={formula} index={i} />
+          {items.map((formula, i) => (
+            <FormulaCard key={formula.title} formula={formula} index={i} phoneHref={phoneHref} />
           ))}
         </div>
       </div>

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
-export default function CtaParallax() {
+export default function CtaParallax({ src }: { src: string }) {
   const bgRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function CtaParallax() {
   return (
     <div ref={bgRef} className="absolute inset-0 scale-110 parallax-bg">
       <Image
-        src="/images/cta-bg.jpg"
+        src={src}
         alt=""
         fill
         sizes="100vw"

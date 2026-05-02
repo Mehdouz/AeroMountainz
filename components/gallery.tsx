@@ -1,16 +1,8 @@
 import Image from 'next/image'
 import Reveal from './reveal'
+import type { GalleryItem } from '@/lib/types/content'
 
-const images = [
-  { src: '/images/gallery-1.jpg', alt: 'Montgolfière au-dessus du lac d\'Annecy au lever du soleil', span: 'col-span-2 row-span-2' },
-  { src: '/images/gallery-2.jpg', alt: 'Vue depuis la nacelle du ballon', span: 'col-span-1 row-span-1' },
-  { src: '/images/gallery-3.jpg', alt: 'Moment romantique en montgolfière', span: 'col-span-1 row-span-1' },
-  { src: '/images/gallery-4.jpg', alt: 'Gonflage de la montgolfière à l\'aube', span: 'col-span-1 row-span-2' },
-  { src: '/images/gallery-5.jpg', alt: 'Vue aérienne d\'Annecy', span: 'col-span-1 row-span-1' },
-  { src: '/images/gallery-6.jpg', alt: 'Toast champenois dans les airs', span: 'col-span-1 row-span-1' },
-]
-
-export default function Gallery() {
+export default function Gallery({ items }: { items: GalleryItem[] }) {
   return (
     <section id="galerie" className="py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -33,7 +25,7 @@ export default function Gallery() {
           className="grid grid-cols-3 grid-rows-3 gap-3 lg:gap-4"
           style={{ height: 'clamp(400px, 70vw, 700px)' }}
         >
-          {images.map((img, i) => (
+          {items.map((img, i) => (
             <div
               key={img.src}
               className={`relative overflow-hidden rounded-2xl group cursor-pointer ${img.span}`}

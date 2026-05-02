@@ -3,7 +3,13 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
-export default function HeroParallax() {
+type Props = {
+  backgroundImage: string
+  backgroundAlt: string
+  cloudsImage: string
+}
+
+export default function HeroParallax({ backgroundImage, backgroundAlt, cloudsImage }: Props) {
   const bgRef = useRef<HTMLDivElement>(null)
   const cloudsRef = useRef<HTMLDivElement>(null)
 
@@ -30,8 +36,8 @@ export default function HeroParallax() {
         style={{ top: '-10%', height: '120%' }}
       >
         <Image
-          src="/images/hero-balloon.jpg"
-          alt="Vol en montgolfière au-dessus du lac d'Annecy"
+          src={backgroundImage}
+          alt={backgroundAlt}
           fill
           priority
           sizes="100vw"
@@ -47,7 +53,7 @@ export default function HeroParallax() {
         style={{ top: '-5%' }}
       >
         <Image
-          src="/images/clouds-layer.jpg"
+          src={cloudsImage}
           alt=""
           fill
           sizes="100vw"

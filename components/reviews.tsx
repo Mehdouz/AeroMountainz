@@ -1,39 +1,7 @@
 import Reveal from './reveal'
+import type { Review, ReviewsAggregate } from '@/lib/types/content'
 
-const reviews = [
-  {
-    stars: 5,
-    text: 'Un baptême à faire absolument. Yannick est un pilote exceptionnel, passionné et pédagogue. Le lac depuis les airs, c\'est une vision qui reste gravée à jamais.',
-    author: 'Pierre C.',
-    date: 'Octobre 2024',
-  },
-  {
-    stars: 5,
-    text: 'Le cadre est magnifique et le pilote au top ! On est monté juste avant le lever du soleil, la lumière était incroyable. On a même vu des chamois sur les flancs de la Tournette.',
-    author: 'Lou V.',
-    date: 'Août 2024',
-  },
-  {
-    stars: 5,
-    text: 'Wow! What an incredible experience. Yannick was professional, warm and really made us feel safe. The views over Lake Annecy at sunrise are simply breathtaking.',
-    author: 'Tom G.',
-    date: 'Juillet 2024',
-  },
-  {
-    stars: 5,
-    text: 'J\'ai offert ce vol à ma femme pour notre anniversaire. Les larmes d\'émotion au décollage... et le champagne au retour. Une formule parfaite, je recommande sans hésitation.',
-    author: 'Mathieu L.',
-    date: 'Juin 2024',
-  },
-  {
-    stars: 5,
-    text: 'Expérience hors du temps. Le silence, l\'air frais du matin, le lac qui se réveille... Yannick nous a raconté des anecdotes fascinantes tout au long du vol. Merci.',
-    author: 'Camille D.',
-    date: 'Mai 2024',
-  },
-]
-
-function ReviewCard({ review, delay }: { review: (typeof reviews)[0]; delay: number }) {
+function ReviewCard({ review, delay }: { review: Review; delay: number }) {
   return (
     <Reveal
       delay={delay}
@@ -59,7 +27,13 @@ function ReviewCard({ review, delay }: { review: (typeof reviews)[0]; delay: num
   )
 }
 
-export default function Reviews() {
+export default function Reviews({
+  items,
+  aggregate,
+}: {
+  items: Review[]
+  aggregate: ReviewsAggregate
+}) {
   return (
     <section className="section-midnight py-24 lg:py-32 relative">
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
@@ -77,7 +51,9 @@ export default function Reviews() {
 
           <div className="flex items-center gap-4 border border-[var(--border-gold)] rounded-2xl px-6 py-4">
             <div>
-              <span className="font-serif text-4xl font-semibold text-[var(--gold)]">4.9</span>
+              <span className="font-serif text-4xl font-semibold text-[var(--gold)]">
+                {aggregate.rating}
+              </span>
               <div className="flex gap-0.5 mt-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <svg key={i} viewBox="0 0 16 16" className="w-3 h-3 fill-[var(--gold)]">
@@ -88,19 +64,21 @@ export default function Reviews() {
             </div>
             <div className="w-px h-10 bg-[var(--border-gold)]" />
             <div>
-              <span className="text-sm font-medium text-[var(--text-primary)] block font-sans">+120 avis</span>
-              <span className="text-xs text-[var(--text-muted)] font-sans">Google Reviews</span>
+              <span className="text-sm font-medium text-[var(--text-primary)] block font-sans">
+                {aggregate.countLabel}
+              </span>
+              <span className="text-xs text-[var(--text-muted)] font-sans">{aggregate.source}</span>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {reviews.slice(0, 3).map((r, i) => (
+          {items.slice(0, 3).map((r, i) => (
             <ReviewCard key={r.author} review={r} delay={i * 100} />
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 max-w-3xl mx-auto">
-          {reviews.slice(3).map((r, i) => (
+          {items.slice(3).map((r, i) => (
             <ReviewCard key={r.author} review={r} delay={i * 100 + 300} />
           ))}
         </div>
