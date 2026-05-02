@@ -1,7 +1,5 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
 import ParallaxBalloon from './parallax-balloon'
+import Reveal from './reveal'
 
 const steps = [
   {
@@ -48,43 +46,24 @@ const steps = [
   },
 ]
 
-function Step({ step, index }: { step: (typeof steps)[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
+function Step({ step, index, isLast }: { step: (typeof steps)[0]; index: number; isLast: boolean }) {
   return (
-    <div
-      ref={ref}
-      className={`relative flex gap-6 lg:gap-10 transition-all duration-700 ${
-        visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
+    <Reveal
+      delay={index * 100}
+      threshold={0.2}
+      x={-32}
+      y={0}
+      className="relative flex gap-6 lg:gap-10"
     >
-      {/* Timeline line + dot */}
       <div className="flex flex-col items-center flex-shrink-0">
         <div className="w-10 h-10 rounded-full border border-[var(--border-gold)] bg-[var(--surface)] flex items-center justify-center">
           <span className="font-mono text-xs text-[var(--gold)]">{step.number}</span>
         </div>
-        {index < steps.length - 1 && (
+        {!isLast && (
           <div className="w-px flex-1 mt-3 bg-gradient-to-b from-[var(--border-gold)] to-[var(--border-subtle)] min-h-[48px]" />
         )}
       </div>
 
-      {/* Content */}
       <div className="pb-10 lg:pb-14">
         <span className="font-mono text-xs text-[var(--text-muted)] tracking-widest mb-2 block">
           {step.time}
@@ -96,22 +75,19 @@ function Step({ step, index }: { step: (typeof steps)[0]; index: number }) {
           {step.description}
         </p>
       </div>
-    </div>
+    </Reveal>
   )
 }
 
 export default function Journey() {
   return (
     <section id="journey" className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Parallax montgolfière en arrière-plan à gauche */}
       <ParallaxBalloon />
 
-      {/* Ambient glow */}
       <div className="absolute right-0 top-1/3 w-96 h-96 bg-[var(--sky-blue)]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left — heading */}
           <div className="lg:sticky lg:top-32 self-start">
             <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
               Le déroulé
@@ -125,7 +101,6 @@ export default function Journey() {
               De l&apos;arrivée dans la fraîcheur de l&apos;aube au toast final — voici ce qui vous attend lors d&apos;une matinée avec Aero Mountains.
             </p>
 
-            {/* Duration badge */}
             <div className="mt-8 inline-flex items-center gap-3 border border-[var(--border-gold)] rounded-full px-5 py-3">
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
               <span className="text-sm font-sans text-[var(--text-secondary)]">
@@ -135,10 +110,9 @@ export default function Journey() {
             </div>
           </div>
 
-          {/* Right — steps */}
           <div className="flex flex-col">
             {steps.map((step, i) => (
-              <Step key={step.number} step={step} index={i} />
+              <Step key={step.number} step={step} index={i} isLast={i === steps.length - 1} />
             ))}
           </div>
         </div>

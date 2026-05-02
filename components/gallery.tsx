@@ -1,7 +1,5 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Reveal from './reveal'
 
 const images = [
   { src: '/images/gallery-1.jpg', alt: 'Montgolfière au-dessus du lac d\'Annecy au lever du soleil', span: 'col-span-2 row-span-2' },
@@ -13,23 +11,6 @@ const images = [
 ]
 
 export default function Gallery() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="galerie" className="py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -46,11 +27,10 @@ export default function Gallery() {
           </div>
         </div>
 
-        <div
-          ref={ref}
-          className={`grid grid-cols-3 grid-rows-3 gap-3 lg:gap-4 transition-all duration-1000 ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+        <Reveal
+          duration={1000}
+          threshold={0.1}
+          className="grid grid-cols-3 grid-rows-3 gap-3 lg:gap-4"
           style={{ height: 'clamp(400px, 70vw, 700px)' }}
         >
           {images.map((img, i) => (
@@ -63,12 +43,13 @@ export default function Gallery() {
                 src={img.src}
                 alt={img.alt}
                 fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

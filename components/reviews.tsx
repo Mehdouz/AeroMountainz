@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
+import Reveal from './reveal'
 
 const reviews = [
   {
@@ -36,32 +34,11 @@ const reviews = [
 ]
 
 function ReviewCard({ review, delay }: { review: (typeof reviews)[0]; delay: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <div
-      ref={ref}
-      className={`flex flex-col p-7 rounded-2xl bg-[var(--surface)] border border-[var(--border-subtle)] hover:border-[var(--border-gold)] transition-all duration-700 group ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <Reveal
+      delay={delay}
+      className="flex flex-col p-7 rounded-2xl bg-[var(--surface)] border border-[var(--border-subtle)] hover:border-[var(--border-gold)] transition-colors group"
     >
-      {/* Stars */}
       <div className="flex gap-0.5 mb-4">
         {Array.from({ length: review.stars }).map((_, i) => (
           <svg key={i} viewBox="0 0 16 16" className="w-3.5 h-3.5 fill-[var(--gold)]">
@@ -78,14 +55,13 @@ function ReviewCard({ review, delay }: { review: (typeof reviews)[0]; delay: num
         <span className="text-sm font-medium text-[var(--text-primary)] font-sans">{review.author}</span>
         <span className="text-xs text-[var(--text-muted)] font-mono">{review.date}</span>
       </div>
-    </div>
+    </Reveal>
   )
 }
 
 export default function Reviews() {
   return (
     <section className="section-midnight py-24 lg:py-32 relative">
-
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6">
           <div>
@@ -99,7 +75,6 @@ export default function Reviews() {
             </h2>
           </div>
 
-          {/* Global rating */}
           <div className="flex items-center gap-4 border border-[var(--border-gold)] rounded-2xl px-6 py-4">
             <div>
               <span className="font-serif text-4xl font-semibold text-[var(--gold)]">4.9</span>

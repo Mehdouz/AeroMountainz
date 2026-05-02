@@ -1,7 +1,5 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check } from 'lucide-react'
+import Reveal from './reveal'
 
 const formulas = [
   {
@@ -58,32 +56,15 @@ function FormulaCard({
   formula: (typeof formulas)[0]
   index: number
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <div
-      ref={ref}
-      className={`relative flex flex-col p-8 rounded-3xl transition-all duration-700 ${
+    <Reveal
+      delay={index * 150}
+      y={48}
+      className={`relative flex flex-col p-8 rounded-3xl ${
         formula.highlight
           ? 'bg-[var(--surface)] border border-[var(--border-gold)]'
-          : 'bg-[var(--surface)]/50 border border-[var(--border-subtle)] hover:border-[var(--border-gold)]'
-      } ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-      style={{ transitionDelay: `${index * 150}ms` }}
+          : 'bg-[var(--surface)]/50 border border-[var(--border-subtle)] hover:border-[var(--border-gold)] transition-colors'
+      }`}
     >
       {formula.highlight && (
         <div className="absolute -top-3 left-8">
@@ -134,7 +115,7 @@ function FormulaCard({
           Réserver <ArrowRight size={14} />
         </a>
       </div>
-    </div>
+    </Reveal>
   )
 }
 

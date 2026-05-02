@@ -1,70 +1,39 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Award, Wind, Trophy } from 'lucide-react'
+import { Award, Wind, Trophy, type LucideIcon } from 'lucide-react'
+import Reveal from './reveal'
 
-const badges = [
+const badges: { icon: LucideIcon; label: string }[] = [
   { icon: Award, label: 'Pilote DGAC' },
   { icon: Wind, label: '400h de vol' },
   { icon: Trophy, label: 'Champion de France' },
 ]
 
 export default function Pilot() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section id="pilote" className="section-midnight py-24 lg:py-32 relative overflow-hidden">
-      {/* Background glow */}
       <div className="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-r from-[var(--gold)]/3 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image */}
-          <div
-            className={`relative transition-all duration-1000 ${
-              visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-            }`}
-          >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <Reveal duration={1000} threshold={0.1} x={-48} y={0} className="relative">
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5]">
               <Image
                 src="/images/pilote-yannick-dacheux.jpg"
                 alt="Yannick Dacheux, pilote montgolfière Annecy"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)]/60 via-transparent to-transparent" />
             </div>
 
-            {/* Floating stat card */}
             <div className="absolute -bottom-6 -right-4 lg:-right-8 bg-[var(--surface)] border border-[var(--border-gold)] rounded-2xl px-6 py-4">
               <span className="font-serif text-3xl font-semibold text-[var(--gold)]">10 ans</span>
               <p className="text-xs text-[var(--text-secondary)] font-sans mt-0.5">d&apos;expérience</p>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Text */}
-          <div
-            className={`transition-all duration-1000 delay-200 ${
-              visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-            }`}
-          >
+          <Reveal duration={1000} delay={200} threshold={0.1} x={48} y={0}>
             <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
               Le pilote
             </p>
@@ -85,7 +54,6 @@ export default function Pilot() {
               ses atterrissages secrets. Vous êtes entre les meilleures mains.
             </p>
 
-            {/* Badges */}
             <div className="flex flex-wrap gap-3 mb-8">
               {badges.map(({ icon: Icon, label }) => (
                 <div
@@ -106,7 +74,7 @@ export default function Pilot() {
             >
               Contacter Yannick directement
             </a>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

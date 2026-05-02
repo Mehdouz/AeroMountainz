@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import LenisProvider from '@/components/lenis-provider'
 
@@ -39,6 +40,7 @@ export default function RootLayout({
     <html lang="fr" className={`${inter.variable} ${cormorant.variable} bg-bone`}>
       <body className="font-sans antialiased">
         <LenisProvider>{children}</LenisProvider>
+        <Analytics />
       </body>
     </html>
   )
