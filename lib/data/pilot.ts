@@ -1,6 +1,12 @@
 import type { Pilot } from '@/lib/types/content'
 
-export const pilot: Pilot = {
+/**
+ * Source de seed (markdown bold inline). Convertie en Portable Text par scripts/seed-sanity.ts
+ * avant l'envoi vers Sanity. Le type runtime utilisé par le composant reste `Pilot` (PortableText).
+ */
+export type PilotSeedSource = Omit<Pilot, 'bioParagraphs'> & { bioParagraphs: string[] }
+
+export const pilot: PilotSeedSource = {
   name: 'Yannick Dacheux',
   imageSrc: '/images/pilote-yannick-dacheux.jpg',
   imageAlt: 'Yannick Dacheux, pilote montgolfière Annecy',

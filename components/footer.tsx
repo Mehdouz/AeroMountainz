@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import { Phone, Mail, MapPin } from 'lucide-react'
+import { localizeHref, type Locale } from '@/lib/i18n'
 import type { NavLink } from '@/lib/types/content'
 
 type Props = {
@@ -12,6 +14,10 @@ type Props = {
   email: string
   addressLine1: string
   addressLine2: string
+  locale: Locale
+  navHeading?: string
+  contactHeading?: string
+  rightsLabel?: string
 }
 
 export default function Footer({
@@ -25,6 +31,10 @@ export default function Footer({
   email,
   addressLine1,
   addressLine2,
+  locale,
+  navHeading = 'Navigation',
+  contactHeading = 'Contact',
+  rightsLabel = 'Tous droits réservés',
 }: Props) {
   return (
     <footer className="section-midnight border-t border-[var(--border-subtle)]">
@@ -46,17 +56,17 @@ export default function Footer({
 
           <div>
             <h3 className="font-mono text-xs tracking-[0.3em] text-[var(--text-muted)] uppercase mb-5">
-              Navigation
+              {navHeading}
             </h3>
             <ul className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+              {navLinks.map((link, i) => (
+                <li key={`${link.href}-${i}`}>
+                  <Link
+                    href={localizeHref(link.href, locale)}
                     className="text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors font-sans"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -64,7 +74,7 @@ export default function Footer({
 
           <div>
             <h3 className="font-mono text-xs tracking-[0.3em] text-[var(--text-muted)] uppercase mb-5">
-              Contact
+              {contactHeading}
             </h3>
             <ul className="flex flex-col gap-4">
               <li>
@@ -99,17 +109,17 @@ export default function Footer({
 
         <div className="mt-12 pt-8 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--text-muted)] font-mono">
-            © {new Date().getFullYear()} {brandName} {brandTagline} — Tous droits réservés
+            © {new Date().getFullYear()} {brandName} {brandTagline} — {rightsLabel}
           </p>
           <div className="flex gap-6">
-            {legalLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
+            {legalLinks.map((link, i) => (
+              <Link
+                key={`${link.label}-${i}`}
+                href={localizeHref(link.href, locale)}
                 className="text-xs text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors font-sans"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

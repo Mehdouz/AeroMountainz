@@ -1,5 +1,6 @@
 import { Clock, Users, MapPin, Star, Award, Calendar, type LucideIcon } from 'lucide-react'
 import Reveal from './reveal'
+import StyledHeading from './styled-heading'
 import type { Stat, StatIconKey } from '@/lib/types/content'
 
 const iconMap: Record<StatIconKey, LucideIcon> = {
@@ -32,24 +33,35 @@ function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
   )
 }
 
-export default function Stats({ items }: { items: Stat[] }) {
+export default function Stats({
+  items,
+  eyebrow,
+  heading,
+}: {
+  items: Stat[]
+  eyebrow?: string
+  heading: string
+}) {
   return (
     <section className="section-midnight relative z-10 -mt-2 py-20 lg:py-28">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-[var(--gold)] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-14">
-          <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
-            L&apos;essentiel
-          </p>
-          <h2 className="font-serif text-4xl lg:text-5xl font-light text-[var(--text-primary)]">
-            Ce que vous <span className="italic text-[var(--gold-light)]">vivrez</span>
-          </h2>
+          {eyebrow && (
+            <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+              {eyebrow}
+            </p>
+          )}
+          <StyledHeading
+            heading={heading}
+            className="font-serif text-4xl lg:text-5xl font-light text-[var(--text-primary)]"
+          />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {items.map((stat, i) => (
-            <StatCard key={stat.label} stat={stat} delay={i * 80} />
+            <StatCard key={`${stat.label}-${i}`} stat={stat} delay={i * 80} />
           ))}
         </div>
       </div>

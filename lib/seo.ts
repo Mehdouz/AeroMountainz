@@ -1,0 +1,76 @@
+import type { Metadata } from 'next'
+import type { Page, SiteSettings } from '@/lib/types/content'
+import type { Locale } from '@/lib/i18n'
+
+/**
+ * Construit l'objet `Metadata` pour Next.js à partir d'une page Sanity et des
+ * paramètres globaux. Choisit l'image OG dans cet ordre : seo.ogImage → première
+ * heroSection.backgroundImage → null.
+ */
+export function buildPageMetadata({
+  page,
+  site,
+  locale,
+  path,
+}: {
+  page: Page | null
+  site: SiteSettings
+  locale: Locale
+  path: string
+}): Metadata {
+  if (!page) return { metadataBase: new URL(site.url) }
+
+  const title = page.seo?.title || page.title
+  const description = page.seo?.description ?? undefined
+
+  // OG image fallback : section hero
+  const heroSection = page.sections.find((s) => s._type === 'heroSection')
+  const ogImage =
+    page.seo?.ogImage ||
+    (heroSection && '_type' in heroSection && heroSection._type === 'heroSection'
+      ? heroSection.backgroundImage
+      : undefined)
+
+  return {
+    metadataBase: new URL(site.url),
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title,
+      description,
+      url: `${site.url}${path}`,
+      siteName: `${site.brand.name} ${site.brand.tagline}`,
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      type: 'website',
+      images: ogImage ? [{ url: ogImage, alt: title }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
+    robots: page.seo?.noIndex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+            'max-video-preview': -1,
+          },
+        },
+    icons: {
+      icon: [
+        { url: '/icon.svg', type: 'image/svg+xml' },
+        { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
+        { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
+      ],
+      apple: '/apple-icon.png',
+    },
+  }
+}

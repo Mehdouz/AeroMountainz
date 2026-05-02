@@ -7,26 +7,43 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sanity": "sanity",
+    "typegen": "sanity typegen generate",
+    "seed": "tsx scripts/seed-sanity.ts",
+    "wipe": "tsx scripts/wipe-sanity.ts"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.3",
+    "@sanity/client": "^7.22.0",
+    "@sanity/document-internationalization": "^6.1.1",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^5.23.0",
+    "@sanity/visual-editing": "^5.3.4",
     "@vercel/analytics": "1.6.1",
+    "groq": "^5.23.0",
     "lenis": "^1.3.23",
     "lucide-react": "^0.564.0",
     "next": "16.2.4",
+    "next-sanity": "13.0.0-cache-components.37",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "sanity": "^5.23.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
+    "@sanity/types": "^5.23.0",
     "@tailwindcss/postcss": "^4.2.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.4",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
+    "tsx": "^4.21.0",
     "tw-animate-css": "1.3.3",
     "typescript": "5.7.3"
   }

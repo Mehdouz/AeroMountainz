@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Plus, Minus } from 'lucide-react'
+import StyledHeading from './styled-heading'
 import type { Faq } from '@/lib/types/content'
 
 function FaqItem({ faq, index }: { faq: Faq; index: number }) {
@@ -42,24 +43,33 @@ function FaqItem({ faq, index }: { faq: Faq; index: number }) {
   )
 }
 
-export default function FaqSection({ items }: { items: Faq[] }) {
+export default function FaqSection({
+  items,
+  eyebrow,
+  heading,
+}: {
+  items: Faq[]
+  eyebrow?: string
+  heading: string
+}) {
   return (
     <section id="faq" className="py-24 lg:py-32">
       <div className="max-w-4xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
-            FAQ
-          </p>
-          <h2 className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)]">
-            Questions
-            <br />
-            <span className="italic text-[var(--gold-light)]">fréquentes</span>
-          </h2>
+          {eyebrow && (
+            <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+              {eyebrow}
+            </p>
+          )}
+          <StyledHeading
+            heading={heading}
+            className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)]"
+          />
         </div>
 
         <div className="bg-[var(--surface)] rounded-3xl px-6 lg:px-10">
           {items.map((faq, i) => (
-            <FaqItem key={faq.question} faq={faq} index={i} />
+            <FaqItem key={`${faq.question}-${i}`} faq={faq} index={i} />
           ))}
         </div>
       </div>

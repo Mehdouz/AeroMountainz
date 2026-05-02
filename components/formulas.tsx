@@ -1,15 +1,18 @@
 import { ArrowRight, Check } from 'lucide-react'
 import Reveal from './reveal'
+import StyledHeading from './styled-heading'
 import type { Formula } from '@/lib/types/content'
 
 function FormulaCard({
   formula,
   index,
   phoneHref,
+  ctaLabel,
 }: {
   formula: Formula
   index: number
   phoneHref: string
+  ctaLabel: string
 }) {
   return (
     <Reveal
@@ -67,37 +70,60 @@ function FormulaCard({
               : 'border border-[var(--border-gold)] text-[var(--gold)] hover:bg-[var(--gold-dim)]'
           }`}
         >
-          Réserver <ArrowRight size={14} />
+          {ctaLabel} <ArrowRight size={14} />
         </a>
       </div>
     </Reveal>
   )
 }
 
-export default function Formulas({ items, phone }: { items: Formula[]; phone: string }) {
+export default function Formulas({
+  items,
+  phone,
+  eyebrow,
+  heading,
+  subtext,
+  ctaLabel = 'Réserver',
+}: {
+  items: Formula[]
+  phone: string
+  eyebrow?: string
+  heading: string
+  subtext?: string
+  ctaLabel?: string
+}) {
   const phoneHref = `tel:${phone}`
   return (
     <section id="formules" className="section-midnight py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
           <div>
-            <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
-              Nos formules
-            </p>
-            <h2 className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight">
-              Choisissez votre
-              <br />
-              <span className="italic text-[var(--gold-light)]">expérience</span>
-            </h2>
+            {eyebrow && (
+              <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+                {eyebrow}
+              </p>
+            )}
+            <StyledHeading
+              heading={heading}
+              className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight"
+            />
           </div>
-          <p className="text-sm text-[var(--text-secondary)] font-sans max-w-xs leading-relaxed">
-            Chaque vol est confirmé par téléphone la veille au soir, selon les conditions météo.
-          </p>
+          {subtext && (
+            <p className="text-sm text-[var(--text-secondary)] font-sans max-w-xs leading-relaxed">
+              {subtext}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {items.map((formula, i) => (
-            <FormulaCard key={formula.title} formula={formula} index={i} phoneHref={phoneHref} />
+            <FormulaCard
+              key={`${formula.title}-${i}`}
+              formula={formula}
+              index={i}
+              phoneHref={phoneHref}
+              ctaLabel={ctaLabel}
+            />
           ))}
         </div>
       </div>

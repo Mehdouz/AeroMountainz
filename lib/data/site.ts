@@ -1,6 +1,9 @@
-import type { SiteConfig } from '@/lib/types/content'
-
-export const site: SiteConfig = {
+/**
+ * Source de seed (snapshot du contenu FR initial).
+ * Le typage est laissé inférer pour ne pas dépendre des types runtime
+ * qui ont migré vers une structure page-based.
+ */
+export const site = {
   url: 'https://www.aero-mountains.com',
   brand: {
     name: 'AERO',

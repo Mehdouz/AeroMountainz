@@ -1,21 +1,31 @@
 import Image from 'next/image'
 import Reveal from './reveal'
+import StyledHeading from './styled-heading'
 import type { GalleryItem } from '@/lib/types/content'
 
-export default function Gallery({ items }: { items: GalleryItem[] }) {
+export default function Gallery({
+  items,
+  eyebrow,
+  heading,
+}: {
+  items: GalleryItem[]
+  eyebrow?: string
+  heading: string
+}) {
   return (
     <section id="galerie" className="py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div>
-            <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
-              Galerie
-            </p>
-            <h2 className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight">
-              Le lac d&apos;Annecy
-              <br />
-              <span className="italic text-[var(--gold-light)]">vu du ciel</span>
-            </h2>
+            {eyebrow && (
+              <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+                {eyebrow}
+              </p>
+            )}
+            <StyledHeading
+              heading={heading}
+              className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight"
+            />
           </div>
         </div>
 
@@ -27,7 +37,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
         >
           {items.map((img, i) => (
             <div
-              key={img.src}
+              key={`${img.src}-${i}`}
               className={`relative overflow-hidden rounded-2xl group cursor-pointer ${img.span}`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
