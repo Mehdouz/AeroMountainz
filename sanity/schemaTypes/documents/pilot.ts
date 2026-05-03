@@ -63,6 +63,7 @@ export const pilot = defineType({
       type: 'string',
       validation: (r) => r.required(),
     }),
+    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
   ],
   preview: {
     select: { title: 'name', media: 'image' },

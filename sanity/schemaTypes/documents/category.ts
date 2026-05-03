@@ -24,6 +24,7 @@ export const category = defineType({
       rows: 2,
       title: 'Description',
     }),
+    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
   ],
   preview: {
     select: { title: 'title', subtitle: 'slug.current', language: 'language' },

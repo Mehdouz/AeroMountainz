@@ -37,6 +37,7 @@ export const page = defineType({
       options: { source: 'title', maxLength: 96 },
       validation: (r) => r.required(),
     }),
+    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
     defineField({
       name: 'sections',
       type: 'array',

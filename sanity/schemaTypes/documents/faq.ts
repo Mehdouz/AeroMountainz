@@ -24,6 +24,7 @@ export const faq = defineType({
       type: 'number',
       hidden: true,
     }),
+    defineField({ name: 'language', type: 'string', readOnly: true, hidden: true }),
   ],
   preview: {
     select: { title: 'question', subtitle: 'answer' },
