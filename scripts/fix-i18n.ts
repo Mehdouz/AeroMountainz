@@ -207,7 +207,7 @@ async function main() {
       pair = candidates[0]
     } else if (fr._type === 'siteSettings' && candidates.length > 1) {
       console.warn(
-        `  ⚠ ${candidates.length} candidats EN pour siteSettings FR=${fr._id} — appariement ambigu, on prend le premier (`+candidates[0]._id+`)`,
+        `  ⚠ ${candidates.length} candidats EN pour siteSettings FR=${fr._id} — appariement ambigu, on prend le premier (`+candidates[0]?._id+`)`,
       )
       pair = candidates[0]
     }

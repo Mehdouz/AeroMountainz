@@ -122,11 +122,11 @@ async function main() {
 
   for (const type of TRANSLATABLE_TYPES) {
     const docs = docsByType[type]
-    const orphans = docs.filter((d) => !referencedIds.has(stableId(d._id)))
-    const missingLang = docs.filter((d) => !d.language)
+    const orphans = docs?.filter((d) => !referencedIds.has(stableId(d._id))) ?? []
+    const missingLang = docs?.filter((d) => !d.language) ?? []
 
     const byKey = new Map<string, DocSnapshot[]>()
-    for (const d of docs) {
+    for (const d of docs ?? []) {
       if (!d.slug || !d.language) continue
       const k = `${d.slug}|${d.language}`
       const arr = byKey.get(k) ?? []
@@ -140,7 +140,7 @@ async function main() {
     totalDuplicates += duplicates.length
 
     console.log(
-      `  ${type}: ${docs.length} doc(s) | ${orphans.length} orphelin(s) | ${missingLang.length} sans 'language' | ${duplicates.length} doublon(s)`,
+      `  ${type}: ${docs?.length ?? 0} doc(s) | ${orphans.length} orphelin(s) | ${missingLang.length} sans 'language' | ${duplicates.length} doublon(s)`,
     )
     for (const d of orphans) {
       console.log(`    [orphan]  ${d._id}  lang=${d.language ?? 'null'}  slug=${d.slug ?? '∅'}`)
@@ -159,7 +159,7 @@ async function main() {
 
   let mismatches = 0
   let brokenRefs = 0
-  for (const m of metas) {
+  for (const m of metas ?? []) {
     for (const t of m.translations) {
       if (!t.id) continue
       if (t.lang === null && t.type === null) {

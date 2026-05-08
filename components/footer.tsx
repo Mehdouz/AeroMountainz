@@ -114,7 +114,7 @@ export default function Footer({
             © {COPYRIGHT_YEAR} {brandName} {brandTagline} — {rightsLabel}
           </p>
           <div className="flex gap-6">
-            {legalLinks.map((link, i) => (
+            {legalLinks?.map((link, i) => (
               <Link
                 key={`${link.label}-${i}`}
                 href={localizeHref(link.href, locale)}
