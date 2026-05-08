@@ -16,6 +16,10 @@ export default defineConfig({
   projectId,
   dataset,
   schema: { types: schemaTypes },
+  document: {
+    newDocumentOptions: (prev) =>
+      prev.filter((template) => !TRANSLATABLE_TYPES.includes(template.templateId as never)),
+  },
   plugins: [
     structureTool({ structure }),
     documentInternationalization({

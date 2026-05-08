@@ -120,7 +120,12 @@ export const pageBySlugQuery = defineQuery(`
 
 export const allPageSlugsQuery = defineQuery(`
   *[_type == "page" && defined(slug.current) && language == $locale]{
-    "slug": slug.current
+    "slug": slug.current,
+    _updatedAt,
+    "translations": *[_type == "translation.metadata" && references(^._id)][0].translations[]{
+      "lang": _key,
+      "slug": value->slug.current
+    }
   }
 `)
 
@@ -171,7 +176,12 @@ export const postBySlugQuery = defineQuery(`
 
 export const allPostSlugsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current) && language == $locale]{
-    "slug": slug.current
+    "slug": slug.current,
+    _updatedAt,
+    "translations": *[_type == "translation.metadata" && references(^._id)][0].translations[]{
+      "lang": _key,
+      "slug": value->slug.current
+    }
   }
 `)
 

@@ -1,4 +1,4 @@
-import { sanityFetch } from '@/sanity/lib/live'
+import { sanityFetch, type DynamicFetchOptions } from '@/sanity/lib/live'
 import { client } from '@/sanity/lib/client'
 import {
   postsListQuery,
@@ -7,25 +7,39 @@ import {
 } from '@/sanity/lib/queries'
 import type { Post, PostListItem } from '@/lib/types/content'
 import type { Locale } from '@/lib/i18n'
+import type { SlugEntry } from '@/lib/types/sitemap'
 
-export async function getPosts(locale: Locale): Promise<PostListItem[]> {
+type FetchOpts = Pick<DynamicFetchOptions, 'perspective' | 'stega'>
+
+export async function getPosts(
+  locale: Locale,
+  opts: FetchOpts,
+): Promise<PostListItem[]> {
   const { data } = await sanityFetch({
     query: postsListQuery,
     params: { locale },
+    perspective: opts.perspective,
+    stega: opts.stega,
   })
   return (data ?? []) as PostListItem[]
 }
 
-export async function getPost(slug: string, locale: Locale): Promise<Post | null> {
+export async function getPost(
+  slug: string,
+  locale: Locale,
+  opts: FetchOpts,
+): Promise<Post | null> {
   const { data } = await sanityFetch({
     query: postBySlugQuery,
     params: { slug, locale },
+    perspective: opts.perspective,
+    stega: opts.stega,
   })
   return (data as Post | null) ?? null
 }
 
-/** Utilisé uniquement par `generateStaticParams` (cf. note dans lib/cms/page.ts). */
-export async function getAllPostSlugs(locale: Locale): Promise<string[]> {
+/** Utilisé par `generateStaticParams` et `app/sitemap.ts` (cf. note dans lib/cms/page.ts). */
+export async function getAllPostSlugs(locale: Locale): Promise<SlugEntry[]> {
   const data = await client.fetch(allPostSlugsQuery, { locale })
-  return ((data ?? []) as { slug: string }[]).map((d) => d.slug).filter(Boolean)
+  return ((data ?? []) as SlugEntry[]).filter((d) => d.slug)
 }

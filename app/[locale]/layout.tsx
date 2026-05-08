@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { draftMode } from 'next/headers'
+import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
 import { VisualEditing } from 'next-sanity/visual-editing'
 import LenisProvider from '@/components/lenis-provider'
@@ -21,15 +22,20 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const isDraft = (await draftMode()).isEnabled
-
   return (
     <>
       <HtmlLang locale={locale as Locale} />
       <LenisProvider>{children}</LenisProvider>
       <SanityLive />
-      {isDraft && <VisualEditing />}
+      <Suspense>
+        <DraftModeVisualEditing />
+      </Suspense>
       <Analytics />
     </>
   )
+}
+
+async function DraftModeVisualEditing() {
+  const { isEnabled } = await draftMode()
+  return isEnabled ? <VisualEditing /> : null
 }

@@ -3,6 +3,8 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 import { localizeHref, type Locale } from '@/lib/i18n'
 import type { NavLink } from '@/lib/types/content'
 
+const COPYRIGHT_YEAR = new Date().getFullYear()
+
 type Props = {
   brandName: string
   brandTagline: string
@@ -109,7 +111,7 @@ export default function Footer({
 
         <div className="mt-12 pt-8 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--text-muted)] font-mono">
-            © {new Date().getFullYear()} {brandName} {brandTagline} — {rightsLabel}
+            © {COPYRIGHT_YEAR} {brandName} {brandTagline} — {rightsLabel}
           </p>
           <div className="flex gap-6">
             {legalLinks.map((link, i) => (

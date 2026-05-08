@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { getPosts } from '@/lib/cms/posts'
 import { getSiteSettings } from '@/lib/cms/siteSettings'
+import { getDynamicFetchOptions, type DynamicFetchOptions } from '@/sanity/lib/live'
 import { isValidLocale, localizeHref, type Locale } from '@/lib/i18n'
 
 const STRINGS: Record<Locale, { title: string; description: string; readMore: string }> = {
@@ -22,6 +24,8 @@ const STRINGS: Record<Locale, { title: string; description: string; readMore: st
     readMore: 'Read article',
   },
 }
+
+type FetchOpts = Pick<DynamicFetchOptions, 'perspective' | 'stega'>
 
 export async function generateMetadata({
   params,
@@ -45,13 +49,51 @@ export default async function BlogIndex({
 }) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
+  const { isDraftMode } = await getDynamicFetchOptions()
 
+  if (isDraftMode) {
+    return (
+      <Suspense>
+        <DynamicBlogIndex locale={locale as Locale} />
+      </Suspense>
+    )
+  }
+  return (
+    <CachedBlogIndex
+      locale={locale as Locale}
+      perspective="published"
+      stega={false}
+    />
+  )
+}
+
+async function DynamicBlogIndex({ locale }: { locale: Locale }) {
+  const { perspective, stega } = await getDynamicFetchOptions()
+  return (
+    <CachedBlogIndex locale={locale} perspective={perspective} stega={stega} />
+  )
+}
+
+async function getCachedBlogIndexData(
+  locale: Locale,
+  { perspective, stega }: FetchOpts,
+) {
+  'use cache'
   const [posts, site] = await Promise.all([
-    getPosts(locale as Locale),
-    getSiteSettings(locale as Locale),
+    getPosts(locale, { perspective, stega }),
+    getSiteSettings(locale, { perspective, stega }),
   ])
+  return { posts, site }
+}
 
-  const t = STRINGS[locale as Locale]
+async function CachedBlogIndex({
+  locale,
+  perspective,
+  stega,
+}: { locale: Locale } & FetchOpts) {
+  const { posts, site } = await getCachedBlogIndexData(locale, { perspective, stega })
+
+  const t = STRINGS[locale]
 
   return (
     <main className="bg-bone min-h-screen">
@@ -61,7 +103,7 @@ export default async function BlogIndex({
         brandTagline={site.brand.tagline}
         phone={site.contact.phone}
         phoneDisplay={site.contact.phoneDisplay}
-        locale={locale as Locale}
+        locale={locale}
       />
 
       <section className="pt-32 lg:pt-40 pb-20 lg:pb-28">
@@ -87,7 +129,7 @@ export default async function BlogIndex({
               {posts.map((post) => (
                 <Link
                   key={post._id}
-                  href={localizeHref(`/blog/${post.slug}`, locale as Locale)}
+                  href={localizeHref(`/blog/${post.slug}`, locale)}
                   className="group block"
                 >
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4">
@@ -130,7 +172,7 @@ export default async function BlogIndex({
         email={site.contact.email}
         addressLine1={site.location.addressLine1}
         addressLine2={site.location.addressLine2}
-        locale={locale as Locale}
+        locale={locale}
       />
     </main>
   )

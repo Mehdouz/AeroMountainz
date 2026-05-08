@@ -2,18 +2,22 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import RichText from '@/components/rich-text'
 import { getPost, getAllPostSlugs } from '@/lib/cms/posts'
 import { getSiteSettings } from '@/lib/cms/siteSettings'
+import { getDynamicFetchOptions, type DynamicFetchOptions } from '@/sanity/lib/live'
 import { isValidLocale, LOCALES, localizeHref, type Locale } from '@/lib/i18n'
+
+type FetchOpts = Pick<DynamicFetchOptions, 'perspective' | 'stega'>
 
 export async function generateStaticParams() {
   const all = await Promise.all(
     LOCALES.map(async (locale) => {
-      const slugs = await getAllPostSlugs(locale)
-      return slugs.map((slug) => ({ locale, slug }))
+      const entries = await getAllPostSlugs(locale)
+      return entries.map((e) => ({ locale, slug: e.slug }))
     }),
   )
   return all.flat()
@@ -24,9 +28,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
+  'use cache'
   const { locale, slug } = await params
   if (!isValidLocale(locale)) return {}
-  const post = await getPost(slug, locale)
+  const post = await getPost(slug, locale, { perspective: 'published', stega: false })
   if (!post) return {}
   return {
     title: post.seo?.title || post.title,
@@ -53,11 +58,52 @@ export default async function BlogPostPage({
 }) {
   const { locale, slug } = await params
   if (!isValidLocale(locale)) notFound()
+  const { isDraftMode } = await getDynamicFetchOptions()
 
+  if (isDraftMode) {
+    return (
+      <Suspense>
+        <DynamicPost locale={locale as Locale} slug={slug} />
+      </Suspense>
+    )
+  }
+  return (
+    <CachedPost
+      locale={locale as Locale}
+      slug={slug}
+      perspective="published"
+      stega={false}
+    />
+  )
+}
+
+async function DynamicPost({ locale, slug }: { locale: Locale; slug: string }) {
+  const { perspective, stega } = await getDynamicFetchOptions()
+  return (
+    <CachedPost locale={locale} slug={slug} perspective={perspective} stega={stega} />
+  )
+}
+
+async function getCachedPostData(
+  slug: string,
+  locale: Locale,
+  { perspective, stega }: FetchOpts,
+) {
+  'use cache'
   const [post, site] = await Promise.all([
-    getPost(slug, locale as Locale),
-    getSiteSettings(locale as Locale),
+    getPost(slug, locale, { perspective, stega }),
+    getSiteSettings(locale, { perspective, stega }),
   ])
+  return { post, site }
+}
+
+async function CachedPost({
+  locale,
+  slug,
+  perspective,
+  stega,
+}: { locale: Locale; slug: string } & FetchOpts) {
+  const { post, site } = await getCachedPostData(slug, locale, { perspective, stega })
 
   if (!post) notFound()
 
@@ -74,13 +120,13 @@ export default async function BlogPostPage({
         brandTagline={site.brand.tagline}
         phone={site.contact.phone}
         phoneDisplay={site.contact.phoneDisplay}
-        locale={locale as Locale}
+        locale={locale}
       />
 
       <article className="pt-32 lg:pt-40 pb-20">
         <header className="max-w-3xl mx-auto px-6 lg:px-10 text-center mb-12">
           <Link
-            href={localizeHref('/blog', locale as Locale)}
+            href={localizeHref('/blog', locale)}
             className="font-mono text-xs tracking-[0.3em] text-[var(--gold)] uppercase hover:text-[var(--gold-light)] transition-colors"
           >
             ← {locale === 'fr' ? 'Tous les articles' : 'All articles'}
@@ -123,7 +169,7 @@ export default async function BlogPostPage({
         email={site.contact.email}
         addressLine1={site.location.addressLine1}
         addressLine2={site.location.addressLine2}
-        locale={locale as Locale}
+        locale={locale}
       />
     </main>
   )

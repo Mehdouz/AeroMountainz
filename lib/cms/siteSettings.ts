@@ -1,12 +1,19 @@
-import { sanityFetch } from '@/sanity/lib/live'
+import { sanityFetch, type DynamicFetchOptions } from '@/sanity/lib/live'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
 import type { SiteSettings } from '@/lib/types/content'
 import type { Locale } from '@/lib/i18n'
 
-export async function getSiteSettings(locale: Locale): Promise<SiteSettings> {
+type FetchOpts = Pick<DynamicFetchOptions, 'perspective' | 'stega'>
+
+export async function getSiteSettings(
+  locale: Locale,
+  opts: FetchOpts,
+): Promise<SiteSettings> {
   const { data } = await sanityFetch({
     query: siteSettingsQuery,
     params: { locale },
+    perspective: opts.perspective,
+    stega: opts.stega,
   })
   if (!data) {
     throw new Error(

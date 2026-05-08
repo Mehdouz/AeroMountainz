@@ -8,6 +8,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'cdn.sanity.io' },
     ],
   },
+  cacheComponents: true,
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },

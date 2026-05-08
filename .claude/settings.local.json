@@ -12,7 +12,8 @@
       "Bash(python -c ' *)",
       "mcp__context7__query-docs",
       "Bash(pnpm remove *)",
-      "Bash(pnpm dev *)"
+      "Bash(pnpm dev *)",
+      "Bash(find *)"
     ]
   }
 }
