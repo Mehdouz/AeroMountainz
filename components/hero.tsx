@@ -19,7 +19,6 @@ export default function Hero({
       <HeroParallax
         backgroundImage={data.backgroundImage}
         backgroundAlt={data.backgroundAlt}
-        cloudsImage={data.cloudsImage ?? data.backgroundImage}
         videoWebm={data.videoWebm}
         videoMp4={data.videoMp4}
       />

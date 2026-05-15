@@ -364,7 +364,6 @@ async function seedReusables() {
 
 async function buildHomeSections() {
   const heroBg = await uploadImage(site.hero.backgroundImage)
-  const heroClouds = await uploadImage(site.hero.cloudsImage)
   const ctaBg = await uploadImage(site.cta.backgroundImage)
 
   return [
@@ -380,7 +379,6 @@ async function buildHomeSections() {
       secondaryCta: { _type: 'ctaButton', ...site.hero.secondaryCta },
       backgroundImage: imageRef(heroBg),
       backgroundAlt: site.hero.backgroundAlt,
-      cloudsImage: imageRef(heroClouds),
       scrollLabel: site.hero.scrollLabel,
     },
     {

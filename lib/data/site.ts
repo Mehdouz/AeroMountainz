@@ -44,7 +44,6 @@ export const site = {
     secondaryCta: { label: 'Offrir un bon cadeau', href: '#formules' },
     backgroundImage: '/images/hero-balloon.jpg',
     backgroundAlt: 'Vol en montgolfière au-dessus du lac d\'Annecy',
-    cloudsImage: '/images/clouds-layer.jpg',
     scrollLabel: 'Défiler',
   },
   cta: {

@@ -49,12 +49,6 @@ export const heroSection = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
-      name: 'cloudsImage',
-      type: 'image',
-      title: 'Image de nuages (calque parallaxe)',
-      options: { hotspot: true },
-    }),
-    defineField({
       name: 'videoWebm',
       type: 'string',
       title: 'Vidéo de fond — URL WebM (VP9)',

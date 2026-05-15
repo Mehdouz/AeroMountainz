@@ -6,7 +6,6 @@ import Image from 'next/image'
 type Props = {
   backgroundImage: string
   backgroundAlt: string
-  cloudsImage: string
   videoWebm?: string
   videoMp4?: string
 }
@@ -14,12 +13,10 @@ type Props = {
 export default function HeroParallax({
   backgroundImage,
   backgroundAlt,
-  cloudsImage,
   videoWebm,
   videoMp4,
 }: Props) {
   const bgRef = useRef<HTMLDivElement>(null)
-  const cloudsRef = useRef<HTMLDivElement>(null)
   const [mountVideo, setMountVideo] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
 
@@ -28,9 +25,6 @@ export default function HeroParallax({
       const scrollY = window.scrollY
       if (bgRef.current) {
         bgRef.current.style.transform = `translateY(${scrollY * 0.4}px)`
-      }
-      if (cloudsRef.current) {
-        cloudsRef.current.style.transform = `translateY(${scrollY * 0.15}px)`
       }
     }
 
@@ -91,20 +85,6 @@ export default function HeroParallax({
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/60 via-transparent to-transparent" />
-      </div>
-
-      <div
-        ref={cloudsRef}
-        className="absolute inset-0 pointer-events-none parallax-bg"
-        style={{ top: '-5%' }}
-      >
-        <Image
-          src={cloudsImage}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-10 mix-blend-screen"
-        />
       </div>
     </>
   )

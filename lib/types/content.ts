@@ -117,7 +117,6 @@ export type HeroSection = {
   secondaryCta?: CtaButton
   backgroundImage: string
   backgroundAlt: string
-  cloudsImage?: string
   videoWebm?: string
   videoMp4?: string
   scrollLabel?: string
