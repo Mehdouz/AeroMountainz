@@ -82,8 +82,8 @@ async function CachedHome({
     <main className="bg-bone min-h-screen">
       <Navbar
         navLinks={site.navLinks}
-        brandName={site.brand.name}
-        brandTagline={site.brand.tagline}
+        logo={site.brand.logo}
+        logoAlt={site.brand.logoAlt}
         phone={site.contact.phone}
         phoneDisplay={site.contact.phoneDisplay}
         locale={locale}
@@ -96,8 +96,9 @@ async function CachedHome({
       />
 
       <Footer
-        brandName={site.brand.name}
-        brandTagline={site.brand.tagline}
+        logo={site.brand.logo}
+        logoAlt={site.brand.logoAlt}
+        siteName={site.brand.siteName}
         brandDescription={site.brand.description}
         navLinks={site.navLinks}
         legalLinks={site.legalLinks}

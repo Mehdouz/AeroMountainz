@@ -44,7 +44,7 @@ export const page = defineType({
       type: 'slug',
       title: 'Slug (segment d\'URL)',
       description:
-        'Utilise "home" pour la page d\'accueil. Sinon, le slug devient l\'URL : "vols", "contact", etc.',
+        'Utilise "home" pour la page d\'accueil. Sinon, le slug devient l\'URL : "bon-cadeau", "contact", etc.',
       options: { source: 'title', maxLength: 96 },
       validation: (r) => r.required(),
     }),

@@ -41,7 +41,7 @@ export function buildPageMetadata({
       title,
       description,
       url: `${site.url}${path}`,
-      siteName: `${site.brand.name} ${site.brand.tagline}`,
+      siteName: site.brand.siteName,
       locale: locale === 'fr' ? 'fr_FR' : 'en_US',
       type: 'website',
       images: ogImage ? [{ url: ogImage, alt: title }] : undefined,

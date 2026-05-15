@@ -18,8 +18,8 @@ export function isValidLocale(locale: string): locale is Locale {
 
 /**
  * Préfixe une URL relative avec la locale.
- * `/vols` + `'fr'` → `/fr/vols`
- * `/`     + `'fr'` → `/fr`
+ * `/bon-cadeau` + `'fr'` → `/fr/bon-cadeau`
+ * `/`           + `'fr'` → `/fr`
  * Une URL externe (http://...) ou un mailto/tel reste inchangée.
  */
 export function localizeHref(href: string, locale: Locale): string {

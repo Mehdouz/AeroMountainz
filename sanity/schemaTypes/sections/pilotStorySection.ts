@@ -53,7 +53,7 @@ export const pilotStorySection = defineType({
     }),
     defineField({
       name: 'footerLinkHref',
-      title: 'Lien de fin (ex. "/vols")',
+      title: 'Lien de fin (ex. "/#formules")',
       type: 'string',
     }),
     defineField({

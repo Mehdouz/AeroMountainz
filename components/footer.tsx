@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { localizeHref, type Locale } from '@/lib/i18n'
 import type { NavLink } from '@/lib/types/content'
@@ -6,8 +7,9 @@ import type { NavLink } from '@/lib/types/content'
 const COPYRIGHT_YEAR = new Date().getFullYear()
 
 type Props = {
-  brandName: string
-  brandTagline: string
+  logo: string
+  logoAlt: string
+  siteName: string
   brandDescription: string
   navLinks: NavLink[]
   legalLinks: NavLink[]
@@ -23,8 +25,9 @@ type Props = {
 }
 
 export default function Footer({
-  brandName,
-  brandTagline,
+  logo,
+  logoAlt,
+  siteName,
   brandDescription,
   navLinks,
   legalLinks,
@@ -43,14 +46,13 @@ export default function Footer({
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           <div>
-            <div className="flex flex-col leading-none mb-5">
-              <span className="font-serif text-2xl font-semibold tracking-wider text-[var(--text-primary)]">
-                {brandName}
-              </span>
-              <span className="font-serif text-xs tracking-[0.3em] text-[var(--gold)] uppercase">
-                {brandTagline}
-              </span>
-            </div>
+            <Image
+              src={logo}
+              alt={logoAlt}
+              width={280}
+              height={72}
+              className="h-18 w-auto mb-5"
+            />
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed font-sans max-w-xs">
               {brandDescription}
             </p>
@@ -111,7 +113,7 @@ export default function Footer({
 
         <div className="mt-12 pt-8 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[var(--text-muted)] font-mono">
-            © {COPYRIGHT_YEAR} {brandName} {brandTagline} — {rightsLabel}
+            © {COPYRIGHT_YEAR} {siteName} — {rightsLabel}
           </p>
           <div className="flex gap-6">
             {legalLinks?.map((link, i) => (

@@ -7,7 +7,12 @@ import { defineQuery } from 'next-sanity'
 export const siteSettingsQuery = defineQuery(`
   *[_type == "siteSettings" && language == $locale][0]{
     url,
-    brand,
+    brand{
+      "logo": logo.asset->url,
+      logoAlt,
+      siteName,
+      description
+    },
     contact,
     location,
     navLinks,

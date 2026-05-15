@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, Phone } from 'lucide-react'
 import LangSwitcher from './lang-switcher'
 import { localizeHref, type Locale } from '@/lib/i18n'
@@ -9,8 +10,8 @@ import type { NavLink } from '@/lib/types/content'
 
 type Props = {
   navLinks: NavLink[]
-  brandName: string
-  brandTagline: string
+  logo: string
+  logoAlt: string
   phone: string
   phoneDisplay: string
   locale: Locale
@@ -20,13 +21,13 @@ type Props = {
 
 export default function Navbar({
   navLinks,
-  brandName,
-  brandTagline,
+  logo,
+  logoAlt,
   phone,
   phoneDisplay,
   locale,
   reserveLabel = 'Réserver',
-  reserveHref = '/vols',
+  reserveHref = '/#formules',
 }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -48,13 +49,15 @@ export default function Navbar({
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
-        <Link href={`/${locale}`} className="flex flex-col leading-none group">
-          <span className="font-serif text-xl font-semibold tracking-wider text-[var(--text-primary)]">
-            {brandName}
-          </span>
-          <span className="font-serif text-xs tracking-[0.3em] text-[var(--gold)] uppercase">
-            {brandTagline}
-          </span>
+        <Link href={`/${locale}`} className="flex items-center leading-none group">
+          <Image
+            src={logo}
+            alt={logoAlt}
+            width={240}
+            height={56}
+            className="h-16 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

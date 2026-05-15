@@ -6,14 +6,22 @@ export const brand = defineType({
   type: 'object',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Nom',
+      name: 'logo',
+      title: 'Logo',
+      type: 'image',
+      options: { hotspot: true },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: 'logoAlt',
+      title: 'Logo — texte alternatif',
       type: 'string',
       validation: (r) => r.required(),
     }),
     defineField({
-      name: 'tagline',
-      title: 'Tagline',
+      name: 'siteName',
+      title: 'Nom du site',
+      description: 'Utilisé dans le copyright du footer et les métadonnées Open Graph.',
       type: 'string',
       validation: (r) => r.required(),
     }),

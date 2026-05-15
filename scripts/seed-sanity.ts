@@ -4,7 +4,7 @@
  * Crée :
  *   • siteSettings (FR)
  *   • Contenus réutilisables FR : pilot, formulas, faqs, reviews, journey, stats, gallery
- *   • Pages FR : home, vols, bon-cadeau, pilote, contact, mentions-legales, politique-confidentialite
+ *   • Pages FR : home, bon-cadeau, pilote, contact, mentions-legales, politique-confidentialite
  *   • Blog : 1 author (Yannick), 3 categories, 3 posts FR (stubs à enrichir dans le Studio)
  *
  * Le seed ne crée QUE le FR. Les versions EN sont à créer dans le Studio
@@ -222,7 +222,6 @@ async function seedSiteSettings() {
   console.log('• siteSettings')
   // Nav et legal links pointent vers les pages réelles (le composant Link préfixe la locale).
   const navLinks = [
-    { label: 'Vols', href: '/vols' },
     { label: 'Le pilote', href: '/pilote' },
     { label: 'Bon cadeau', href: '/bon-cadeau' },
     { label: 'Blog', href: '/blog' },
@@ -232,12 +231,19 @@ async function seedSiteSettings() {
     { label: 'Mentions légales', href: '/mentions-legales' },
     { label: 'Politique de confidentialité', href: '/politique-confidentialite' },
   ]
+  const logoId = await uploadImage(site.brand.logo)
   await client.createOrReplace({
     _id: ids.siteSettings,
     _type: 'siteSettings',
     language: LANG,
     url: site.url,
-    brand: { _type: 'brand', ...site.brand },
+    brand: {
+      _type: 'brand',
+      logo: imageRef(logoId),
+      logoAlt: site.brand.logoAlt,
+      siteName: site.brand.siteName,
+      description: site.brand.description,
+    },
     contact: { _type: 'contact', ...site.contact },
     location: { _type: 'location', ...site.location },
     navLinks: navLinks.map((l, i) => ({
@@ -469,67 +475,8 @@ async function seedPages() {
   })
 
   // ---- Pages stub (à enrichir dans le Studio) ----
-  const heroBg = imageCache.get(site.hero.backgroundImage)!
   const ctaBg = imageCache.get(site.cta.backgroundImage)!
   const pilotImg = imageCache.get(pilot.imageSrc)!
-
-  // Page : vols (formules)
-  console.log('• page : vols')
-  await client.createOrReplace({
-    _id: ids.page('vols'),
-    _type: 'page',
-    language: LANG,
-    title: 'Vols',
-    slug: { _type: 'slug', current: 'vols' },
-    sections: [
-      {
-        _type: 'heroSection',
-        _key: 'hero',
-        eyebrow: 'Nos vols',
-        titleStart: 'Vivez votre',
-        titleEmphasized: 'vol en montgolfière',
-        titleEnd: '',
-        subtitle: 'Trois formules pour découvrir le lac d\'Annecy depuis le ciel.',
-        primaryCta: { _type: 'ctaButton', label: 'Réserver', href: '#formules' },
-        secondaryCta: { _type: 'ctaButton', label: 'Nous contacter', href: '/contact' },
-        backgroundImage: imageRef(heroBg),
-        backgroundAlt: site.hero.backgroundAlt,
-        scrollLabel: 'Découvrir',
-      },
-      {
-        _type: 'formulasSection',
-        _key: 'formulas',
-        eyebrow: 'Formules',
-        heading: 'Choisissez votre vol',
-        formulas: formulas.map((_, i) => ref(ids.formula(i), `formula-${i}`)),
-      },
-      {
-        _type: 'faqSection',
-        _key: 'faq',
-        eyebrow: 'FAQ',
-        heading: 'Questions fréquentes',
-        faqs: faqs.map((_, i) => ref(ids.faq(i), `faq-${i}`)),
-      },
-      {
-        _type: 'ctaSection',
-        _key: 'cta',
-        eyebrow: site.cta.eyebrow,
-        titleStart: site.cta.titleStart,
-        titleEmphasized: site.cta.titleEmphasized,
-        description: site.cta.description,
-        backgroundImage: imageRef(ctaBg),
-        primaryCtaLabel: 'Appeler',
-        secondaryCtaLabel: site.cta.secondaryCtaLabel,
-        locationLabel: site.cta.locationLabel,
-      },
-    ],
-    seo: {
-      _type: 'seo',
-      title: 'Nos vols en montgolfière à Annecy',
-      description:
-        'Découvrez nos formules de vol en montgolfière au-dessus du lac d\'Annecy : baptême découverte, vol privatif duo, vol famille.',
-    },
-  })
 
   // Page : bon-cadeau
   console.log('• page : bon-cadeau')
@@ -601,7 +548,7 @@ async function seedPages() {
           'bc-exp-body',
         ),
         linkLabel: 'Découvrir le déroulé complet d\'un vol',
-        linkHref: '/vols',
+        linkHref: '/#formules',
         gallery: [
           { _key: 'g1', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal1), alt: 'Lever du soleil sur le lac d\'Annecy', caption: 'Lever du soleil' },
           { _key: 'g2', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal2), alt: 'Vue depuis la nacelle de la montgolfière', caption: 'Vue depuis la nacelle' },
@@ -853,7 +800,7 @@ async function seedPages() {
           { _key: 's2', _type: 'pilotHeroStat', value: 'DGAC', label: 'Brevet professionnel' },
           { _key: 's3', _type: 'pilotHeroStat', value: 'Champion', label: 'de France équipier' },
         ],
-        primaryCta: { _type: 'ctaButton', label: 'Réserver un vol', href: '/vols' },
+        primaryCta: { _type: 'ctaButton', label: 'Réserver un vol', href: '/#formules' },
         secondaryCta: { _type: 'ctaButton', label: 'Contacter Yannick', href: '/contact' },
         scrollLabel: 'Son histoire',
         scrollHref: '#mon-histoire',
@@ -944,7 +891,7 @@ async function seedPages() {
         footerCta:
           'Prêt à découvrir le lac d\'Annecy depuis le ciel,\navec un pilote breveté ?',
         footerLinkLabel: 'Découvrir les vols proposés',
-        footerLinkHref: '/vols',
+        footerLinkHref: '/#formules',
         signature: '— Yannick',
         signatureRole: 'Pilote breveté DGAC · Aero Montagnes',
       },
@@ -1254,12 +1201,18 @@ async function seed() {
   console.log(`▶ Seeding (project: ${projectId}, dataset: ${dataset}, lang: ${LANG})\n`)
   await seedSiteSettings()
   await seedReusables()
+  // Nettoyage : ancienne page « vols » supprimée du site
+  try {
+    await client.delete(ids.page('vols'))
+  } catch {}
+  try {
+    await client.delete(`drafts.${ids.page('vols')}`)
+  } catch {}
   await seedPages()
   await seedBlog()
   console.log('• cleanup drafts (pages)')
   await clearDrafts([
     ids.page('home'),
-    ids.page('vols'),
     ids.page('bon-cadeau'),
     ids.page('pilote'),
     ids.page('contact'),

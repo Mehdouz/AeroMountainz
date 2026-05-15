@@ -6,8 +6,9 @@
 export const site = {
   url: 'https://www.aero-mountains.com',
   brand: {
-    name: 'AERO',
-    tagline: 'Mountains',
+    logo: '/images/logo.png',
+    logoAlt: 'Logo Aero Mountains',
+    siteName: 'Aero Mountains',
     description:
       'Vol en montgolfière privé et partagé au-dessus du lac d\'Annecy. Pilote Yannick Dacheux, breveté DGAC.',
   },

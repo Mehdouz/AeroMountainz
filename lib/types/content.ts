@@ -83,7 +83,7 @@ export type ReviewsAggregate = {
 
 export type SiteSettings = {
   url: string
-  brand: { name: string; tagline: string; description: string }
+  brand: { logo: string; logoAlt: string; siteName: string; description: string }
   contact: { phone: string; phoneDisplay: string; email: string }
   location: { addressLine1: string; addressLine2: string; short: string }
   navLinks: NavLink[]
