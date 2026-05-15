@@ -82,6 +82,8 @@ sections[]{
   _type == "faqSection" => {
     eyebrow,
     heading,
+    lede,
+    dark,
     "faqs": faqs[]->{ question, answer }
   },
   _type == "ctaSection" => {
@@ -98,6 +100,32 @@ sections[]{
     eyebrow,
     heading,
     body
+  },
+  _type == "contactSection" => {
+    eyebrow,
+    titleStart,
+    titleEmphasized,
+    subtitle,
+    infoLines,
+    infoColumns,
+    formEyebrow,
+    formTitleStart,
+    formTitleEmphasized,
+    formLede,
+    formMeta,
+    subjects,
+    paxOptions,
+    consentText,
+    submitLabel,
+    submitHint,
+    successMessage,
+    errorMessage,
+    lieuEyebrow,
+    lieuTitleStart,
+    lieuTitleEmphasized,
+    lieuLede,
+    lieuList,
+    mapEmbedUrl
   }
 }
 `

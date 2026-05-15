@@ -19,6 +19,19 @@ export const faqSection = defineType({
       of: [defineArrayMember({ type: 'reference', to: [{ type: 'faq' }] })],
       validation: (r) => r.required().min(1),
     }),
+    defineField({
+      name: 'dark',
+      type: 'boolean',
+      title: 'Variant sombre (fond midnight)',
+      description: 'À activer quand la section est rendue sur fond sombre (ex. page Contact).',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'lede',
+      type: 'text',
+      rows: 2,
+      title: 'Sous-titre (optionnel)',
+    }),
   ],
   preview: {
     select: { title: 'heading' },

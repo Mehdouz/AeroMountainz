@@ -11,6 +11,7 @@ const SECTION_TYPES = [
   'reviewsSection',
   'faqSection',
   'ctaSection',
+  'contactSection',
   'richTextSection',
 ] as const
 

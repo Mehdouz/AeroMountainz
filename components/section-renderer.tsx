@@ -8,6 +8,7 @@ import Gallery from './gallery'
 import Reviews from './reviews'
 import Faq from './faq'
 import CtaSection from './cta-section'
+import ContactSection from './contact-section'
 import RichText from './rich-text'
 import StyledHeading from './styled-heading'
 
@@ -123,6 +124,8 @@ export default function SectionRenderer({
                 key={section._key}
                 eyebrow={section.eyebrow}
                 heading={section.heading}
+                lede={section.lede}
+                dark={section.dark}
                 items={section.faqs}
               />
             )
@@ -137,6 +140,10 @@ export default function SectionRenderer({
                 email={email}
               />
             )
+
+          case 'contactSection':
+            return <ContactSection key={section._key} data={section} />
+
 
           case 'richTextSection':
             return (

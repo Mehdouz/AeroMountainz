@@ -191,6 +191,21 @@
   animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Contact page — balloon bob */
+@keyframes balloon-bob {
+  0% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(-22px) rotate(1.5deg);
+  }
+}
+
+.animate-balloon-bob {
+  animation: balloon-bob 9s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
