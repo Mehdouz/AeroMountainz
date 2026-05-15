@@ -6,12 +6,12 @@ import type { ContactSection as ContactSectionData } from '@/lib/types/content'
 
 export default function ContactSection({ data }: { data: ContactSectionData }) {
   return (
-    <section className="section-midnight">
+    <>
       <ContactHero data={data} />
       <ContactCoord data={data} />
       <ContactForm data={data} />
       <ContactLieu data={data} />
-    </section>
+    </>
   )
 }
 
@@ -308,7 +308,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
   }
 
   return (
-    <section id="form" className="px-6 lg:px-12 py-24 lg:py-36 relative">
+    <section id="form" className="px-6 lg:px-12 py-24 lg:py-36 relative bg-bone">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-24 items-start">
         {/* Left col */}
         <div>
@@ -322,7 +322,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
           {(data.formTitleStart || data.formTitleEmphasized) && (
             <Reveal delay={80} y={20}>
               <h2
-                className="font-serif font-light leading-[1.05] tracking-[-0.015em] text-[var(--bone)] text-balance"
+                className="font-serif font-light leading-[1.05] tracking-[-0.015em] text-ink text-balance"
                 style={{ fontSize: 'clamp(36px,4.5vw,56px)' }}
               >
                 {data.formTitleStart}{' '}
@@ -336,20 +336,20 @@ function ContactForm({ data }: { data: ContactSectionData }) {
           )}
           {data.formLede && (
             <Reveal delay={160} y={14}>
-              <p className="mt-5 text-[var(--bone)]/70 text-[15px] leading-[1.75] max-w-[42ch]">
+              <p className="mt-5 text-ink/70 text-[15px] leading-[1.75] max-w-[42ch]">
                 {data.formLede}
               </p>
             </Reveal>
           )}
           {data.formMeta && data.formMeta.length > 0 && (
             <Reveal delay={240} y={14}>
-              <div className="mt-10 pt-7 border-t border-[var(--bone)]/10 flex flex-col gap-4">
+              <div className="mt-10 pt-7 border-t border-ink/10 flex flex-col gap-4">
                 {data.formMeta.map((row, i) => (
                   <div key={i} className="flex gap-3.5 items-baseline">
-                    <span className="font-mono text-[10px] tracking-[0.28em] uppercase text-[var(--bone)]/62 min-w-[90px]">
+                    <span className="font-mono text-[10px] tracking-[0.28em] uppercase text-ink/62 min-w-[90px]">
                       {row.key}
                     </span>
-                    <span className="text-sm text-[var(--bone)] leading-snug">{row.value}</span>
+                    <span className="text-sm text-ink leading-snug">{row.value}</span>
                   </div>
                 ))}
               </div>
@@ -362,8 +362,8 @@ function ContactForm({ data }: { data: ContactSectionData }) {
           <form
             onSubmit={onSubmit}
             noValidate
-            className="rounded-md p-7 lg:p-12 border border-[var(--bone)]/10"
-            style={{ background: 'var(--midnight-2)' }}
+            className="rounded-md p-7 lg:p-12 border border-ink/10"
+            style={{ background: 'var(--bone-2)' }}
           >
             {/* Honeypot */}
             <input
@@ -397,7 +397,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                         onChange={() => update('subject', s.value)}
                         className="sr-only peer"
                       />
-                      <span className="inline-flex items-center gap-2 px-3.5 py-2.5 border border-[var(--bone)]/28 rounded-sm font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--bone)] transition-colors hover:border-[var(--champagne)]/50 peer-checked:bg-[var(--champagne)] peer-checked:text-[var(--midnight)] peer-checked:border-[var(--champagne)]">
+                      <span className="inline-flex items-center gap-2 px-3.5 py-2.5 border border-ink/28 rounded-sm font-mono text-[10px] tracking-[0.22em] uppercase text-ink transition-colors hover:border-[var(--champagne)]/50 peer-checked:bg-[var(--champagne)] peer-checked:text-[var(--midnight)] peer-checked:border-[var(--champagne)]">
                         {s.label}
                       </span>
                     </label>
@@ -468,19 +468,19 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                   value={form.message}
                   onChange={(e) => update('message', e.target.value)}
                   placeholder="Dites-nous l'occasion, ce qui vous fait rêver, ou simplement bonjour."
-                  className="bg-transparent border-0 border-b border-[var(--bone)]/28 pt-3.5 pb-3 text-[var(--bone)] font-sans text-base font-light leading-[1.65] min-h-[120px] resize-y w-full outline-none transition-colors focus:border-[var(--champagne)] placeholder:text-[var(--bone)]/30 placeholder:italic"
+                  className="bg-transparent border-0 border-b border-ink/28 pt-3.5 pb-3 text-ink font-sans text-base font-light leading-[1.65] min-h-[120px] resize-y w-full outline-none transition-colors focus:border-[var(--champagne)] placeholder:text-ink/30 placeholder:italic"
                 />
               </FieldBlock>
             </div>
 
             {/* Consent */}
-            <label className="mt-8 text-[11.5px] text-[var(--bone)]/62 leading-relaxed flex gap-3 items-start cursor-pointer">
+            <label className="mt-8 text-[11.5px] text-ink/62 leading-relaxed flex gap-3 items-start cursor-pointer">
               <input
                 type="checkbox"
                 checked={form.consent}
                 onChange={(e) => update('consent', e.target.checked)}
                 required
-                className="appearance-none w-3.5 h-3.5 border border-[var(--bone)]/28 rounded-sm mt-0.5 cursor-pointer flex-shrink-0 relative transition-colors checked:bg-[var(--champagne)] checked:border-[var(--champagne)] after:content-[''] checked:after:absolute checked:after:left-[3px] checked:after:top-0 checked:after:w-1 checked:after:h-2 checked:after:border-solid checked:after:border-r-2 checked:after:border-b-2 checked:after:border-[var(--midnight)] checked:after:rotate-45"
+                className="appearance-none w-3.5 h-3.5 border border-ink/28 rounded-sm mt-0.5 cursor-pointer flex-shrink-0 relative transition-colors checked:bg-[var(--champagne)] checked:border-[var(--champagne)] after:content-[''] checked:after:absolute checked:after:left-[3px] checked:after:top-0 checked:after:w-1 checked:after:h-2 checked:after:border-solid checked:after:border-r-2 checked:after:border-b-2 checked:after:border-[var(--midnight)] checked:after:rotate-45"
               />
               <span>
                 {data.consentText ||
@@ -502,7 +502,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                     : `${data.submitLabel || 'Envoyer le message'} →`}
               </button>
               {data.submitHint && status !== 'success' && status !== 'error' && (
-                <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-[var(--bone)]/62">
+                <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-ink/62">
                   {data.submitHint}
                 </span>
               )}
@@ -534,7 +534,7 @@ function FieldBlock({
     <div className="flex flex-col gap-2 relative">
       <label
         htmlFor={htmlFor}
-        className="font-mono text-[10px] tracking-[0.28em] uppercase text-[var(--bone)]/62 font-normal"
+        className="font-mono text-[10px] tracking-[0.28em] uppercase text-ink/62 font-normal"
       >
         {label} {required && <span className="text-[var(--champagne)] ml-1">*</span>}
       </label>
@@ -566,7 +566,7 @@ function Input({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       required={required}
-      className="bg-transparent border-0 border-b border-[var(--bone)]/28 py-2.5 text-[var(--bone)] font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] placeholder:text-[var(--bone)]/30 placeholder:italic placeholder:font-serif"
+      className="bg-transparent border-0 border-b border-ink/28 py-2.5 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] placeholder:text-ink/30 placeholder:italic placeholder:font-serif"
     />
   )
 }
@@ -587,7 +587,7 @@ function Select({
       id={id}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="bg-transparent border-0 border-b border-[var(--bone)]/28 py-2.5 pr-7 text-[var(--bone)] font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] cursor-pointer appearance-none"
+      className="bg-transparent border-0 border-b border-ink/28 py-2.5 pr-7 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] cursor-pointer appearance-none"
       style={{
         backgroundImage:
           "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'><path d='M1 1l5 5 5-5' fill='none' stroke='%23C9A961' stroke-width='1.2'/></svg>\")",
@@ -597,7 +597,7 @@ function Select({
       }}
     >
       {options.map((opt) => (
-        <option key={opt} value={opt} className="bg-[var(--midnight-2)] text-[var(--bone)]">
+        <option key={opt} value={opt} className="bg-bone text-ink">
           {opt}
         </option>
       ))}
