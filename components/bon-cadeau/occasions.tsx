@@ -6,12 +6,12 @@ import type { BonCadeauOccasionsSection } from '@/lib/types/content'
 
 export default function BonCadeauOccasionsSectionView({ data }: { data: BonCadeauOccasionsSection }) {
   return (
-    <section className="py-20 lg:py-28 border-y border-[var(--ink-line)] bg-[var(--bone)]">
+    <section className="py-20 lg:py-28 border-y border-(--ink-line) bg-bone">
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
         <Reveal threshold={0.1}>
           <div className="text-center mb-12 lg:mb-16">
             {data.eyebrow && (
-              <p className="font-sans text-[11px] tracking-[0.22em] uppercase text-[var(--champagne)]/80 mb-3">
+              <p className="font-sans text-[11px] tracking-[0.22em] uppercase text-(--champagne)/80 mb-3">
                 {data.eyebrow}
               </p>
             )}
@@ -20,7 +20,7 @@ export default function BonCadeauOccasionsSectionView({ data }: { data: BonCadea
               emphasized={data.headingEmphasized}
               end={data.headingEnd}
               breakLines={false}
-              className="font-serif font-light text-[clamp(1.75rem,3vw,2.25rem)] text-[var(--text-primary)] leading-tight"
+              className="font-serif font-light text-[clamp(1.75rem,3vw,2.25rem)] text-text-primary leading-tight"
             />
           </div>
         </Reveal>
@@ -32,13 +32,13 @@ export default function BonCadeauOccasionsSectionView({ data }: { data: BonCadea
               return (
                 <div
                   key={i}
-                  className="flex flex-col items-center text-center px-2 py-5 rounded transition-colors hover:bg-[var(--champagne)]/[0.07]"
+                  className="flex flex-col items-center text-center px-2 py-5 rounded-sm transition-colors hover:bg-(--champagne)/[0.07]"
                 >
                   <BonCadeauIcon
                     iconKey={item.iconKey}
-                    className="w-8 h-8 text-[var(--champagne)]/75 mb-3"
+                    className="w-8 h-8 text-(--champagne)/75 mb-3"
                   />
-                  <span className="text-xs text-[var(--text-primary)] font-sans leading-snug">
+                  <span className="text-xs text-text-primary font-sans leading-snug">
                     {lines.map((line, j) => (
                       <Fragment key={j}>
                         {line}

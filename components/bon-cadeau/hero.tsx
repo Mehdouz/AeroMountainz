@@ -18,7 +18,7 @@ export default function BonCadeauHeroSection({
   const subtitleLines = (data.subtitle ?? '').split('\n')
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[var(--midnight)] flex items-end">
+    <section className="relative min-h-screen overflow-hidden bg-midnight flex items-end">
       <div className="absolute inset-0">
         <Image
           src={data.backgroundImage}
@@ -28,17 +28,17 @@ export default function BonCadeauHeroSection({
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/60 to-[var(--midnight)]/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight via-(--midnight)/60 to-(--midnight)/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-(--midnight)/50 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-32 lg:pt-40 pb-28 lg:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-end">
           <div>
             <Reveal threshold={0.01} delay={400} duration={1000} y={24}>
-              <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light leading-[1.05] text-[var(--bone)] tracking-tight">
+              <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light leading-[1.05] text-bone tracking-tight">
                 {data.titleStart}{' '}
-                <em className="italic text-[var(--champagne)] font-light">
+                <em className="italic text-champagne font-light">
                   {data.titleEmphasized}
                 </em>
                 {data.titleEnd && (
@@ -52,7 +52,7 @@ export default function BonCadeauHeroSection({
 
             {data.subtitle && (
               <Reveal threshold={0.01} delay={600} duration={1000} y={16}>
-                <p className="mt-8 font-serif italic text-lg sm:text-xl lg:text-2xl text-[var(--bone)]/85 max-w-xl leading-relaxed font-light">
+                <p className="mt-8 font-serif italic text-lg sm:text-xl lg:text-2xl text-(--bone)/85 max-w-xl leading-relaxed font-light">
                   {subtitleLines.map((line, i) => (
                     <span key={i}>
                       {line}
@@ -65,17 +65,17 @@ export default function BonCadeauHeroSection({
           </div>
 
           <Reveal threshold={0.01} delay={800} duration={1000} y={24}>
-            <div className="border border-[var(--champagne)]/30 bg-[var(--midnight)]/40 backdrop-blur-sm rounded-sm px-7 py-8 lg:px-9 lg:py-10">
+            <div className="border border-(--champagne)/30 bg-(--midnight)/40 backdrop-blur-xs rounded-xs px-7 py-8 lg:px-9 lg:py-10">
               {data.priceLabel && (
-                <p className="font-sans text-[11px] tracking-[0.25em] uppercase text-[var(--champagne)]/70 mb-3">
+                <p className="font-sans text-[11px] tracking-[0.25em] uppercase text-(--champagne)/70 mb-3">
                   {data.priceLabel}
                 </p>
               )}
-              <p className="font-serif text-5xl lg:text-6xl font-light leading-none text-[var(--bone)]">
+              <p className="font-serif text-5xl lg:text-6xl font-light leading-none text-bone">
                 {formatPrice(data.priceAmount, data.priceCurrency)}
               </p>
               {data.priceSubtext && (
-                <p className="mt-2 text-sm text-[var(--bone)]/75 font-sans">
+                <p className="mt-2 text-sm text-(--bone)/75 font-sans">
                   {data.priceSubtext}
                 </p>
               )}
@@ -84,7 +84,7 @@ export default function BonCadeauHeroSection({
                 {data.primaryCta && (
                   <a
                     href={localizeHref(data.primaryCta.href, locale)}
-                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-[var(--champagne)] text-[var(--midnight)] font-sans text-sm font-semibold tracking-wider rounded-full hover:bg-[var(--champagne)]/85 transition-all duration-300 hover:scale-[1.02] group"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-champagne text-midnight font-sans text-sm font-semibold tracking-wider rounded-full hover:bg-(--champagne)/85 transition-all duration-300 hover:scale-[1.02] group"
                   >
                     {data.primaryCta.label}
                     <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -93,7 +93,7 @@ export default function BonCadeauHeroSection({
                 {data.secondaryCta && (
                   <a
                     href={localizeHref(data.secondaryCta.href, locale)}
-                    className="inline-flex items-center gap-2 px-6 py-3.5 border border-[var(--bone)]/30 text-[var(--bone)] font-sans text-sm font-medium tracking-wider rounded-full hover:border-[var(--bone)] transition-all duration-300"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 border border-(--bone)/30 text-bone font-sans text-sm font-medium tracking-wider rounded-full hover:border-bone transition-all duration-300"
                   >
                     {data.secondaryCta.label}
                   </a>
@@ -105,14 +105,14 @@ export default function BonCadeauHeroSection({
       </div>
 
       {data.reassuranceItems && data.reassuranceItems.length > 0 && (
-        <div className="absolute bottom-0 inset-x-0 z-10 border-t border-[var(--champagne)]/15 bg-[var(--midnight)]/60 backdrop-blur-sm">
+        <div className="absolute bottom-0 inset-x-0 z-10 border-t border-(--champagne)/15 bg-(--midnight)/60 backdrop-blur-xs">
           <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-wrap justify-between gap-x-8 gap-y-3">
             {data.reassuranceItems.map((item, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2.5 text-xs sm:text-[13px] tracking-wider text-[var(--bone)]/85 font-sans"
+                className="flex items-center gap-2.5 text-xs sm:text-[13px] tracking-wider text-(--bone)/85 font-sans"
               >
-                <Check size={14} className="text-[var(--champagne)] flex-shrink-0" />
+                <Check size={14} className="text-champagne shrink-0" />
                 <span>{item.label}</span>
               </div>
             ))}

@@ -9,45 +9,45 @@ import {
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="text-base text-[var(--text-secondary)] leading-relaxed font-sans mb-4">
+      <p className="text-base text-text-secondary leading-relaxed font-sans mb-4">
         {children}
       </p>
     ),
     h2: ({ children }) => (
-      <h2 className="font-serif text-3xl lg:text-4xl font-light text-[var(--text-primary)] mt-12 mb-4">
+      <h2 className="font-serif text-3xl lg:text-4xl font-light text-text-primary mt-12 mb-4">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-serif text-2xl font-medium text-[var(--text-primary)] mt-8 mb-3">
+      <h3 className="font-serif text-2xl font-medium text-text-primary mt-8 mb-3">
         {children}
       </h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-2 border-[var(--gold)] pl-6 my-6 italic text-[var(--text-secondary)]">
+      <blockquote className="border-l-2 border-gold pl-6 my-6 italic text-text-secondary">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc pl-6 my-4 text-base text-[var(--text-secondary)] font-sans space-y-2">
+      <ul className="list-disc pl-6 my-4 text-base text-text-secondary font-sans space-y-2">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal pl-6 my-4 text-base text-[var(--text-secondary)] font-sans space-y-2">
+      <ol className="list-decimal pl-6 my-4 text-base text-text-secondary font-sans space-y-2">
         {children}
       </ol>
     ),
   },
   marks: {
     strong: ({ children }) => (
-      <strong className="text-[var(--text-primary)]">{children}</strong>
+      <strong className="text-text-primary">{children}</strong>
     ),
     em: ({ children }) => <em>{children}</em>,
     code: ({ children }) => (
-      <code className="font-mono text-sm bg-[var(--surface)] px-1.5 py-0.5 rounded">
+      <code className="font-mono text-sm bg-surface px-1.5 py-0.5 rounded-sm">
         {children}
       </code>
     ),
@@ -60,7 +60,7 @@ const components: PortableTextComponents = {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--gold)] underline underline-offset-4 hover:text-[var(--gold-light)]"
+            className="text-gold underline underline-offset-4 hover:text-gold-light"
           >
             {children}
           </a>
@@ -69,7 +69,7 @@ const components: PortableTextComponents = {
       return (
         <Link
           href={href}
-          className="text-[var(--gold)] underline underline-offset-4 hover:text-[var(--gold-light)]"
+          className="text-gold underline underline-offset-4 hover:text-gold-light"
         >
           {children}
         </Link>
@@ -93,7 +93,7 @@ const components: PortableTextComponents = {
             />
           </div>
           {value.caption && (
-            <figcaption className="text-xs text-[var(--text-muted)] font-sans text-center mt-2">
+            <figcaption className="text-xs text-text-muted font-sans text-center mt-2">
               {value.caption}
             </figcaption>
           )}

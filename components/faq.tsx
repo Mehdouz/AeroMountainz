@@ -9,18 +9,18 @@ function FaqItem({ faq, index, dark }: { faq: Faq; index: number; dark?: boolean
   const [open, setOpen] = useState(false)
 
   const questionColor = dark
-    ? 'text-[var(--bone)]'
-    : 'text-[var(--text-primary)]'
+    ? 'text-bone'
+    : 'text-text-primary'
   const toggleBorder = dark
-    ? 'border-[var(--bone)]/28'
-    : 'border-[var(--ink-65)]/30'
+    ? 'border-(--bone)/28'
+    : 'border-(--ink-65)/30'
   const answerColor = dark
-    ? 'text-[var(--bone)]/78'
-    : 'text-[var(--ink-65)]'
+    ? 'text-(--bone)/78'
+    : 'text-(--ink-65)'
 
   return (
     <div
-      className={`border-b ${dark ? 'border-[var(--bone)]/10' : 'border-[var(--champagne-line)]'}`}
+      className={`border-b ${dark ? 'border-(--bone)/10' : 'border-champagne-line'}`}
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <button
@@ -29,17 +29,17 @@ function FaqItem({ faq, index, dark }: { faq: Faq; index: number; dark?: boolean
         aria-expanded={open}
       >
         <span
-          className={`font-serif font-normal ${questionColor} group-hover:text-[var(--champagne)] transition-colors leading-snug text-xl lg:text-[22px]`}
+          className={`font-serif font-normal ${questionColor} group-hover:text-champagne transition-colors leading-snug text-xl lg:text-[22px]`}
         >
           {faq.question}
         </span>
         <span
-          className={`flex-shrink-0 mt-1 w-8 h-8 rounded-full border ${toggleBorder} flex items-center justify-center text-[var(--champagne)] transition-all duration-300 group-hover:border-[var(--champagne)]`}
+          className={`shrink-0 mt-1 w-8 h-8 rounded-full border ${toggleBorder} flex items-center justify-center text-champagne transition-all duration-300 group-hover:border-champagne`}
         >
           {open ? (
-            <Minus size={14} className="text-[var(--champagne)]" />
+            <Minus size={14} className="text-champagne" />
           ) : (
-            <Plus size={14} className="text-[var(--champagne)]" />
+            <Plus size={14} className="text-champagne" />
           )}
         </span>
       </button>
@@ -72,19 +72,19 @@ export default function FaqSection({
   lede?: string
   dark?: boolean
 }) {
-  const sectionBg = dark ? 'section-midnight' : 'bg-[var(--bone)]'
-  const headingColor = dark ? 'text-[var(--bone)]' : 'text-[var(--text-primary)]'
-  const ledeColor = dark ? 'text-[var(--bone)]/62' : 'text-[var(--ink-65)]'
+  const sectionBg = dark ? 'section-midnight' : 'bg-bone'
+  const headingColor = dark ? 'text-bone' : 'text-text-primary'
+  const ledeColor = dark ? 'text-(--bone)/62' : 'text-(--ink-65)'
   const listBorder = dark
-    ? 'border-[var(--bone)]/10'
-    : 'border-[var(--champagne-line)]'
+    ? 'border-(--bone)/10'
+    : 'border-champagne-line'
 
   return (
     <section id="faq" className={`${sectionBg} py-24 lg:py-36 px-6 lg:px-12`}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
           {eyebrow && (
-            <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-[var(--champagne)] mb-5 before:content-[''] before:w-8 before:h-px before:bg-[var(--champagne)]">
+            <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-champagne mb-5 before:content-[''] before:w-8 before:h-px before:bg-champagne">
               {eyebrow}
             </span>
           )}

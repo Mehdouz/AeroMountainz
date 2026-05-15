@@ -5,12 +5,12 @@ import type { PilotStoryItem, PilotStorySection } from '@/lib/types/content'
 const bodyComponents: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="text-[15px] leading-[1.75] text-[var(--ink-65)] font-sans">{children}</p>
+      <p className="text-[15px] leading-[1.75] text-(--ink-65) font-sans">{children}</p>
     ),
   },
   marks: {
     strong: ({ children }) => (
-      <strong className="font-medium text-[var(--ink)]">{children}</strong>
+      <strong className="font-medium text-ink">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
   },
@@ -25,7 +25,7 @@ function TimelineItem({ item, index }: { item: PilotStoryItem; index: number }) 
         {/* Dot */}
         <span
           aria-hidden
-          className="absolute top-3 left-6 md:left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[var(--champagne)] ring-[6px] ring-[var(--champagne)]/15"
+          className="absolute top-3 left-6 md:left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-champagne ring-[6px] ring-(--champagne)/15"
         />
 
         {/* Content */}
@@ -38,17 +38,17 @@ function TimelineItem({ item, index }: { item: PilotStoryItem; index: number }) 
         >
           <time
             dateTime={item.dateTime || undefined}
-            className="block font-serif italic font-normal text-[26px] md:text-[32px] leading-none text-[var(--champagne)] mb-3.5"
+            className="block font-serif italic font-normal text-[26px] md:text-[32px] leading-none text-champagne mb-3.5"
           >
             {item.date}
           </time>
 
-          <h3 className="font-serif font-normal text-[clamp(20px,2.2vw,26px)] leading-[1.25] tracking-tight text-[var(--ink)] mb-4">
+          <h3 className="font-serif font-normal text-[clamp(20px,2.2vw,26px)] leading-[1.25] tracking-tight text-ink mb-4">
             {item.title}
             {item.titleEmphasized && (
               <>
                 {' '}
-                <em className="italic text-[var(--ink-65)]">{item.titleEmphasized}</em>
+                <em className="italic text-(--ink-65)">{item.titleEmphasized}</em>
               </>
             )}
           </h3>
@@ -64,7 +64,7 @@ function TimelineItem({ item, index }: { item: PilotStoryItem; index: number }) 
               {item.tags.map((tag, i) => (
                 <span
                   key={`${tag}-${i}`}
-                  className="text-[10px] tracking-[0.18em] uppercase text-[var(--ink-65)] border border-[var(--champagne)]/25 bg-[var(--champagne)]/[0.05] px-3 py-1 rounded-full"
+                  className="text-[10px] tracking-[0.18em] uppercase text-(--ink-65) border border-(--champagne)/25 bg-(--champagne)/[0.05] px-3 py-1 rounded-full"
                 >
                   {tag}
                 </span>
@@ -86,21 +86,21 @@ export default function PilotStory({ data }: { data: PilotStorySection }) {
     >
       <Reveal threshold={0.15} y={24} className="text-center max-w-[760px] mx-auto px-8 mb-16 md:mb-24">
         {data.eyebrow && (
-          <span className="inline-block text-[11px] tracking-[0.22em] uppercase text-[var(--ink-65)] mb-6">
+          <span className="inline-block text-[11px] tracking-[0.22em] uppercase text-(--ink-65) mb-6">
             {data.eyebrow}
           </span>
         )}
         <h2
           id="story-title"
-          className="font-serif font-light leading-[1.1] text-[clamp(38px,4.5vw,56px)] text-[var(--ink)]"
+          className="font-serif font-light leading-[1.1] text-[clamp(38px,4.5vw,56px)] text-ink"
         >
           {data.headingStart}
           <br />
-          <em className="italic text-[var(--ink-65)]">{data.headingEmphasized}</em>
+          <em className="italic text-(--ink-65)">{data.headingEmphasized}</em>
           {data.headingEnd}
         </h2>
         {data.lede && (
-          <p className="font-serif italic font-light text-[clamp(18px,2vw,22px)] leading-[1.5] text-[var(--ink-65)] mt-6">
+          <p className="font-serif italic font-light text-[clamp(18px,2vw,22px)] leading-[1.5] text-(--ink-65) mt-6">
             {data.lede}
           </p>
         )}
@@ -110,7 +110,7 @@ export default function PilotStory({ data }: { data: PilotStorySection }) {
         {/* Vertical line */}
         <span
           aria-hidden
-          className="absolute top-3 bottom-20 left-6 md:left-1/2 md:-translate-x-px w-px bg-gradient-to-b from-transparent via-[var(--champagne)] to-transparent opacity-60"
+          className="absolute top-3 bottom-20 left-6 md:left-1/2 md:-translate-x-px w-px bg-gradient-to-b from-transparent via-champagne to-transparent opacity-60"
         />
 
         {data.items.map((item, i) => (
@@ -122,29 +122,29 @@ export default function PilotStory({ data }: { data: PilotStorySection }) {
         <Reveal
           threshold={0.15}
           y={24}
-          className="text-center max-w-[600px] mx-auto px-8 mt-20 pt-14 border-t border-[var(--champagne)]/25"
+          className="text-center max-w-[600px] mx-auto px-8 mt-20 pt-14 border-t border-(--champagne)/25"
         >
           {data.footerCta && (
-            <p className="font-serif italic font-light text-[22px] leading-[1.5] text-[var(--ink)] mb-7 whitespace-pre-line">
+            <p className="font-serif italic font-light text-[22px] leading-[1.5] text-ink mb-7 whitespace-pre-line">
               {data.footerCta}
             </p>
           )}
           {data.footerLinkLabel && data.footerLinkHref && (
             <a
               href={data.footerLinkHref}
-              className="inline-flex items-center gap-3 text-[13px] tracking-[0.15em] uppercase text-[var(--ink-65)] border-b border-[var(--champagne)]/25 pb-1.5 hover:text-[var(--champagne)] hover:border-[var(--champagne)] transition-colors"
+              className="inline-flex items-center gap-3 text-[13px] tracking-[0.15em] uppercase text-(--ink-65) border-b border-(--champagne)/25 pb-1.5 hover:text-champagne hover:border-champagne transition-colors"
             >
               {data.footerLinkLabel}
               <span aria-hidden>→</span>
             </a>
           )}
           {data.signature && (
-            <div className="font-serif italic text-[28px] text-[var(--ink)] mt-10">
+            <div className="font-serif italic text-[28px] text-ink mt-10">
               {data.signature}
             </div>
           )}
           {data.signatureRole && (
-            <div className="text-[11px] tracking-[0.25em] uppercase text-[var(--ink-65)] mt-3">
+            <div className="text-[11px] tracking-[0.25em] uppercase text-(--ink-65) mt-3">
               {data.signatureRole}
             </div>
           )}

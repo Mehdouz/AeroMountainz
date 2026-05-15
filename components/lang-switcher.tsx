@@ -20,11 +20,11 @@ export default function LangSwitcher({
   }
 
   const borderClass =
-    tone === 'light' ? 'border-white/50' : 'border-[var(--border-subtle)]'
+    tone === 'light' ? 'border-white/50' : 'border-border-subtle'
   const inactiveClass =
     tone === 'light'
       ? 'text-white hover:bg-white/10'
-      : 'text-[var(--text-secondary)] hover:bg-[var(--ink)]/5 hover:text-[var(--text-primary)]'
+      : 'text-text-secondary hover:bg-(--ink)/5 hover:text-text-primary'
 
   return (
     <div
@@ -38,7 +38,7 @@ export default function LangSwitcher({
           aria-pressed={loc === currentLocale}
           className={`text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 rounded-full transition-colors ${
             loc === currentLocale
-              ? 'bg-[var(--gold)] text-[var(--midnight)]'
+              ? 'bg-gold text-midnight'
               : inactiveClass
           }`}
         >

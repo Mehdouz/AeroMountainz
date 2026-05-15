@@ -17,18 +17,18 @@ function StatCard({ stat, delay }: { stat: Stat; delay: number }) {
   return (
     <Reveal
       delay={delay}
-      className="flex flex-col items-center text-center p-6 border border-[var(--border-subtle)] rounded-2xl bg-[var(--surface)]/50 backdrop-blur-sm transition-colors duration-500 hover:border-[var(--border-gold)] hover:bg-[var(--surface)] group"
+      className="flex flex-col items-center text-center p-6 border border-border-subtle rounded-2xl bg-(--surface)/50 backdrop-blur-xs transition-colors duration-500 hover:border-border-gold hover:bg-surface group"
     >
-      <div className="w-10 h-10 rounded-full bg-[var(--gold-dim)] flex items-center justify-center mb-4 group-hover:bg-[var(--gold)]/20 transition-colors">
-        <Icon size={18} className="text-[var(--gold)]" />
+      <div className="w-10 h-10 rounded-full bg-gold-dim flex items-center justify-center mb-4 group-hover:bg-(--gold)/20 transition-colors">
+        <Icon size={18} className="text-gold" />
       </div>
-      <span className="font-serif text-2xl lg:text-3xl font-semibold text-[var(--text-primary)] mb-1">
+      <span className="font-serif text-2xl lg:text-3xl font-semibold text-text-primary mb-1">
         {stat.value}
       </span>
-      <span className="text-xs font-sans tracking-widest uppercase text-[var(--text-secondary)] mb-1">
+      <span className="text-xs font-sans tracking-widest uppercase text-text-secondary mb-1">
         {stat.label}
       </span>
-      <span className="text-xs text-[var(--text-muted)] font-sans">{stat.sub}</span>
+      <span className="text-xs text-text-muted font-sans">{stat.sub}</span>
     </Reveal>
   )
 }
@@ -44,18 +44,18 @@ export default function Stats({
 }) {
   return (
     <section className="section-midnight relative z-10 -mt-2 py-20 lg:py-28">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-[var(--gold)] to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-gold to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-14">
           {eyebrow && (
-            <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+            <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
               {eyebrow}
             </p>
           )}
           <StyledHeading
             heading={heading}
-            className="font-serif text-4xl lg:text-5xl font-light text-[var(--text-primary)]"
+            className="font-serif text-4xl lg:text-5xl font-light text-text-primary"
           />
         </div>
 

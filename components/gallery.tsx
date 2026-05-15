@@ -18,13 +18,13 @@ export default function Gallery({
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div>
             {eyebrow && (
-              <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+              <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
                 {eyebrow}
               </p>
             )}
             <StyledHeading
               heading={heading}
-              className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight"
+              className="font-serif text-4xl lg:text-6xl font-light text-text-primary leading-tight"
             />
           </div>
         </div>

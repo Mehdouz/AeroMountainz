@@ -26,7 +26,7 @@ export default function CtaParallax({ src }: { src: string }) {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-[var(--midnight)]/75" />
+      <div className="absolute inset-0 bg-(--midnight)/75" />
     </div>
   )
 }

@@ -84,8 +84,8 @@ export default function HeroParallax({
           </video>
         )}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/30 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-midnight via-(--midnight)/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-(--midnight)/60 via-transparent to-transparent" />
     </>
   )
 }

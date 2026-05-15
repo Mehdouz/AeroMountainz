@@ -160,14 +160,14 @@ export default function SectionRenderer({
               >
                 <div className="max-w-3xl mx-auto px-6 lg:px-10">
                   {section.eyebrow && (
-                    <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+                    <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
                       {section.eyebrow}
                     </p>
                   )}
                   {section.heading && (
                     <StyledHeading
                       heading={section.heading}
-                      className="font-serif text-3xl lg:text-5xl font-light text-[var(--text-primary)] mb-8 leading-tight"
+                      className="font-serif text-3xl lg:text-5xl font-light text-text-primary mb-8 leading-tight"
                     />
                   )}
                   <RichText value={section.body} />

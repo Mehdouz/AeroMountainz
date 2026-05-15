@@ -42,7 +42,7 @@ export default function Footer({
   rightsLabel = 'Tous droits réservés',
 }: Props) {
   return (
-    <footer className="section-midnight border-t border-[var(--border-subtle)]">
+    <footer className="section-midnight border-t border-border-subtle">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           <div>
@@ -53,13 +53,13 @@ export default function Footer({
               height={72}
               className="h-18 w-auto mb-5"
             />
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed font-sans max-w-xs">
+            <p className="text-sm text-text-secondary leading-relaxed font-sans max-w-xs">
               {brandDescription}
             </p>
           </div>
 
           <div>
-            <h3 className="font-mono text-xs tracking-[0.3em] text-[var(--text-muted)] uppercase mb-5">
+            <h3 className="font-mono text-xs tracking-[0.3em] text-text-muted uppercase mb-5">
               {navHeading}
             </h3>
             <ul className="flex flex-col gap-3">
@@ -67,7 +67,7 @@ export default function Footer({
                 <li key={`${link.href}-${i}`}>
                   <Link
                     href={localizeHref(link.href, locale)}
-                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors font-sans"
+                    className="text-sm text-text-secondary hover:text-gold transition-colors font-sans"
                   >
                     {link.label}
                   </Link>
@@ -77,30 +77,30 @@ export default function Footer({
           </div>
 
           <div>
-            <h3 className="font-mono text-xs tracking-[0.3em] text-[var(--text-muted)] uppercase mb-5">
+            <h3 className="font-mono text-xs tracking-[0.3em] text-text-muted uppercase mb-5">
               {contactHeading}
             </h3>
             <ul className="flex flex-col gap-4">
               <li>
                 <a
                   href={`tel:${phone}`}
-                  className="flex items-center gap-3 text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors font-sans"
+                  className="flex items-center gap-3 text-sm text-text-secondary hover:text-gold transition-colors font-sans"
                 >
-                  <Phone size={14} className="text-[var(--gold)] flex-shrink-0" />
+                  <Phone size={14} className="text-gold shrink-0" />
                   {phoneDisplay}
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${email}`}
-                  className="flex items-center gap-3 text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors font-sans"
+                  className="flex items-center gap-3 text-sm text-text-secondary hover:text-gold transition-colors font-sans"
                 >
-                  <Mail size={14} className="text-[var(--gold)] flex-shrink-0" />
+                  <Mail size={14} className="text-gold shrink-0" />
                   {email}
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-sm text-[var(--text-secondary)] font-sans">
-                <MapPin size={14} className="text-[var(--gold)] flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3 text-sm text-text-secondary font-sans">
+                <MapPin size={14} className="text-gold shrink-0 mt-0.5" />
                 <span>
                   {addressLine1}
                   <br />
@@ -111,8 +111,8 @@ export default function Footer({
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[var(--text-muted)] font-mono">
+        <div className="mt-12 pt-8 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-text-muted font-mono">
             © {COPYRIGHT_YEAR} {siteName} — {rightsLabel}
           </p>
           <div className="flex gap-6">
@@ -120,7 +120,7 @@ export default function Footer({
               <Link
                 key={`${link.label}-${i}`}
                 href={localizeHref(link.href, locale)}
-                className="text-xs text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors font-sans"
+                className="text-xs text-text-muted hover:text-gold transition-colors font-sans"
               >
                 {link.label}
               </Link>

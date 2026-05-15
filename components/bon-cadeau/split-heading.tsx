@@ -15,7 +15,7 @@ export default function SplitHeading({
   emphasized,
   end,
   className,
-  emphasizedClassName = 'italic text-[var(--champagne)] font-light',
+  emphasizedClassName = 'italic text-champagne font-light',
   breakLines = true,
 }: Props) {
   return (

@@ -24,7 +24,7 @@ export default function StyledHeading({
           <Fragment key={i}>
             {i > 0 && isEmphasis && <br />}
             {isEmphasis ? (
-              <span className="italic text-[var(--gold-light)]">{text}</span>
+              <span className="italic text-gold-light">{text}</span>
             ) : (
               text
             )}

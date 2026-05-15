@@ -128,14 +128,14 @@ async function CachedPost({
         <header className="max-w-3xl mx-auto px-6 lg:px-10 text-center mb-12">
           <Link
             href={localizeHref('/blog', locale)}
-            className="font-mono text-xs tracking-[0.3em] text-[var(--gold)] uppercase hover:text-[var(--gold-light)] transition-colors"
+            className="font-mono text-xs tracking-[0.3em] text-gold uppercase hover:text-gold-light transition-colors"
           >
             ← {locale === 'fr' ? 'Tous les articles' : 'All articles'}
           </Link>
-          <h1 className="font-serif text-4xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight mt-6 mb-4">
+          <h1 className="font-serif text-4xl lg:text-6xl font-light text-text-primary leading-tight mt-6 mb-4">
             {post.title}
           </h1>
-          <p className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+          <p className="font-mono text-xs tracking-widest text-text-muted uppercase">
             {dateStr}
             {post.author?.name && <> · {post.author.name}</>}
           </p>

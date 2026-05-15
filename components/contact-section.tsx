@@ -106,18 +106,18 @@ function ContactHero({ data }: { data: ContactSectionData }) {
         <div className="max-w-[680px]">
           {data.eyebrow && (
             <Reveal threshold={0.01} duration={1000} y={16}>
-              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-[var(--champagne)] mb-6 before:content-[''] before:w-9 before:h-px before:bg-[var(--champagne)]">
+              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-champagne mb-6 before:content-[''] before:w-9 before:h-px before:bg-champagne">
                 {data.eyebrow}
               </span>
             </Reveal>
           )}
           <Reveal threshold={0.01} delay={80} duration={1000} y={24}>
             <h1
-              className="font-serif font-light leading-[0.98] tracking-[-0.02em] text-[var(--bone)] text-balance"
+              className="font-serif font-light leading-[0.98] tracking-[-0.02em] text-bone text-balance"
               style={{ fontSize: 'clamp(44px,7vw,104px)' }}
             >
               {data.titleStart}{' '}
-              <span className="italic font-normal text-[var(--champagne)]">
+              <span className="italic font-normal text-champagne">
                 {data.titleEmphasized}
               </span>
               .
@@ -125,7 +125,7 @@ function ContactHero({ data }: { data: ContactSectionData }) {
           </Reveal>
           {data.subtitle && (
             <Reveal threshold={0.01} delay={160} duration={1000} y={16}>
-              <p className="mt-7 max-w-[46ch] text-base leading-[1.7] text-[var(--bone)]/75">
+              <p className="mt-7 max-w-[46ch] text-base leading-[1.7] text-(--bone)/75">
                 {data.subtitle}
               </p>
             </Reveal>
@@ -134,11 +134,11 @@ function ContactHero({ data }: { data: ContactSectionData }) {
 
         {data.infoLines && data.infoLines.length > 0 && (
           <Reveal threshold={0.01} delay={240} duration={1000} y={16}>
-            <div className="font-mono text-[11px] tracking-[0.24em] uppercase text-[var(--bone)]/62 pb-2 flex flex-col gap-5">
+            <div className="font-mono text-[11px] tracking-[0.24em] uppercase text-(--bone)/62 pb-2 flex flex-col gap-5">
               {data.infoLines.map((line, i) => (
                 <div key={i} className="flex flex-col gap-1.5">
                   <span>{line.label}</span>
-                  <b className="text-[var(--bone)] font-normal text-[13px] tracking-[0.08em] font-serif italic normal-case">
+                  <b className="text-bone font-normal text-[13px] tracking-[0.08em] font-serif italic normal-case">
                     {line.value}
                   </b>
                 </div>
@@ -177,28 +177,28 @@ function ContactCoord({ data }: { data: ContactSectionData }) {
   if (!data.infoColumns?.length) return null
   return (
     <div
-      className="border-t border-b border-[var(--bone)]/10"
+      className="border-t border-b border-(--bone)/10"
       style={{ background: 'var(--midnight-2)' }}
     >
       <div className="max-w-7xl mx-auto grid md:grid-cols-3">
         {data.infoColumns.map((col, i) => (
           <Reveal key={i} delay={i * 80} duration={800} y={20}>
             <div
-              className="flex flex-col gap-3.5 px-9 py-11 md:border-r border-[var(--bone)]/10 last:border-r-0 transition-colors hover:bg-[rgba(201,169,97,0.04)] h-full"
+              className="flex flex-col gap-3.5 px-9 py-11 md:border-r border-(--bone)/10 last:border-r-0 transition-colors hover:bg-[rgba(201,169,97,0.04)] h-full"
             >
-              <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-[var(--champagne)]">
+              <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-champagne">
                 {col.num}
               </span>
               {col.label && (
-                <span className="font-serif italic text-sm text-[var(--bone)]/62">
+                <span className="font-serif italic text-sm text-(--bone)/62">
                   {col.label}
                 </span>
               )}
-              <span className="font-serif text-[26px] font-normal text-[var(--bone)] leading-tight tracking-[-0.01em]">
+              <span className="font-serif text-[26px] font-normal text-bone leading-tight tracking-[-0.01em]">
                 {col.link ? (
                   <a
                     href={col.link}
-                    className="transition-colors hover:text-[var(--champagne)]"
+                    className="transition-colors hover:text-champagne"
                   >
                     {col.value}
                     {col.valueLine2 && (
@@ -221,7 +221,7 @@ function ContactCoord({ data }: { data: ContactSectionData }) {
                 )}
               </span>
               {col.hint && (
-                <span className="text-xs text-[var(--bone)]/62 leading-relaxed whitespace-pre-line">
+                <span className="text-xs text-(--bone)/62 leading-relaxed whitespace-pre-line">
                   {col.hint}
                 </span>
               )}
@@ -314,7 +314,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
         <div>
           {data.formEyebrow && (
             <Reveal y={14}>
-              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-[var(--champagne)] mb-6 before:content-[''] before:w-8 before:h-px before:bg-[var(--champagne)]">
+              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-champagne mb-6 before:content-[''] before:w-8 before:h-px before:bg-champagne">
                 {data.formEyebrow}
               </span>
             </Reveal>
@@ -327,7 +327,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
               >
                 {data.formTitleStart}{' '}
                 {data.formTitleEmphasized && (
-                  <span className="italic text-[var(--champagne)]">
+                  <span className="italic text-champagne">
                     {data.formTitleEmphasized}
                   </span>
                 )}
@@ -397,7 +397,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                         onChange={() => update('subject', s.value)}
                         className="sr-only peer"
                       />
-                      <span className="inline-flex items-center gap-2 px-3.5 py-2.5 border border-ink/28 rounded-sm font-mono text-[10px] tracking-[0.22em] uppercase text-ink transition-colors hover:border-[var(--champagne)]/50 peer-checked:bg-[var(--champagne)] peer-checked:text-[var(--midnight)] peer-checked:border-[var(--champagne)]">
+                      <span className="inline-flex items-center gap-2 px-3.5 py-2.5 border border-ink/28 rounded-xs font-mono text-[10px] tracking-[0.22em] uppercase text-ink transition-colors hover:border-(--champagne)/50 peer-checked:bg-champagne peer-checked:text-midnight peer-checked:border-champagne">
                         {s.label}
                       </span>
                     </label>
@@ -468,7 +468,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                   value={form.message}
                   onChange={(e) => update('message', e.target.value)}
                   placeholder="Dites-nous l'occasion, ce qui vous fait rêver, ou simplement bonjour."
-                  className="bg-transparent border-0 border-b border-ink/28 pt-3.5 pb-3 text-ink font-sans text-base font-light leading-[1.65] min-h-[120px] resize-y w-full outline-none transition-colors focus:border-[var(--champagne)] placeholder:text-ink/30 placeholder:italic"
+                  className="bg-transparent border-0 border-b border-ink/28 pt-3.5 pb-3 text-ink font-sans text-base font-light leading-[1.65] min-h-[120px] resize-y w-full outline-hidden transition-colors focus:border-champagne placeholder:text-ink/30 placeholder:italic"
                 />
               </FieldBlock>
             </div>
@@ -480,7 +480,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                 checked={form.consent}
                 onChange={(e) => update('consent', e.target.checked)}
                 required
-                className="appearance-none w-3.5 h-3.5 border border-ink/28 rounded-sm mt-0.5 cursor-pointer flex-shrink-0 relative transition-colors checked:bg-[var(--champagne)] checked:border-[var(--champagne)] after:content-[''] checked:after:absolute checked:after:left-[3px] checked:after:top-0 checked:after:w-1 checked:after:h-2 checked:after:border-solid checked:after:border-r-2 checked:after:border-b-2 checked:after:border-[var(--midnight)] checked:after:rotate-45"
+                className="appearance-none w-3.5 h-3.5 border border-ink/28 rounded-xs mt-0.5 cursor-pointer shrink-0 relative transition-colors checked:bg-champagne checked:border-champagne after:content-[''] checked:after:absolute checked:after:left-[3px] checked:after:top-0 checked:after:w-1 checked:after:h-2 checked:after:border-solid checked:after:border-r-2 checked:after:border-b-2 checked:after:border-midnight checked:after:rotate-45"
               />
               <span>
                 {data.consentText ||
@@ -493,7 +493,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-[18px] rounded-sm font-sans text-[12px] tracking-[0.18em] uppercase font-medium cursor-pointer transition-all duration-300 bg-[var(--champagne)] text-[var(--midnight)] hover:bg-[var(--champagne)]/85 hover:-translate-y-px disabled:opacity-60 disabled:cursor-wait shadow-[0_8px_24px_-10px_rgba(201,169,97,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(201,169,97,0.7)]"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-[18px] rounded-xs font-sans text-[12px] tracking-[0.18em] uppercase font-medium cursor-pointer transition-all duration-300 bg-champagne text-midnight hover:bg-(--champagne)/85 hover:-translate-y-px disabled:opacity-60 disabled:cursor-wait shadow-[0_8px_24px_-10px_rgba(201,169,97,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(201,169,97,0.7)]"
               >
                 {status === 'submitting'
                   ? 'Envoi…'
@@ -507,7 +507,7 @@ function ContactForm({ data }: { data: ContactSectionData }) {
                 </span>
               )}
               {status === 'error' && (
-                <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-[var(--terracotta)]">
+                <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-terracotta">
                   {data.errorMessage || errorMsg || 'Erreur — réessayez ou appelez.'}
                 </span>
               )}
@@ -536,7 +536,7 @@ function FieldBlock({
         htmlFor={htmlFor}
         className="font-mono text-[10px] tracking-[0.28em] uppercase text-ink/62 font-normal"
       >
-        {label} {required && <span className="text-[var(--champagne)] ml-1">*</span>}
+        {label} {required && <span className="text-champagne ml-1">*</span>}
       </label>
       {children}
     </div>
@@ -566,7 +566,7 @@ function Input({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       required={required}
-      className="bg-transparent border-0 border-b border-ink/28 py-2.5 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] placeholder:text-ink/30 placeholder:italic placeholder:font-serif"
+      className="bg-transparent border-0 border-b border-ink/28 py-2.5 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-hidden w-full transition-colors focus:border-champagne placeholder:text-ink/30 placeholder:italic placeholder:font-serif"
     />
   )
 }
@@ -587,7 +587,7 @@ function Select({
       id={id}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="bg-transparent border-0 border-b border-ink/28 py-2.5 pr-7 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-none w-full transition-colors focus:border-[var(--champagne)] cursor-pointer appearance-none"
+      className="bg-transparent border-0 border-b border-ink/28 py-2.5 pr-7 text-ink font-serif text-xl font-normal tracking-[-0.005em] outline-hidden w-full transition-colors focus:border-champagne cursor-pointer appearance-none"
       style={{
         backgroundImage:
           "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'><path d='M1 1l5 5 5-5' fill='none' stroke='%23C9A961' stroke-width='1.2'/></svg>\")",
@@ -611,7 +611,7 @@ function Select({
 function ContactLieu({ data }: { data: ContactSectionData }) {
   return (
     <div
-      className="relative border-t border-[var(--bone)]/10"
+      className="relative border-t border-(--bone)/10"
       style={{ background: 'var(--midnight-2)' }}
     >
       <div className="max-w-[1480px] mx-auto grid lg:grid-cols-[1fr_1.1fr] min-h-[520px]">
@@ -619,7 +619,7 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
         <div className="px-6 lg:px-16 py-20 lg:py-24 flex flex-col justify-center max-w-[640px]">
           {data.lieuEyebrow && (
             <Reveal y={14}>
-              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-[var(--champagne)] mb-6 before:content-[''] before:w-8 before:h-px before:bg-[var(--champagne)]">
+              <span className="inline-flex items-center gap-3.5 font-mono text-[11px] tracking-[0.32em] uppercase text-champagne mb-6 before:content-[''] before:w-8 before:h-px before:bg-champagne">
                 {data.lieuEyebrow}
               </span>
             </Reveal>
@@ -627,12 +627,12 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
           {(data.lieuTitleStart || data.lieuTitleEmphasized) && (
             <Reveal delay={80} y={20}>
               <h2
-                className="font-serif font-light leading-[1.05] tracking-[-0.015em] text-[var(--bone)]"
+                className="font-serif font-light leading-[1.05] tracking-[-0.015em] text-bone"
                 style={{ fontSize: 'clamp(34px,4vw,52px)' }}
               >
                 {data.lieuTitleStart}{' '}
                 {data.lieuTitleEmphasized && (
-                  <span className="italic text-[var(--champagne)]">
+                  <span className="italic text-champagne">
                     {data.lieuTitleEmphasized}
                   </span>
                 )}
@@ -641,7 +641,7 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
           )}
           {data.lieuLede && (
             <Reveal delay={160} y={14}>
-              <p className="mt-5 text-[var(--bone)]/62 text-[15px] leading-[1.75] max-w-[42ch]">
+              <p className="mt-5 text-(--bone)/62 text-[15px] leading-[1.75] max-w-[42ch]">
                 {data.lieuLede}
               </p>
             </Reveal>
@@ -652,9 +652,9 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
                 {data.lieuList.map((item, i) => (
                   <li
                     key={i}
-                    className="flex gap-3.5 items-start text-sm text-[var(--bone)]/92 leading-snug"
+                    className="flex gap-3.5 items-start text-sm text-(--bone)/92 leading-snug"
                   >
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--champagne)] flex-shrink-0 mt-2" />
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-champagne shrink-0 mt-2" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -664,7 +664,7 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
         </div>
 
         {/* Map */}
-        <div className="py-20 lg:py-24 lg:border-l border-t lg:border-t-0 border-[var(--bone)]/10 flex items-center justify-center">
+        <div className="py-20 lg:py-24 lg:border-l border-t lg:border-t-0 border-(--bone)/10 flex items-center justify-center">
           <iframe
             src={data.mapEmbedUrl}
             title="Carte du lieu de rendez-vous"

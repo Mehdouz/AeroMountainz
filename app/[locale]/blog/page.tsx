@@ -109,20 +109,20 @@ async function CachedBlogIndex({
 
       <section className="pt-32 lg:pt-40 pb-20 lg:pb-28">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.4em] text-[var(--gold)] uppercase mb-4">
+          <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
             Blog
           </p>
-          <h1 className="font-serif text-5xl lg:text-6xl font-light text-[var(--text-primary)] leading-tight mb-6">
+          <h1 className="font-serif text-5xl lg:text-6xl font-light text-text-primary leading-tight mb-6">
             {t.title}
           </h1>
-          <p className="text-base text-[var(--text-secondary)] font-sans max-w-2xl mx-auto">
+          <p className="text-base text-text-secondary font-sans max-w-2xl mx-auto">
             {t.description}
           </p>
         </div>
 
         <div className="max-w-6xl mx-auto px-6 lg:px-10">
           {posts.length === 0 ? (
-            <p className="text-center text-[var(--text-muted)] font-sans">
+            <p className="text-center text-text-muted font-sans">
               Aucun article pour le moment.
             </p>
           ) : (
@@ -142,17 +142,17 @@ async function CachedBlogIndex({
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <p className="font-mono text-xs text-[var(--text-muted)] mb-2">
+                  <p className="font-mono text-xs text-text-muted mb-2">
                     {new Date(post.publishedAt).toLocaleDateString(
                       locale === 'fr' ? 'fr-FR' : 'en-US',
                       { year: 'numeric', month: 'long', day: 'numeric' },
                     )}
                     {post.author?.name && <> · {post.author.name}</>}
                   </p>
-                  <h2 className="font-serif text-2xl font-medium text-[var(--text-primary)] group-hover:text-[var(--gold)] transition-colors leading-tight mb-3">
+                  <h2 className="font-serif text-2xl font-medium text-text-primary group-hover:text-gold transition-colors leading-tight mb-3">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-[var(--text-secondary)] font-sans leading-relaxed">
+                  <p className="text-sm text-text-secondary font-sans leading-relaxed">
                     {post.excerpt}
                   </p>
                 </Link>

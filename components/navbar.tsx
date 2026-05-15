@@ -44,10 +44,10 @@ export default function Navbar({
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,background-image,backdrop-filter] duration-700 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--champagne-line)] after:transition-opacity after:duration-700 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,background-image,backdrop-filter] duration-700 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-champagne-line after:transition-opacity after:duration-700 ${
         scrolled
           ? `backdrop-blur-md after:opacity-100 ${
-              lightSurface ? 'bg-[var(--bone)]/85' : 'bg-black/50'
+              lightSurface ? 'bg-(--bone)/85' : 'bg-black/50'
             }`
           : `after:opacity-0 ${
               lightSurface
@@ -73,9 +73,9 @@ export default function Navbar({
             <Link
               key={`${link.href}-${i}`}
               href={localizeHref(link.href, locale)}
-              className={`relative text-sm tracking-widest uppercase font-sans transition-colors duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-px after:bg-[var(--gold)] after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+              className={`relative text-sm tracking-widest uppercase font-sans transition-colors duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-px after:bg-gold after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                 lightSurface
-                  ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                  ? 'text-text-secondary hover:text-text-primary'
                   : 'text-white/90 hover:text-white'
               }`}
             >
@@ -90,7 +90,7 @@ export default function Navbar({
             href={phoneHref}
             className={`flex items-center gap-2 text-sm transition-colors duration-500 ${
               lightSurface
-                ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                ? 'text-text-secondary hover:text-text-primary'
                 : 'text-white/90 hover:text-white'
             }`}
           >
@@ -99,7 +99,7 @@ export default function Navbar({
           </a>
           <Link
             href={localizeHref(reserveHref, locale)}
-            className="relative px-6 py-2.5 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] hover:bg-[var(--champagne)]/85 transition-all duration-300 rounded-full overflow-hidden group"
+            className="relative px-6 py-2.5 text-sm font-sans tracking-widest uppercase font-medium text-midnight bg-champagne hover:bg-(--champagne)/85 transition-all duration-300 rounded-full overflow-hidden group"
           >
             {reserveLabel}
           </Link>
@@ -107,7 +107,7 @@ export default function Navbar({
 
         <button
           className={`md:hidden p-2 transition-colors duration-500 ${
-            lightSurface ? 'text-[var(--text-primary)]' : 'text-white'
+            lightSurface ? 'text-text-primary' : 'text-white'
           }`}
           onClick={() => setOpen((p) => !p)}
           aria-label="Menu"
@@ -119,7 +119,7 @@ export default function Navbar({
       <div
         className={`md:hidden transition-all duration-500 overflow-hidden ${
           open ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-        } bg-[var(--bone)]/95 backdrop-blur-md`}
+        } bg-(--bone)/95 backdrop-blur-md`}
       >
         <nav className="flex flex-col px-6 pb-8 pt-4 gap-6">
           {navLinks.map((link, i) => (
@@ -127,7 +127,7 @@ export default function Navbar({
               key={`${link.href}-${i}`}
               href={localizeHref(link.href, locale)}
               onClick={() => setOpen(false)}
-              className="text-base tracking-widest uppercase text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors font-sans"
+              className="text-base tracking-widest uppercase text-text-secondary hover:text-gold transition-colors font-sans"
             >
               {link.label}
             </Link>
@@ -135,7 +135,7 @@ export default function Navbar({
           <div className="flex items-center justify-between gap-4">
             <a
               href={phoneHref}
-              className="flex items-center gap-2 text-sm text-[var(--text-secondary)]"
+              className="flex items-center gap-2 text-sm text-text-secondary"
             >
               <Phone size={14} />
               <span className="font-mono">{phoneDisplay}</span>
@@ -145,7 +145,7 @@ export default function Navbar({
           <Link
             href={localizeHref(reserveHref, locale)}
             onClick={() => setOpen(false)}
-            className="w-full text-center px-6 py-3 text-sm font-sans tracking-widest uppercase font-medium text-[var(--midnight)] bg-[var(--champagne)] rounded-full"
+            className="w-full text-center px-6 py-3 text-sm font-sans tracking-widest uppercase font-medium text-midnight bg-champagne rounded-full"
           >
             {reserveLabel}
           </Link>
