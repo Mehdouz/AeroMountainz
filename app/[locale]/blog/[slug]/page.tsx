@@ -121,6 +121,7 @@ async function CachedPost({
         phone={site.contact.phone}
         phoneDisplay={site.contact.phoneDisplay}
         locale={locale}
+        lightSurface
       />
 
       <article className="pt-32 lg:pt-40 pb-20">

@@ -104,6 +104,7 @@ async function CachedBlogIndex({
         phone={site.contact.phone}
         phoneDisplay={site.contact.phoneDisplay}
         locale={locale}
+        lightSurface
       />
 
       <section className="pt-32 lg:pt-40 pb-20 lg:pb-28">

@@ -17,6 +17,7 @@ type Props = {
   locale: Locale
   reserveLabel?: string
   reserveHref?: string
+  lightSurface?: boolean
 }
 
 export default function Navbar({
@@ -28,6 +29,7 @@ export default function Navbar({
   locale,
   reserveLabel = 'Réserver',
   reserveHref = '/#formules',
+  lightSurface = false,
 }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -44,8 +46,12 @@ export default function Navbar({
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 ${
         scrolled
-          ? 'bg-[var(--bone)]/85 backdrop-blur-md border-b border-[var(--champagne-line)]'
-          : 'bg-transparent'
+          ? lightSurface
+            ? 'bg-[var(--bone)]/85 backdrop-blur-md border-b border-[var(--champagne-line)]'
+            : 'bg-black/50 backdrop-blur-md border-b border-[var(--champagne-line)]'
+          : lightSurface
+            ? 'bg-transparent'
+            : 'bg-gradient-to-b from-black/45 via-black/15 to-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
@@ -65,7 +71,9 @@ export default function Navbar({
             <Link
               key={`${link.href}-${i}`}
               href={localizeHref(link.href, locale)}
-              className="text-sm tracking-widest uppercase text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors duration-300 font-sans"
+              className={`text-sm tracking-widest uppercase hover:text-[var(--gold)] transition-colors duration-500 font-sans ${
+                lightSurface ? 'text-[var(--text-secondary)]' : 'text-white/90'
+              }`}
             >
               {link.label}
             </Link>
@@ -73,10 +81,12 @@ export default function Navbar({
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <LangSwitcher currentLocale={locale} />
+          <LangSwitcher currentLocale={locale} tone={lightSurface ? 'dark' : 'light'} />
           <a
             href={phoneHref}
-            className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors"
+            className={`flex items-center gap-2 text-sm hover:text-[var(--gold)] transition-colors duration-500 ${
+              lightSurface ? 'text-[var(--text-secondary)]' : 'text-white/90'
+            }`}
           >
             <Phone size={14} />
             <span className="font-mono tracking-wider">{phoneDisplay}</span>
@@ -90,7 +100,9 @@ export default function Navbar({
         </div>
 
         <button
-          className="md:hidden text-[var(--text-primary)] p-2"
+          className={`md:hidden p-2 transition-colors duration-500 ${
+            lightSurface ? 'text-[var(--text-primary)]' : 'text-white'
+          }`}
           onClick={() => setOpen((p) => !p)}
           aria-label="Menu"
         >
