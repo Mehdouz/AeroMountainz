@@ -77,15 +77,15 @@ export default function HeroParallax({
             preload="auto"
             aria-hidden="true"
             onCanPlay={() => setVideoReady(true)}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1200 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}
           >
             {videoWebm && <source src={videoWebm} type="video/webm" />}
             {videoMp4 && <source src={videoMp4} type="video/mp4" />}
           </video>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/60 via-transparent to-transparent" />
       </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--midnight)] via-[var(--midnight)]/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--midnight)]/60 via-transparent to-transparent" />
     </>
   )
 }
