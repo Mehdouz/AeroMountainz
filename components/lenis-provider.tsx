@@ -13,7 +13,7 @@ function ScrollResetOnRouteChange() {
     const hash = window.location.hash
     const raf = requestAnimationFrame(() => {
       if (hash) {
-        const target = document.querySelector(hash)
+        const target = document.querySelector<HTMLElement>(hash)
         if (target) {
           lenis.scrollTo(target, { immediate: true, force: true })
           return
