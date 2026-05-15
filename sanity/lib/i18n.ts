@@ -14,7 +14,6 @@ export type Language = (typeof LANGUAGES)[number]['id']
 export const TRANSLATABLE_TYPES = [
   'siteSettings',
   'page',
-  'bonCadeauPage',
   'post',
   'category',
   'pilot',

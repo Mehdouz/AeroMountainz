@@ -5,13 +5,13 @@ import Reveal from '../reveal'
 import RichText from '../rich-text'
 import SplitHeading from './split-heading'
 import { localizeHref, type Locale } from '@/lib/i18n'
-import type { BonCadeauExperience } from '@/lib/types/content'
+import type { BonCadeauExperienceSection } from '@/lib/types/content'
 
-export default function BonCadeauExperienceSection({
+export default function BonCadeauExperienceSectionView({
   data,
   locale,
 }: {
-  data: BonCadeauExperience
+  data: BonCadeauExperienceSection
   locale: Locale
 }) {
   return (

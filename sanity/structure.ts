@@ -59,7 +59,6 @@ export const structure: StructureResolver = (S) => {
     .items([
       // ==== Pages ====
       localizedDocList('page', 'Pages'),
-      localizedSingleton('bonCadeauPage', 'Page Bon Cadeau'),
 
       S.divider(),
 

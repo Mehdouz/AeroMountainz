@@ -12,6 +12,16 @@ import ContactSection from './contact-section'
 import RichText from './rich-text'
 import StyledHeading from './styled-heading'
 
+import BonCadeauHero from './bon-cadeau/hero'
+import BonCadeauOccasions from './bon-cadeau/occasions'
+import BonCadeauExperience from './bon-cadeau/experience'
+import BonCadeauContents from './bon-cadeau/contents'
+import BonCadeauHowto from './bon-cadeau/howto'
+import BonCadeauFacts from './bon-cadeau/facts'
+import BonCadeauTestimonials from './bon-cadeau/testimonials'
+import BonCadeauFaq from './bon-cadeau/faq'
+import BonCadeauFinalCta from './bon-cadeau/final-cta'
+
 import type { Section, SiteSettings } from '@/lib/types/content'
 import type { Locale } from '@/lib/i18n'
 
@@ -167,6 +177,33 @@ export default function SectionRenderer({
                 </div>
               </section>
             )
+
+          case 'bonCadeauHeroSection':
+            return <BonCadeauHero key={section._key} data={section} locale={locale} />
+
+          case 'bonCadeauOccasionsSection':
+            return <BonCadeauOccasions key={section._key} data={section} />
+
+          case 'bonCadeauExperienceSection':
+            return <BonCadeauExperience key={section._key} data={section} locale={locale} />
+
+          case 'bonCadeauContentsSection':
+            return <BonCadeauContents key={section._key} data={section} />
+
+          case 'bonCadeauHowtoSection':
+            return <BonCadeauHowto key={section._key} data={section} />
+
+          case 'bonCadeauFactsSection':
+            return <BonCadeauFacts key={section._key} data={section} />
+
+          case 'bonCadeauTestimonialsSection':
+            return <BonCadeauTestimonials key={section._key} data={section} />
+
+          case 'bonCadeauFaqSection':
+            return <BonCadeauFaq key={section._key} data={section} />
+
+          case 'bonCadeauFinalCtaSection':
+            return <BonCadeauFinalCta key={section._key} data={section} locale={locale} />
 
           default:
             // Section type non géré — silencieux en prod, lisible en dev.

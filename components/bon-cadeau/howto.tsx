@@ -1,9 +1,9 @@
 import Reveal from '../reveal'
 import RichText from '../rich-text'
 import SplitHeading from './split-heading'
-import type { BonCadeauHowto } from '@/lib/types/content'
+import type { BonCadeauHowtoSection } from '@/lib/types/content'
 
-export default function BonCadeauHowtoSection({ data }: { data: BonCadeauHowto }) {
+export default function BonCadeauHowtoSectionView({ data }: { data: BonCadeauHowtoSection }) {
   return (
     <section id="comment-ca-marche" className="py-24 lg:py-32 bg-[var(--bone)] text-center">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">

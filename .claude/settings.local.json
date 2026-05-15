@@ -23,7 +23,8 @@
       "Bash(npx *)",
       "Bash(node *)",
       "Bash(pnpm *)",
-      "Bash(yarn *)"
+      "Bash(yarn *)",
+      "Bash(cd *)"
     ],
     "deny": [
       "Read(./.env)",

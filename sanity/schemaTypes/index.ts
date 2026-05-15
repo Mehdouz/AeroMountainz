@@ -9,6 +9,16 @@ import { navLink } from './objects/navLink'
 import { pilotBadge } from './objects/pilotBadge'
 import { seo } from './objects/seo'
 
+// Bon Cadeau — sub-items (utilisés à l'intérieur des sections bon-cadeau)
+import { bonCadeauReassuranceItem } from './objects/bonCadeauReassuranceItem'
+import { bonCadeauOccasionItem } from './objects/bonCadeauOccasionItem'
+import { bonCadeauGalleryItem } from './objects/bonCadeauGalleryItem'
+import { bonCadeauContentBullet } from './objects/bonCadeauContentBullet'
+import { bonCadeauStep } from './objects/bonCadeauStep'
+import { bonCadeauFactItem } from './objects/bonCadeauFactItem'
+import { bonCadeauTestimonialItem } from './objects/bonCadeauTestimonialItem'
+import { bonCadeauFaqItem } from './objects/bonCadeauFaqItem'
+
 // Sections
 import { heroSection } from './sections/heroSection'
 import { statsSection } from './sections/statsSection'
@@ -23,29 +33,20 @@ import { ctaSection } from './sections/ctaSection'
 import { contactSection } from './sections/contactSection'
 import { richTextSection } from './sections/richTextSection'
 
-// Bon Cadeau — objets de section
-import { bonCadeauReassuranceItem } from './objects/bonCadeauReassuranceItem'
-import { bonCadeauHero } from './objects/bonCadeauHero'
-import { bonCadeauOccasionItem } from './objects/bonCadeauOccasionItem'
-import { bonCadeauOccasions } from './objects/bonCadeauOccasions'
-import { bonCadeauGalleryItem } from './objects/bonCadeauGalleryItem'
-import { bonCadeauExperience } from './objects/bonCadeauExperience'
-import { bonCadeauContentBullet } from './objects/bonCadeauContentBullet'
-import { bonCadeauContents } from './objects/bonCadeauContents'
-import { bonCadeauStep } from './objects/bonCadeauStep'
-import { bonCadeauHowto } from './objects/bonCadeauHowto'
-import { bonCadeauFactItem } from './objects/bonCadeauFactItem'
-import { bonCadeauFacts } from './objects/bonCadeauFacts'
-import { bonCadeauTestimonialItem } from './objects/bonCadeauTestimonialItem'
-import { bonCadeauTestimonials } from './objects/bonCadeauTestimonials'
-import { bonCadeauFaqItem } from './objects/bonCadeauFaqItem'
-import { bonCadeauFaq } from './objects/bonCadeauFaq'
-import { bonCadeauFinalCta } from './objects/bonCadeauFinalCta'
+// Bon Cadeau — sections (utilisables dans page.sections[])
+import { bonCadeauHeroSection } from './sections/bonCadeauHeroSection'
+import { bonCadeauOccasionsSection } from './sections/bonCadeauOccasionsSection'
+import { bonCadeauExperienceSection } from './sections/bonCadeauExperienceSection'
+import { bonCadeauContentsSection } from './sections/bonCadeauContentsSection'
+import { bonCadeauHowtoSection } from './sections/bonCadeauHowtoSection'
+import { bonCadeauFactsSection } from './sections/bonCadeauFactsSection'
+import { bonCadeauTestimonialsSection } from './sections/bonCadeauTestimonialsSection'
+import { bonCadeauFaqSection } from './sections/bonCadeauFaqSection'
+import { bonCadeauFinalCtaSection } from './sections/bonCadeauFinalCtaSection'
 
 // Documents — site
 import { siteSettings } from './documents/siteSettings'
 import { page } from './documents/page'
-import { bonCadeauPage } from './documents/bonCadeauPage'
 
 // Documents — blog
 import { post } from './documents/post'
@@ -70,6 +71,15 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   navLink,
   pilotBadge,
   seo,
+  // Bon Cadeau — sub-items
+  bonCadeauReassuranceItem,
+  bonCadeauOccasionItem,
+  bonCadeauGalleryItem,
+  bonCadeauContentBullet,
+  bonCadeauStep,
+  bonCadeauFactItem,
+  bonCadeauTestimonialItem,
+  bonCadeauFaqItem,
   // Sections
   heroSection,
   statsSection,
@@ -83,28 +93,19 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   ctaSection,
   contactSection,
   richTextSection,
-  // Bon Cadeau — objets de section
-  bonCadeauReassuranceItem,
-  bonCadeauHero,
-  bonCadeauOccasionItem,
-  bonCadeauOccasions,
-  bonCadeauGalleryItem,
-  bonCadeauExperience,
-  bonCadeauContentBullet,
-  bonCadeauContents,
-  bonCadeauStep,
-  bonCadeauHowto,
-  bonCadeauFactItem,
-  bonCadeauFacts,
-  bonCadeauTestimonialItem,
-  bonCadeauTestimonials,
-  bonCadeauFaqItem,
-  bonCadeauFaq,
-  bonCadeauFinalCta,
+  // Bon Cadeau — sections
+  bonCadeauHeroSection,
+  bonCadeauOccasionsSection,
+  bonCadeauExperienceSection,
+  bonCadeauContentsSection,
+  bonCadeauHowtoSection,
+  bonCadeauFactsSection,
+  bonCadeauTestimonialsSection,
+  bonCadeauFaqSection,
+  bonCadeauFinalCtaSection,
   // Documents — site
   siteSettings,
   page,
-  bonCadeauPage,
   // Documents — blog
   post,
   author,

@@ -2,13 +2,13 @@ import Image from 'next/image'
 import { ArrowRight, Check } from 'lucide-react'
 import Reveal from '../reveal'
 import { localizeHref, type Locale } from '@/lib/i18n'
-import type { BonCadeauFinalCta } from '@/lib/types/content'
+import type { BonCadeauFinalCtaSection } from '@/lib/types/content'
 
-export default function BonCadeauFinalCtaSection({
+export default function BonCadeauFinalCtaSectionView({
   data,
   locale,
 }: {
-  data: BonCadeauFinalCta
+  data: BonCadeauFinalCtaSection
   locale: Locale
 }) {
   const hasBackground = Boolean(data.backgroundImage)

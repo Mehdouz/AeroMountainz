@@ -1,8 +1,8 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 
-export const bonCadeauContents = defineType({
-  name: 'bonCadeauContents',
-  title: 'Section "Ce que vous recevez"',
+export const bonCadeauContentsSection = defineType({
+  name: 'bonCadeauContentsSection',
+  title: 'Section "Ce que vous recevez" (Bon cadeau)',
   type: 'object',
   fields: [
     defineField({ name: 'eyebrow', title: 'Surtitre', type: 'string' }),
@@ -76,6 +76,6 @@ export const bonCadeauContents = defineType({
   ],
   preview: {
     select: { title: 'headingEmphasized' },
-    prepare: ({ title }) => ({ title: `Ce que vous recevez — ${title || ''}` }),
+    prepare: ({ title }) => ({ title: `Bon cadeau · Ce que vous recevez — ${title || ''}` }),
   },
 })

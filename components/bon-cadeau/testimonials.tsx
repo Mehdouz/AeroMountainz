@@ -1,6 +1,6 @@
 import Reveal from '../reveal'
 import SplitHeading from './split-heading'
-import type { BonCadeauTestimonials } from '@/lib/types/content'
+import type { BonCadeauTestimonialsSection } from '@/lib/types/content'
 
 function Stars({ count }: { count: number }) {
   const safe = Math.max(0, Math.min(5, Math.round(count)))
@@ -15,10 +15,10 @@ function Stars({ count }: { count: number }) {
   )
 }
 
-export default function BonCadeauTestimonialsSection({
+export default function BonCadeauTestimonialsSectionView({
   data,
 }: {
-  data: BonCadeauTestimonials
+  data: BonCadeauTestimonialsSection
 }) {
   return (
     <section className="section-midnight py-24 lg:py-32" style={{ backgroundColor: '#0a1226' }}>

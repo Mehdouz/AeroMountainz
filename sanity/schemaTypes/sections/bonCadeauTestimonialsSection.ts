@@ -1,8 +1,8 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
 
-export const bonCadeauOccasions = defineType({
-  name: 'bonCadeauOccasions',
-  title: 'Section Occasions',
+export const bonCadeauTestimonialsSection = defineType({
+  name: 'bonCadeauTestimonialsSection',
+  title: 'Section Témoignages (Bon cadeau)',
   type: 'object',
   fields: [
     defineField({ name: 'eyebrow', title: 'Surtitre', type: 'string' }),
@@ -24,15 +24,25 @@ export const bonCadeauOccasions = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'googleRatingStars',
+      title: 'Note Google (ex. "4,9")',
+      type: 'string',
+    }),
+    defineField({
+      name: 'googleRatingLabel',
+      title: 'Libellé sous la note (ex. "+50 avis Google")',
+      type: 'string',
+    }),
+    defineField({
       name: 'items',
-      title: 'Occasions',
+      title: 'Témoignages (3)',
       type: 'array',
-      of: [defineArrayMember({ type: 'bonCadeauOccasionItem' })],
-      validation: (r) => r.min(4).max(12),
+      of: [defineArrayMember({ type: 'bonCadeauTestimonialItem' })],
+      validation: (r) => r.required().min(3).max(3),
     }),
   ],
   preview: {
     select: { title: 'headingEmphasized' },
-    prepare: ({ title }) => ({ title: `Occasions — ${title || ''}` }),
+    prepare: ({ title }) => ({ title: `Bon cadeau · Témoignages — ${title || ''}` }),
   },
 })

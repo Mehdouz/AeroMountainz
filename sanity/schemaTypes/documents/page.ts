@@ -13,6 +13,15 @@ const SECTION_TYPES = [
   'ctaSection',
   'contactSection',
   'richTextSection',
+  'bonCadeauHeroSection',
+  'bonCadeauOccasionsSection',
+  'bonCadeauExperienceSection',
+  'bonCadeauContentsSection',
+  'bonCadeauHowtoSection',
+  'bonCadeauFactsSection',
+  'bonCadeauTestimonialsSection',
+  'bonCadeauFaqSection',
+  'bonCadeauFinalCtaSection',
 ] as const
 
 export const page = defineType({

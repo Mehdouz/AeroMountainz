@@ -1,9 +1,9 @@
 import Reveal from '../reveal'
 import BonCadeauIcon from './icon'
 import SplitHeading from './split-heading'
-import type { BonCadeauFacts } from '@/lib/types/content'
+import type { BonCadeauFactsSection } from '@/lib/types/content'
 
-export default function BonCadeauFactsSection({ data }: { data: BonCadeauFacts }) {
+export default function BonCadeauFactsSectionView({ data }: { data: BonCadeauFactsSection }) {
   return (
     <section className="section-midnight py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">

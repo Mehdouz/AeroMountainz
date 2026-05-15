@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { ArrowRight, Check } from 'lucide-react'
 import Reveal from '../reveal'
 import { localizeHref, type Locale } from '@/lib/i18n'
-import type { BonCadeauHero } from '@/lib/types/content'
+import type { BonCadeauHeroSection } from '@/lib/types/content'
 
 function formatPrice(amount: number, currency = '€') {
   return new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(amount) + ' ' + currency
@@ -12,7 +12,7 @@ export default function BonCadeauHeroSection({
   data,
   locale,
 }: {
-  data: BonCadeauHero
+  data: BonCadeauHeroSection
   locale: Locale
 }) {
   const subtitleLines = (data.subtitle ?? '').split('\n')

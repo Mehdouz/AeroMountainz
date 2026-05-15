@@ -281,6 +281,15 @@ export type Section =
   | CtaSectionContent
   | ContactSection
   | RichTextSection
+  | BonCadeauHeroSection
+  | BonCadeauOccasionsSection
+  | BonCadeauExperienceSection
+  | BonCadeauContentsSection
+  | BonCadeauHowtoSection
+  | BonCadeauFactsSection
+  | BonCadeauTestimonialsSection
+  | BonCadeauFaqSection
+  | BonCadeauFinalCtaSection
 
 // ============================================================
 // Documents
@@ -336,7 +345,7 @@ export type PostListItem = Pick<
 > & { author: Pick<Author, 'name' | 'slug'> }
 
 // ============================================================
-// Bon Cadeau (singleton)
+// Bon Cadeau — sections (utilisables dans page.sections[])
 // ============================================================
 
 export type BonCadeauIconKey =
@@ -355,7 +364,9 @@ export type BonCadeauIconKey =
 
 export type BonCadeauReassuranceItem = { label: string }
 
-export type BonCadeauHero = {
+export type BonCadeauHeroSection = {
+  _type: 'bonCadeauHeroSection'
+  _key: string
   backgroundImage: string
   backgroundAlt: string
   titleStart: string
@@ -373,7 +384,9 @@ export type BonCadeauHero = {
 
 export type BonCadeauOccasionItem = { iconKey: BonCadeauIconKey; label: string }
 
-export type BonCadeauOccasions = {
+export type BonCadeauOccasionsSection = {
+  _type: 'bonCadeauOccasionsSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -387,7 +400,9 @@ export type BonCadeauGalleryItem = {
   caption?: string
 }
 
-export type BonCadeauExperience = {
+export type BonCadeauExperienceSection = {
+  _type: 'bonCadeauExperienceSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -401,7 +416,9 @@ export type BonCadeauExperience = {
 
 export type BonCadeauContentBullet = { body: PortableTextBlock[] }
 
-export type BonCadeauContents = {
+export type BonCadeauContentsSection = {
+  _type: 'bonCadeauContentsSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -422,7 +439,9 @@ export type BonCadeauStep = {
   description: PortableTextBlock[]
 }
 
-export type BonCadeauHowto = {
+export type BonCadeauHowtoSection = {
+  _type: 'bonCadeauHowtoSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -437,7 +456,9 @@ export type BonCadeauFactItem = {
   description: string
 }
 
-export type BonCadeauFacts = {
+export type BonCadeauFactsSection = {
+  _type: 'bonCadeauFactsSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -452,7 +473,9 @@ export type BonCadeauTestimonialItem = {
   stars: number
 }
 
-export type BonCadeauTestimonials = {
+export type BonCadeauTestimonialsSection = {
+  _type: 'bonCadeauTestimonialsSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -468,6 +491,8 @@ export type BonCadeauFaqItem = {
 }
 
 export type BonCadeauFaqSection = {
+  _type: 'bonCadeauFaqSection'
+  _key: string
   eyebrow?: string
   headingStart: string
   headingEmphasized: string
@@ -475,7 +500,9 @@ export type BonCadeauFaqSection = {
   items: BonCadeauFaqItem[]
 }
 
-export type BonCadeauFinalCta = {
+export type BonCadeauFinalCtaSection = {
+  _type: 'bonCadeauFinalCtaSection'
+  _key: string
   eyebrow?: string
   headingLine1: string
   headingLine2?: string
@@ -485,20 +512,4 @@ export type BonCadeauFinalCta = {
   reassuranceItems?: BonCadeauReassuranceItem[]
   backgroundImage?: string
   backgroundAlt?: string
-}
-
-export type BonCadeauPage = {
-  _id: string
-  title: string
-  language: string
-  seo?: Seo
-  hero: BonCadeauHero
-  occasions?: BonCadeauOccasions
-  experience?: BonCadeauExperience
-  contents?: BonCadeauContents
-  howto?: BonCadeauHowto
-  facts?: BonCadeauFacts
-  testimonials?: BonCadeauTestimonials
-  faq?: BonCadeauFaqSection
-  finalCta?: BonCadeauFinalCta
 }

@@ -2,9 +2,9 @@ import { Check } from 'lucide-react'
 import Reveal from '../reveal'
 import RichText from '../rich-text'
 import SplitHeading from './split-heading'
-import type { BonCadeauContents } from '@/lib/types/content'
+import type { BonCadeauContentsSection } from '@/lib/types/content'
 
-export default function BonCadeauContentsSection({ data }: { data: BonCadeauContents }) {
+export default function BonCadeauContentsSectionView({ data }: { data: BonCadeauContentsSection }) {
   return (
     <section className="section-midnight py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.015] pointer-events-none [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:4px_4px]" />
@@ -54,7 +54,7 @@ export default function BonCadeauContentsSection({ data }: { data: BonCadeauCont
   )
 }
 
-function Mockup({ data }: { data: BonCadeauContents }) {
+function Mockup({ data }: { data: BonCadeauContentsSection }) {
   return (
     <div className="relative flex items-center justify-center min-h-[420px] [perspective:1200px]">
       <div className="absolute w-[280px] sm:w-[320px] aspect-[3/4] rounded-md border border-[var(--champagne)]/20 bg-gradient-to-br from-[var(--bone)] to-[var(--bone-2)] shadow-2xl opacity-60 -z-10 translate-x-8 translate-y-6 rotate-[6deg]" />

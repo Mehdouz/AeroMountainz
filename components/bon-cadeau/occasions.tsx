@@ -2,9 +2,9 @@ import { Fragment } from 'react'
 import Reveal from '../reveal'
 import BonCadeauIcon from './icon'
 import SplitHeading from './split-heading'
-import type { BonCadeauOccasions } from '@/lib/types/content'
+import type { BonCadeauOccasionsSection } from '@/lib/types/content'
 
-export default function BonCadeauOccasionsSection({ data }: { data: BonCadeauOccasions }) {
+export default function BonCadeauOccasionsSectionView({ data }: { data: BonCadeauOccasionsSection }) {
   return (
     <section className="py-20 lg:py-28 border-y border-[var(--ink-line)] bg-[var(--bone)]">
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
