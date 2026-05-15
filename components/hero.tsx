@@ -20,6 +20,8 @@ export default function Hero({
         backgroundImage={data.backgroundImage}
         backgroundAlt={data.backgroundAlt}
         cloudsImage={data.cloudsImage ?? data.backgroundImage}
+        videoWebm={data.videoWebm}
+        videoMp4={data.videoMp4}
       />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">

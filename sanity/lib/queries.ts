@@ -39,6 +39,8 @@ sections[]{
     "backgroundImage": backgroundImage.asset->url,
     backgroundAlt,
     "cloudsImage": cloudsImage.asset->url,
+    videoWebm,
+    videoMp4,
     scrollLabel
   },
   _type == "statsSection" => {

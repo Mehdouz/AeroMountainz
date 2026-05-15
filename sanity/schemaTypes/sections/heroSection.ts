@@ -55,6 +55,19 @@ export const heroSection = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'videoWebm',
+      type: 'string',
+      title: 'Vidéo de fond — URL WebM (VP9)',
+      description:
+        'Optionnel. Chemin relatif (ex. /videos/aero.webm) ou URL absolue. Chargée après l\'image en arrière-plan.',
+    }),
+    defineField({
+      name: 'videoMp4',
+      type: 'string',
+      title: 'Vidéo de fond — URL MP4 (H.264, fallback)',
+      description: 'Optionnel. Fallback pour les navigateurs sans support WebM.',
+    }),
+    defineField({
       name: 'scrollLabel',
       type: 'string',
       title: 'Libellé du scroll',

@@ -35,7 +35,8 @@
       "mcp__chrome-devtools__resize_page",
       "mcp__chrome-devtools__list_pages",
       "mcp__chrome-devtools__take_snapshot",
-      "mcp__chrome-devtools__hover"
+      "mcp__chrome-devtools__hover",
+      "Bash(curl -sI http://localhost:3000/favicon.ico)"
     ],
     "deny": [
       "Read(./.env)",
