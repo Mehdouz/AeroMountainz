@@ -664,17 +664,14 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
         </div>
 
         {/* Map */}
-        <div
-          className="relative overflow-hidden lg:border-l border-t lg:border-t-0 border-[var(--bone)]/10"
-          style={{ minHeight: 340 }}
-        >
+        <div className="py-20 lg:py-24 lg:border-l border-t lg:border-t-0 border-[var(--bone)]/10 flex items-center justify-center">
           <iframe
             src={data.mapEmbedUrl}
             title="Carte du lieu de rendez-vous"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
-            className="absolute inset-0 w-full h-full border-0"
+            className="w-full h-[380px] border-0"
           />
         </div>
       </div>
