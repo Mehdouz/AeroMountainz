@@ -44,14 +44,16 @@ export default function Navbar({
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,background-image,backdrop-filter] duration-700 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--champagne-line)] after:transition-opacity after:duration-700 ${
         scrolled
-          ? lightSurface
-            ? 'bg-[var(--bone)]/85 backdrop-blur-md border-b border-[var(--champagne-line)]'
-            : 'bg-black/50 backdrop-blur-md border-b border-[var(--champagne-line)]'
-          : lightSurface
-            ? 'bg-transparent'
-            : 'bg-gradient-to-b from-black/45 via-black/15 to-transparent'
+          ? `backdrop-blur-md after:opacity-100 ${
+              lightSurface ? 'bg-[var(--bone)]/85' : 'bg-black/50'
+            }`
+          : `after:opacity-0 ${
+              lightSurface
+                ? 'bg-transparent'
+                : 'bg-gradient-to-b from-black/45 via-black/15 to-transparent'
+            }`
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
