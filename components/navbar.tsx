@@ -73,8 +73,10 @@ export default function Navbar({
             <Link
               key={`${link.href}-${i}`}
               href={localizeHref(link.href, locale)}
-              className={`text-sm tracking-widest uppercase hover:text-[var(--gold)] transition-colors duration-500 font-sans ${
-                lightSurface ? 'text-[var(--text-secondary)]' : 'text-white/90'
+              className={`relative text-sm tracking-widest uppercase font-sans transition-colors duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-px after:bg-[var(--gold)] after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                lightSurface
+                  ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                  : 'text-white/90 hover:text-white'
               }`}
             >
               {link.label}
@@ -86,8 +88,10 @@ export default function Navbar({
           <LangSwitcher currentLocale={locale} tone={lightSurface ? 'dark' : 'light'} />
           <a
             href={phoneHref}
-            className={`flex items-center gap-2 text-sm hover:text-[var(--gold)] transition-colors duration-500 ${
-              lightSurface ? 'text-[var(--text-secondary)]' : 'text-white/90'
+            className={`flex items-center gap-2 text-sm transition-colors duration-500 ${
+              lightSurface
+                ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                : 'text-white/90 hover:text-white'
             }`}
           >
             <Phone size={14} />

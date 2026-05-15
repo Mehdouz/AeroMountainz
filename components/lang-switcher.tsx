@@ -20,11 +20,11 @@ export default function LangSwitcher({
   }
 
   const borderClass =
-    tone === 'light' ? 'border-white/30' : 'border-[var(--border-subtle)]'
+    tone === 'light' ? 'border-white/50' : 'border-[var(--border-subtle)]'
   const inactiveClass =
     tone === 'light'
-      ? 'text-white/80 hover:text-[var(--gold)]'
-      : 'text-[var(--text-muted)] hover:text-[var(--gold)]'
+      ? 'text-white hover:bg-white/10'
+      : 'text-[var(--text-secondary)] hover:bg-[var(--ink)]/5 hover:text-[var(--text-primary)]'
 
   return (
     <div
