@@ -13,7 +13,22 @@
       "mcp__context7__query-docs",
       "Bash(pnpm remove *)",
       "Bash(pnpm dev *)",
-      "Bash(find *)"
+      "Bash(find *)",
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(npm run *)",
+      "Bash(npm install)",
+      "Bash(npm ci)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(pnpm *)",
+      "Bash(yarn *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(~/.ssh/**)"
     ]
   }
 }
