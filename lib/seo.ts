@@ -20,7 +20,7 @@ export function buildPageMetadata({
   locale: Locale
   path: string
 }): Metadata {
-  if (!page) return { metadataBase: new URL(site.url) }
+  if (!page) return {}
 
   const title = page.seo?.title || page.title
   const description = page.seo?.description ?? undefined
@@ -33,7 +33,6 @@ export function buildPageMetadata({
     (heroLike && 'backgroundImage' in heroLike ? heroLike.backgroundImage : undefined)
 
   return {
-    metadataBase: new URL(site.url),
     title,
     description,
     alternates: { canonical: path },
