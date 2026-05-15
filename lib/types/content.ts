@@ -161,6 +161,51 @@ export type PilotSection = {
   pilot: Pilot
 }
 
+export type PilotHeroStat = { value: string; label: string }
+
+export type PilotHeroSection = {
+  _type: 'pilotHeroSection'
+  _key: string
+  eyebrow?: string
+  titleStart: string
+  titleEmphasized: string
+  subtitle?: string
+  portraitImage: string
+  portraitAlt: string
+  badgeNumber?: string
+  badgeLabel?: string
+  stats?: PilotHeroStat[]
+  primaryCta?: CtaButton
+  secondaryCta?: CtaButton
+  scrollLabel?: string
+  scrollHref?: string
+}
+
+export type PilotStoryItem = {
+  date: string
+  dateTime?: string
+  title: string
+  titleEmphasized?: string
+  body: PortableTextBlock[]
+  tags?: string[]
+}
+
+export type PilotStorySection = {
+  _type: 'pilotStorySection'
+  _key: string
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  lede?: string
+  items: PilotStoryItem[]
+  footerCta?: string
+  footerLinkLabel?: string
+  footerLinkHref?: string
+  signature?: string
+  signatureRole?: string
+}
+
 export type GallerySection = {
   _type: 'gallerySection'
   _key: string
@@ -275,6 +320,8 @@ export type Section =
   | CloudBreakQuoteSection
   | JourneySection
   | PilotSection
+  | PilotHeroSection
+  | PilotStorySection
   | GallerySection
   | ReviewsSection
   | FaqSection
@@ -288,7 +335,6 @@ export type Section =
   | BonCadeauHowtoSection
   | BonCadeauFactsSection
   | BonCadeauTestimonialsSection
-  | BonCadeauFaqSection
   | BonCadeauFinalCtaSection
 
 // ============================================================
@@ -483,21 +529,6 @@ export type BonCadeauTestimonialsSection = {
   googleRatingStars?: string
   googleRatingLabel?: string
   items: BonCadeauTestimonialItem[]
-}
-
-export type BonCadeauFaqItem = {
-  question: string
-  answer: PortableTextBlock[]
-}
-
-export type BonCadeauFaqSection = {
-  _type: 'bonCadeauFaqSection'
-  _key: string
-  eyebrow?: string
-  headingStart: string
-  headingEmphasized: string
-  headingEnd?: string
-  items: BonCadeauFaqItem[]
 }
 
 export type BonCadeauFinalCtaSection = {

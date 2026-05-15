@@ -7,6 +7,8 @@ const SECTION_TYPES = [
   'cloudBreakQuoteSection',
   'journeySection',
   'pilotSection',
+  'pilotHeroSection',
+  'pilotStorySection',
   'gallerySection',
   'reviewsSection',
   'faqSection',
@@ -20,7 +22,6 @@ const SECTION_TYPES = [
   'bonCadeauHowtoSection',
   'bonCadeauFactsSection',
   'bonCadeauTestimonialsSection',
-  'bonCadeauFaqSection',
   'bonCadeauFinalCtaSection',
 ] as const
 

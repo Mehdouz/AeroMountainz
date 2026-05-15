@@ -66,6 +66,34 @@ sections[]{
       ctaLabel
     }
   },
+  _type == "pilotHeroSection" => {
+    eyebrow,
+    titleStart,
+    titleEmphasized,
+    subtitle,
+    "portraitImage": portraitImage.asset->url,
+    portraitAlt,
+    badgeNumber,
+    badgeLabel,
+    "stats": stats[]{ value, label },
+    primaryCta,
+    secondaryCta,
+    scrollLabel,
+    scrollHref
+  },
+  _type == "pilotStorySection" => {
+    eyebrow,
+    headingStart,
+    headingEmphasized,
+    headingEnd,
+    lede,
+    "items": items[]{ date, dateTime, title, titleEmphasized, body, tags },
+    footerCta,
+    footerLinkLabel,
+    footerLinkHref,
+    signature,
+    signatureRole
+  },
   _type == "gallerySection" => {
     eyebrow,
     heading,
@@ -201,13 +229,6 @@ sections[]{
     googleRatingStars,
     googleRatingLabel,
     "items": items[]{ quote, name, occasion, stars }
-  },
-  _type == "bonCadeauFaqSection" => {
-    eyebrow,
-    headingStart,
-    headingEmphasized,
-    headingEnd,
-    "items": items[]{ question, answer }
   },
   _type == "bonCadeauFinalCtaSection" => {
     eyebrow,

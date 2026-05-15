@@ -98,6 +98,28 @@ function paragraphsToPortableText(paragraphs: string[]) {
   })
 }
 
+// Comme paragraphsToPortableText mais gère **bold** ET *italic*.
+function richParagraphsToPortableText(paragraphs: string[], prefix: string) {
+  return paragraphs.map((p, i) => {
+    const parts = p.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).filter(Boolean)
+    return {
+      _type: 'block' as const,
+      _key: `${prefix}-${i}`,
+      style: 'normal',
+      markDefs: [],
+      children: parts.map((part, j) => {
+        const isStrong = part.startsWith('**') && part.endsWith('**')
+        const isEm = !isStrong && part.startsWith('*') && part.endsWith('*')
+        const text = isStrong ? part.slice(2, -2) : isEm ? part.slice(1, -1) : part
+        const marks: string[] = []
+        if (isStrong) marks.push('strong')
+        if (isEm) marks.push('em')
+        return { _type: 'span' as const, _key: `${prefix}-${i}-${j}`, text, marks }
+      }),
+    }
+  })
+}
+
 const lipsumBlock = (text: string, key: string) => ({
   _type: 'block' as const,
   _key: key,
@@ -114,6 +136,62 @@ const headingBlock = (text: string, key: string, style: 'h2' | 'h3' = 'h2') => (
   children: [{ _type: 'span', _key: `${key}-s`, text, marks: [] }],
 })
 
+async function clearDrafts(draftIds: string[]) {
+  if (draftIds.length === 0) return
+  let tx = client.transaction()
+  for (const id of draftIds) tx = tx.delete(`drafts.${id}`)
+  await tx.commit({ visibility: 'async' })
+}
+
+// ============================================================
+// Données spécifiques au seed
+// ============================================================
+
+// FAQ Bon Cadeau — réponses en texte simple (le formatage RichText d'origine
+// ne portait aucun marquage réel, donc rien à perdre côté contenu).
+const bonCadeauFaqs: { question: string; answer: string }[] = [
+  {
+    question: 'Et si la personne ne peut pas voler à la date prévue ?',
+    answer:
+      "Pas de souci : il suffit de prévenir Yannick à l'avance. Le créneau est reporté gratuitement à une autre date, dans la limite de validité du bon cadeau (12 mois).",
+  },
+  {
+    question: 'Et si la personne a peur le jour J ?',
+    answer:
+      'Le bon cadeau peut être transféré à un proche sur simple demande, sans surcoût. Aucune perte sèche.',
+  },
+  {
+    question: 'Que se passe-t-il en cas de mauvaise météo le jour J ?',
+    answer:
+      "Chaque vol est confirmé par téléphone le matin selon les conditions aérologiques. En cas d'annulation, le vol est reporté gratuitement à une autre date. La sécurité prime sur tout.",
+  },
+  {
+    question: 'Y a-t-il des contre-indications médicales ?',
+    answer:
+      "Le vol est déconseillé aux femmes enceintes, aux personnes ayant subi une opération récente, et aux personnes souffrant de problèmes cardiaques sévères. En cas de doute, n'hésitez pas à nous contacter avant d'offrir.",
+  },
+  {
+    question: 'Peut-on prolonger la validité au-delà de 12 mois ?',
+    answer:
+      'Une prolongation peut être accordée sur demande motivée (problème de santé, indisponibilité prolongée). Contactez-nous, nous trouverons une solution.',
+  },
+  {
+    question: 'Comment le bénéficiaire réserve-t-il son créneau ?',
+    answer:
+      "Toutes les informations utiles (coordonnées de Yannick, numéro unique du bon) figurent directement sur le bon cadeau. Il nous contacte par téléphone ou par mail, en direct, pour convenir d'une date. Les vols ont lieu principalement d'avril à octobre, à l'aube.",
+  },
+  {
+    question: "Combien de temps à l'avance faut-il réserver ?",
+    answer:
+      'Idéalement 2 à 4 semaines avant la date souhaitée, particulièrement en haute saison (mai à septembre).',
+  },
+  {
+    question: 'Le bon cadeau est-il remboursable ?',
+    answer:
+      "Le bon cadeau n'est pas remboursable. Sa validité de 12 mois et la flexibilité de réservation (avec report météo gratuit) sont conçues pour garantir que la personne en profite pleinement.",
+  },
+]
+
 // ============================================================
 // IDs déterministes
 // ============================================================
@@ -125,6 +203,7 @@ const ids = {
   pilot: `pilot-${LANG}`,
   formula: (i: number) => `formula-${i}-${LANG}`,
   faq: (i: number) => `faq-${i}-${LANG}`,
+  bonCadeauFaq: (i: number) => `bc-faq-${i}-${LANG}`,
   review: (i: number) => `review-${i}-${LANG}`,
   journeyStep: (i: number) => `journeyStep-${i}-${LANG}`,
   stat: (i: number) => `stat-${i}-${LANG}`,
@@ -209,6 +288,17 @@ async function seedReusables() {
   for (const [i, f] of faqs.entries()) {
     await client.createOrReplace({
       _id: ids.faq(i),
+      _type: 'faq',
+      language: LANG,
+      ...f,
+      orderRank: i,
+    })
+  }
+
+  console.log(`• bon cadeau faqs (${bonCadeauFaqs.length})`)
+  for (const [i, f] of bonCadeauFaqs.entries()) {
+    await client.createOrReplace({
+      _id: ids.bonCadeauFaq(i),
       _type: 'faq',
       language: LANG,
       ...f,
@@ -381,6 +471,7 @@ async function seedPages() {
   // ---- Pages stub (à enrichir dans le Studio) ----
   const heroBg = imageCache.get(site.hero.backgroundImage)!
   const ctaBg = imageCache.get(site.cta.backgroundImage)!
+  const pilotImg = imageCache.get(pilot.imageSrc)!
 
   // Page : vols (formules)
   console.log('• page : vols')
@@ -442,6 +533,12 @@ async function seedPages() {
 
   // Page : bon-cadeau
   console.log('• page : bon-cadeau')
+  const bcHeroBg = await uploadImage('/images/hero-balloon.jpg')
+  const bcGal1 = await uploadImage('/images/gallery-1.jpg')
+  const bcGal2 = await uploadImage('/images/gallery-2.jpg')
+  const bcGal3 = await uploadImage('/images/gallery-3.jpg')
+  const bcGal4 = await uploadImage('/images/gallery-4.jpg')
+  const bcCtaBg = await uploadImage('/images/cta-bg.jpg')
   await client.createOrReplace({
     _id: ids.page('bon-cadeau'),
     _type: 'page',
@@ -450,59 +547,283 @@ async function seedPages() {
     slug: { _type: 'slug', current: 'bon-cadeau' },
     sections: [
       {
-        _type: 'heroSection',
-        _key: 'hero',
-        eyebrow: 'Idée cadeau',
-        titleStart: 'Offrez un',
-        titleEmphasized: 'vol en montgolfière',
-        titleEnd: '',
-        subtitle: 'Un souvenir inoubliable, sans date d\'expiration.',
-        primaryCta: { _type: 'ctaButton', label: 'Acheter un bon', href: '#offrir' },
-        secondaryCta: { _type: 'ctaButton', label: 'Nous contacter', href: '/contact' },
-        backgroundImage: imageRef(heroBg),
-        backgroundAlt: site.hero.backgroundAlt,
-        scrollLabel: 'En savoir plus',
-      },
-      {
-        _type: 'richTextSection',
-        _key: 'content',
-        heading: 'Comment ça marche',
-        body: [
-          headingBlock('Étape 1 : choisir une formule', 'h1'),
-          lipsumBlock(
-            "Sélectionnez la formule qui vous fait envie : baptême découverte, vol privatif duo ou vol famille.",
-            'p1',
-          ),
-          headingBlock('Étape 2 : recevoir le bon', 'h2'),
-          lipsumBlock(
-            'Vous recevez par email un bon cadeau personnalisable que vous pouvez imprimer ou transférer au bénéficiaire.',
-            'p2',
-          ),
-          headingBlock('Étape 3 : réservation à la convenance du bénéficiaire', 'h3'),
-          lipsumBlock(
-            'Le bénéficiaire choisit librement la date du vol selon les disponibilités.',
-            'p3',
-          ),
+        _type: 'bonCadeauHeroSection',
+        _key: 'bc-hero',
+        backgroundImage: imageRef(bcHeroBg),
+        backgroundAlt: 'Vol en montgolfière au-dessus du lac d\'Annecy',
+        titleStart: 'Offrir un vol en',
+        titleEmphasized: 'montgolfière',
+        titleEnd: 'à Annecy',
+        subtitle: 'Offrez le ciel au-dessus du lac d\'Annecy. Le souvenir d\'une vie, prêt à être emballé.',
+        priceLabel: 'À partir de',
+        priceAmount: 200,
+        priceCurrency: '€',
+        priceSubtext: 'Une personne · Vol au lever du soleil',
+        primaryCta: { _type: 'ctaButton', label: 'Offrir ce cadeau', href: '#offrir' },
+        secondaryCta: { _type: 'ctaButton', label: 'Comment ça marche', href: '#comment-ca-marche' },
+        reassuranceItems: [
+          { _key: 'r1', _type: 'bonCadeauReassuranceItem', label: 'Envoi immédiat par mail' },
+          { _key: 'r2', _type: 'bonCadeauReassuranceItem', label: 'Valable 12 mois' },
+          { _key: 'r3', _type: 'bonCadeauReassuranceItem', label: '4,9 ★ sur Google' },
+          { _key: 'r4', _type: 'bonCadeauReassuranceItem', label: 'Pilote breveté DGAC' },
         ],
       },
       {
-        _type: 'ctaSection',
-        _key: 'cta',
-        eyebrow: 'Offrir',
-        titleStart: 'Offrir un',
-        titleEmphasized: 'vol en montgolfière',
-        description: 'Contactez-nous pour commander votre bon cadeau personnalisé.',
-        backgroundImage: imageRef(ctaBg),
-        primaryCtaLabel: 'Appeler',
-        secondaryCtaLabel: 'Envoyer un message',
-        locationLabel: site.cta.locationLabel,
+        _type: 'bonCadeauOccasionsSection',
+        _key: 'bc-occasions',
+        eyebrow: 'Pour qui ?',
+        headingStart: 'Le cadeau des',
+        headingEmphasized: 'grandes occasions',
+        items: [
+          { _key: 'o1', _type: 'bonCadeauOccasionItem', iconKey: 'medal', label: 'Demande\nen mariage' },
+          { _key: 'o2', _type: 'bonCadeauOccasionItem', iconKey: 'cake', label: 'Anniversaire' },
+          { _key: 'o3', _type: 'bonCadeauOccasionItem', iconKey: 'cup', label: 'Anniversaire\nde mariage' },
+          { _key: 'o4', _type: 'bonCadeauOccasionItem', iconKey: 'heart', label: 'Saint-\nValentin' },
+          { _key: 'o5', _type: 'bonCadeauOccasionItem', iconKey: 'tree', label: 'Noël' },
+          { _key: 'o6', _type: 'bonCadeauOccasionItem', iconKey: 'users', label: 'Fête mères\net pères' },
+          { _key: 'o7', _type: 'bonCadeauOccasionItem', iconKey: 'clock', label: 'Départ\nretraite' },
+          { _key: 'o8', _type: 'bonCadeauOccasionItem', iconKey: 'star', label: 'Cadeau\nspontané' },
+        ],
+      },
+      {
+        _type: 'bonCadeauExperienceSection',
+        _key: 'bc-experience',
+        eyebrow: "L'expérience offerte",
+        headingStart: 'Le vol qu\'ils vont',
+        headingEmphasized: 'vivre',
+        subtitle: 'Une heure suspendue au-dessus du lac et des Alpes.',
+        body: richParagraphsToPortableText(
+          [
+            "Avant l'aube, rendez-vous à Doussard. Le ballon se gonfle dans le silence du matin — un spectacle en soi.",
+            "Puis le décollage, en douceur. Pendant une heure, le lac d'Annecy s'étire en miroir entre la Tournette, les Aravis et les Bauges. La lumière change à chaque minute.",
+            "L'atterrissage se fait en pleine nature. Tradition aéronautique : un toast au champagne avant de repartir.",
+          ],
+          'bc-exp-body',
+        ),
+        linkLabel: 'Découvrir le déroulé complet d\'un vol',
+        linkHref: '/vols',
+        gallery: [
+          { _key: 'g1', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal1), alt: 'Lever du soleil sur le lac d\'Annecy', caption: 'Lever du soleil' },
+          { _key: 'g2', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal2), alt: 'Vue depuis la nacelle de la montgolfière', caption: 'Vue depuis la nacelle' },
+          { _key: 'g3', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal3), alt: 'Survol du lac d\'Annecy en montgolfière', caption: 'Au-dessus du lac' },
+          { _key: 'g4', _type: 'bonCadeauGalleryItem', image: imageRef(bcGal4), alt: 'Toast au champagne après l\'atterrissage', caption: 'Toast champagne' },
+        ],
+      },
+      {
+        _type: 'bonCadeauContentsSection',
+        _key: 'bc-contents',
+        eyebrow: 'Le bon cadeau',
+        headingStart: 'Ce que vous',
+        headingEmphasized: 'recevez',
+        mockupEyebrow: 'Bon cadeau · Aero Montagnes',
+        mockupTitleStart: 'Vol en',
+        mockupTitleEmphasized: 'montgolfière',
+        mockupTitleEnd: 'à Annecy',
+        mockupRecipient: 'Pour Camille,\navec tout mon amour.',
+        mockupNumberLabel: 'N° 24-A1839',
+        mockupValidityLabel: 'Valable 12 mois',
+        bullets: [
+          {
+            _key: 'b1',
+            _type: 'bonCadeauContentBullet',
+            body: richParagraphsToPortableText(
+              ['**Personnalisé au nom du bénéficiaire** — son prénom apparaît directement sur le bon'],
+              'bc-bul-1',
+            ),
+          },
+          {
+            _key: 'b2',
+            _type: 'bonCadeauContentBullet',
+            body: richParagraphsToPortableText(
+              ['Un **message personnel** de votre part, optionnel'],
+              'bc-bul-2',
+            ),
+          },
+          {
+            _key: 'b3',
+            _type: 'bonCadeauContentBullet',
+            body: richParagraphsToPortableText(
+              ['Une **présentation soignée**, prête à être offerte'],
+              'bc-bul-3',
+            ),
+          },
+          {
+            _key: 'b4',
+            _type: 'bonCadeauContentBullet',
+            body: richParagraphsToPortableText(
+              ['**Coordonnées de Yannick et numéro unique** figurent sur le bon — tout ce qu\'il faut pour réserver'],
+              'bc-bul-4',
+            ),
+          },
+          {
+            _key: 'b5',
+            _type: 'bonCadeauContentBullet',
+            body: richParagraphsToPortableText(
+              ['Au choix : *format numérique* (envoi immédiat par mail) ou *format imprimé* (expédié sous 24 h ouvrées)'],
+              'bc-bul-5',
+            ),
+          },
+        ],
+      },
+      {
+        _type: 'bonCadeauHowtoSection',
+        _key: 'bc-howto',
+        eyebrow: 'En 3 étapes',
+        headingStart: 'Comment',
+        headingEmphasized: 'ça marche',
+        subtitle: 'Trois étapes, quelques minutes.',
+        steps: [
+          {
+            _key: 's1',
+            _type: 'bonCadeauStep',
+            number: '01',
+            title: 'Vous personnalisez',
+            description: richParagraphsToPortableText(
+              ['Vous choisissez le format (mail ou imprimé), ajoutez le prénom du bénéficiaire et un message personnel.'],
+              'bc-step-1',
+            ),
+          },
+          {
+            _key: 's2',
+            _type: 'bonCadeauStep',
+            number: '02',
+            title: 'Vous le recevez',
+            description: richParagraphsToPortableText(
+              ['Immédiatement par mail dans votre boîte. Ou sous quelques jours par courrier, selon votre choix.'],
+              'bc-step-2',
+            ),
+          },
+          {
+            _key: 's3',
+            _type: 'bonCadeauStep',
+            number: '03',
+            title: 'Le bénéficiaire réserve',
+            description: richParagraphsToPortableText(
+              ['Un appel ou message à Yannick suffit pour fixer la date. **Aucun intermédiaire.** 12 mois pour choisir le bon moment.'],
+              'bc-step-3',
+            ),
+          },
+        ],
+      },
+      {
+        _type: 'bonCadeauFactsSection',
+        _key: 'bc-facts',
+        eyebrow: 'Infos pratiques',
+        headingStart: 'Bon à savoir',
+        headingEmphasized: 'avant d\'offrir',
+        items: [
+          {
+            _key: 'f1',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'clock',
+            title: '12 mois de validité',
+            description: 'Tout le temps de trouver le créneau parfait, dès la date d\'achat.',
+          },
+          {
+            _key: 'f2',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'calendar',
+            title: 'Réservation en direct',
+            description: 'Avec Yannick, votre pilote. Aucun intermédiaire, aucun call-center.',
+          },
+          {
+            _key: 'f3',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'users',
+            title: 'À partir de 14 ans',
+            description: 'Ou 1m35 minimum (norme constructeur du panier).',
+          },
+          {
+            _key: 'f4',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'pin',
+            title: 'Décollage à Doussard',
+            description: 'À 25 minutes d\'Annecy, au sud du lac.',
+          },
+          {
+            _key: 'f5',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'star',
+            title: 'Durée variable',
+            description: 'Environ 1 h en l\'air. Chaque vol est unique selon les conditions aérologiques.',
+          },
+          {
+            _key: 'f6',
+            _type: 'bonCadeauFactItem',
+            iconKey: 'cloud',
+            title: 'Report météo gratuit',
+            description: 'En cas de météo défavorable le jour J, le vol est reporté sans frais.',
+          },
+        ],
+      },
+      {
+        _type: 'bonCadeauTestimonialsSection',
+        _key: 'bc-testimonials',
+        eyebrow: 'Ils l\'ont offert',
+        headingStart: 'Le cadeau qu\'ils',
+        headingEmphasized: 'recommandent',
+        googleRatingStars: '4,9',
+        googleRatingLabel: '+50 avis Google',
+        items: [
+          {
+            _key: 't1',
+            _type: 'bonCadeauTestimonialItem',
+            stars: 5,
+            name: 'Sophie',
+            occasion: 'anniversaire 40 ans',
+            quote:
+              "Offert pour les 40 ans de mon mari. Le matin du vol, je l'ai vu tellement nerveux puis tellement émerveillé. Il en parle encore six mois après. Le meilleur cadeau que je lui aie fait.",
+          },
+          {
+            _key: 't2',
+            _type: 'bonCadeauTestimonialItem',
+            stars: 5,
+            name: 'Thomas',
+            occasion: 'anniv. de mariage',
+            quote:
+              "On l'a offert à mes parents pour leurs 50 ans de mariage. Ils n'avaient jamais volé. Ma mère a pleuré au décollage. Une expérience qui restera.",
+          },
+          {
+            _key: 't3',
+            _type: 'bonCadeauTestimonialItem',
+            stars: 5,
+            name: 'Julien',
+            occasion: 'demande en mariage',
+            quote:
+              "Cadeau de demande en mariage. Yannick avait préparé en secret. Au-dessus du lac, j'ai sorti la bague. Elle a dit oui dans les nuages.",
+          },
+        ],
+      },
+      {
+        _type: 'faqSection',
+        _key: 'bc-faq',
+        eyebrow: 'Questions fréquentes',
+        heading: "Tout ce qu'il faut **savoir**",
+        faqs: bonCadeauFaqs.map((_, i) => ref(ids.bonCadeauFaq(i), `bc-faq-ref-${i}`)),
+      },
+      {
+        _type: 'bonCadeauFinalCtaSection',
+        _key: 'bc-final',
+        eyebrow: 'Prêt à offrir',
+        headingLine1: 'Offrez plus',
+        headingLine2: 'qu\'un cadeau.',
+        subtext: 'Offrez un souvenir qu\'il ou elle racontera longtemps.',
+        primaryCta: { _type: 'ctaButton', label: 'Offrir maintenant — 200 €', href: '#offrir' },
+        secondaryCta: { _type: 'ctaButton', label: 'Une question ? Contactez-nous', href: '/contact' },
+        reassuranceItems: [
+          { _key: 'fr1', _type: 'bonCadeauReassuranceItem', label: 'Envoi immédiat par mail' },
+          { _key: 'fr2', _type: 'bonCadeauReassuranceItem', label: 'Valable 12 mois' },
+          { _key: 'fr3', _type: 'bonCadeauReassuranceItem', label: 'Report météo gratuit' },
+        ],
+        backgroundImage: imageRef(bcCtaBg),
+        backgroundAlt: 'Vol en montgolfière au lever du soleil',
       },
     ],
     seo: {
       _type: 'seo',
-      title: 'Bon cadeau vol en montgolfière à Annecy',
+      title: 'Offrir un vol en montgolfière à Annecy — Bon cadeau 200 € | Aero Montagnes',
       description:
-        "Offrez un vol en montgolfière inoubliable au-dessus du lac d'Annecy. Bon cadeau valable sans date limite.",
+        "Offrez un vol en montgolfière au-dessus du lac d'Annecy. Bon cadeau 200 €, valable 12 mois, envoi immédiat par mail. Le souvenir d'une vie.",
     },
   })
 
@@ -516,24 +837,116 @@ async function seedPages() {
     slug: { _type: 'slug', current: 'pilote' },
     sections: [
       {
-        _type: 'heroSection',
-        _key: 'hero',
+        _type: 'pilotHeroSection',
+        _key: 'pilotHero',
         eyebrow: 'Votre pilote',
         titleStart: pilot.name + ',',
-        titleEmphasized: 'pilote breveté DGAC',
-        titleEnd: '',
-        subtitle: 'Plus de 10 ans d\'expérience au-dessus du lac d\'Annecy.',
+        titleEmphasized: 'pilote de montgolfière breveté DGAC',
+        subtitle:
+          'Plus de 10 ans d\'expérience au-dessus du lac d\'Annecy.\nChampion de France équipier.',
+        portraitImage: imageRef(pilotImg),
+        portraitAlt: pilot.imageAlt,
+        badgeNumber: '10 ans',
+        badgeLabel: 'au-dessus du lac',
+        stats: [
+          { _key: 's1', _type: 'pilotHeroStat', value: '400 h', label: 'de vol' },
+          { _key: 's2', _type: 'pilotHeroStat', value: 'DGAC', label: 'Brevet professionnel' },
+          { _key: 's3', _type: 'pilotHeroStat', value: 'Champion', label: 'de France équipier' },
+        ],
         primaryCta: { _type: 'ctaButton', label: 'Réserver un vol', href: '/vols' },
-        secondaryCta: { _type: 'ctaButton', label: 'Le contacter', href: '/contact' },
-        backgroundImage: imageRef(heroBg),
-        backgroundAlt: site.hero.backgroundAlt,
-        scrollLabel: 'Découvrir',
+        secondaryCta: { _type: 'ctaButton', label: 'Contacter Yannick', href: '/contact' },
+        scrollLabel: 'Son histoire',
+        scrollHref: '#mon-histoire',
       },
       {
-        _type: 'pilotSection',
-        _key: 'pilot',
-        eyebrow: 'Présentation',
-        pilot: { _type: 'reference', _ref: ids.pilot },
+        _type: 'pilotStorySection',
+        _key: 'pilotStory',
+        eyebrow: 'Mon parcours',
+        headingStart: 'Pilote de montgolfière à Annecy, en cinq',
+        headingEmphasized: 'moments',
+        headingEnd: '.',
+        lede:
+          'De mon premier vol à mon titre de Champion de France, le parcours qui m\'a amené à faire voler des passagers exclusivement au-dessus du lac d\'Annecy.',
+        items: [
+          {
+            _key: 'step-1',
+            _type: 'pilotStoryItem',
+            date: '[année]',
+            dateTime: '2014',
+            title: 'Mon premier vol en montgolfière',
+            body: richParagraphsToPortableText(
+              [
+                "À **[âge] ans**, [contexte — cadeau, rencontre, baptême de l'air]. Ce matin-là, au-dessus de [lieu], je comprends qu'on ne pilote pas une montgolfière — on la lit. *Le déclic d'une vocation.*",
+              ],
+              'pilot-story-1',
+            ),
+            tags: ['Premier vol', 'Vocation'],
+          },
+          {
+            _key: 'step-2',
+            _type: 'pilotStoryItem',
+            date: '[année]',
+            dateTime: '2016',
+            title: 'L\'obtention du brevet de pilote DGAC',
+            body: richParagraphsToPortableText(
+              [
+                "[X mois] de formation à [école]. Je décroche le **brevet professionnel de pilote de montgolfière délivré par la DGAC**. Les premières années, je vole partout en France : j'accumule les heures comme on collectionne des paysages.",
+              ],
+              'pilot-story-2',
+            ),
+            tags: ['Brevet DGAC', 'Formation', 'Aérostation'],
+          },
+          {
+            _key: 'step-3',
+            _type: 'pilotStoryItem',
+            date: '[année]',
+            dateTime: '2018',
+            title: 'Le lac d\'Annecy —',
+            titleEmphasized: 'tout change',
+            body: richParagraphsToPortableText(
+              [
+                "Je découvre le **lac d'Annecy comme terrain de vol** [contexte]. Le lac respire avec les montagnes : il aspire l'air frais des **Bauges** la nuit, le souffle en thermiques douces au lever du soleil. La **Tournette** joue avec les vents d'est, le col de la **Forclaz** canalise ceux du sud. Je décide de m'installer en Haute-Savoie et d'y voler exclusivement.",
+              ],
+              'pilot-story-3',
+            ),
+            tags: ['Lac d\'Annecy', 'Massif des Bauges', 'Tournette', 'Haute-Savoie'],
+          },
+          {
+            _key: 'step-4',
+            _type: 'pilotStoryItem',
+            date: '[année]',
+            dateTime: '2021',
+            title: 'Champion de France équipier de montgolfière',
+            body: richParagraphsToPortableText(
+              [
+                "Aux côtés de [pilote chef], lors du championnat de France de montgolfière à [lieu]. Le titre m'apprend l'essentiel : la précision en aérostation n'est pas une question de force, c'est de l'écoute. **Anticiper, pas réagir.**",
+              ],
+              'pilot-story-4',
+            ),
+            tags: ['Champion de France', 'Compétition', 'Précision'],
+          },
+          {
+            _key: 'step-5',
+            _type: 'pilotStoryItem',
+            date: 'Aujourd\'hui',
+            dateTime: '2026',
+            title: '400 h de vol, et toujours',
+            titleEmphasized: 'la même envie',
+            body: richParagraphsToPortableText(
+              [
+                "Je fais voler [X] à [Y] passagers par an au-dessus du lac d'Annecy, au départ du **site de décollage de Doussard**. Chaque vol reste une première fois — la lumière, le vent et les nuages ne se répètent jamais.",
+              ],
+              'pilot-story-5',
+            ),
+            tags: ['+400 h de vol', 'Décollage Doussard', 'Vol partagé / privé'],
+          },
+        ],
+        footerCta:
+          'Prêt à découvrir le lac d\'Annecy depuis le ciel,\navec un pilote breveté ?',
+        footerLinkLabel: 'Découvrir les vols proposés',
+        footerLinkHref: '/vols',
+        signature: '— Yannick',
+        signatureRole: 'Pilote breveté DGAC · Aero Montagnes',
       },
       {
         _type: 'reviewsSection',
@@ -843,6 +1256,16 @@ async function seed() {
   await seedReusables()
   await seedPages()
   await seedBlog()
+  console.log('• cleanup drafts (pages)')
+  await clearDrafts([
+    ids.page('home'),
+    ids.page('vols'),
+    ids.page('bon-cadeau'),
+    ids.page('pilote'),
+    ids.page('contact'),
+    ids.page('mentions-legales'),
+    ids.page('politique-confidentialite'),
+  ])
   console.log('\n✓ Seed terminé.')
   console.log(
     "⚠  N'oublie pas de RÉVOQUER ton SANITY_API_WRITE_TOKEN sur sanity.io/manage.",

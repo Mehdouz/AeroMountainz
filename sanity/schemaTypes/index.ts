@@ -7,6 +7,8 @@ import { ctaButton } from './objects/ctaButton'
 import { location } from './objects/location'
 import { navLink } from './objects/navLink'
 import { pilotBadge } from './objects/pilotBadge'
+import { pilotHeroStat } from './objects/pilotHeroStat'
+import { pilotStoryItem } from './objects/pilotStoryItem'
 import { seo } from './objects/seo'
 
 // Bon Cadeau — sub-items (utilisés à l'intérieur des sections bon-cadeau)
@@ -17,7 +19,6 @@ import { bonCadeauContentBullet } from './objects/bonCadeauContentBullet'
 import { bonCadeauStep } from './objects/bonCadeauStep'
 import { bonCadeauFactItem } from './objects/bonCadeauFactItem'
 import { bonCadeauTestimonialItem } from './objects/bonCadeauTestimonialItem'
-import { bonCadeauFaqItem } from './objects/bonCadeauFaqItem'
 
 // Sections
 import { heroSection } from './sections/heroSection'
@@ -26,6 +27,8 @@ import { formulasSection } from './sections/formulasSection'
 import { cloudBreakQuoteSection } from './sections/cloudBreakQuoteSection'
 import { journeySection } from './sections/journeySection'
 import { pilotSection } from './sections/pilotSection'
+import { pilotHeroSection } from './sections/pilotHeroSection'
+import { pilotStorySection } from './sections/pilotStorySection'
 import { gallerySection } from './sections/gallerySection'
 import { reviewsSection } from './sections/reviewsSection'
 import { faqSection } from './sections/faqSection'
@@ -41,7 +44,6 @@ import { bonCadeauContentsSection } from './sections/bonCadeauContentsSection'
 import { bonCadeauHowtoSection } from './sections/bonCadeauHowtoSection'
 import { bonCadeauFactsSection } from './sections/bonCadeauFactsSection'
 import { bonCadeauTestimonialsSection } from './sections/bonCadeauTestimonialsSection'
-import { bonCadeauFaqSection } from './sections/bonCadeauFaqSection'
 import { bonCadeauFinalCtaSection } from './sections/bonCadeauFinalCtaSection'
 
 // Documents — site
@@ -70,6 +72,8 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   location,
   navLink,
   pilotBadge,
+  pilotHeroStat,
+  pilotStoryItem,
   seo,
   // Bon Cadeau — sub-items
   bonCadeauReassuranceItem,
@@ -79,7 +83,6 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   bonCadeauStep,
   bonCadeauFactItem,
   bonCadeauTestimonialItem,
-  bonCadeauFaqItem,
   // Sections
   heroSection,
   statsSection,
@@ -87,6 +90,8 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   cloudBreakQuoteSection,
   journeySection,
   pilotSection,
+  pilotHeroSection,
+  pilotStorySection,
   gallerySection,
   reviewsSection,
   faqSection,
@@ -101,7 +106,6 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   bonCadeauHowtoSection,
   bonCadeauFactsSection,
   bonCadeauTestimonialsSection,
-  bonCadeauFaqSection,
   bonCadeauFinalCtaSection,
   // Documents — site
   siteSettings,

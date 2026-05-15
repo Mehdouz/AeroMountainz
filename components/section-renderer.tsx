@@ -4,6 +4,8 @@ import Formulas from './formulas'
 import CloudBreak from './cloud-break'
 import Journey from './journey'
 import Pilot from './pilot'
+import PilotHero from './pilot-hero'
+import PilotStory from './pilot-story'
 import Gallery from './gallery'
 import Reviews from './reviews'
 import Faq from './faq'
@@ -19,7 +21,6 @@ import BonCadeauContents from './bon-cadeau/contents'
 import BonCadeauHowto from './bon-cadeau/howto'
 import BonCadeauFacts from './bon-cadeau/facts'
 import BonCadeauTestimonials from './bon-cadeau/testimonials'
-import BonCadeauFaq from './bon-cadeau/faq'
 import BonCadeauFinalCta from './bon-cadeau/final-cta'
 
 import type { Section, SiteSettings } from '@/lib/types/content'
@@ -96,6 +97,12 @@ export default function SectionRenderer({
                 phone={phone}
               />
             )
+
+          case 'pilotHeroSection':
+            return <PilotHero key={section._key} data={section} locale={locale} />
+
+          case 'pilotStorySection':
+            return <PilotStory key={section._key} data={section} />
 
           case 'gallerySection':
             return (
@@ -198,9 +205,6 @@ export default function SectionRenderer({
 
           case 'bonCadeauTestimonialsSection':
             return <BonCadeauTestimonials key={section._key} data={section} />
-
-          case 'bonCadeauFaqSection':
-            return <BonCadeauFaq key={section._key} data={section} />
 
           case 'bonCadeauFinalCtaSection':
             return <BonCadeauFinalCta key={section._key} data={section} locale={locale} />
