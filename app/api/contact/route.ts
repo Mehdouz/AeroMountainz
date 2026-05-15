@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-export const runtime = 'nodejs'
-
 // Rate limit naïf en mémoire (par IP) — réinitialisé au cold start.
 // Suffisant pour bloquer un script basique ; pour Internet hostile, brancher Upstash/KV.
 const RATE_LIMIT_MAX = 3

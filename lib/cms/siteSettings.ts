@@ -20,5 +20,5 @@ export async function getSiteSettings(
       `Aucun document siteSettings trouvé pour la locale "${locale}". Lance \`pnpm seed\` ou crée-le dans le Studio.`,
     )
   }
-  return data as SiteSettings
+  return data as unknown as SiteSettings
 }
