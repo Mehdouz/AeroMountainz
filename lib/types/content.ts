@@ -185,6 +185,8 @@ export type FaqSection = {
   _key: string
   eyebrow?: string
   heading: string
+  lede?: string
+  dark?: boolean
   faqs: Faq[]
 }
 
@@ -209,6 +211,63 @@ export type RichTextSection = {
   body: PortableTextBlock[]
 }
 
+export type ContactInfoLine = {
+  label: string
+  value: string
+}
+
+export type ContactInfoColumn = {
+  num: string
+  label?: string
+  value: string
+  valueLine2?: string
+  link?: string
+  hint?: string
+}
+
+export type ContactSubject = {
+  value: string
+  label: string
+}
+
+export type ContactFormMeta = {
+  key: string
+  value: string
+}
+
+export type ContactSection = {
+  _type: 'contactSection'
+  _key: string
+  // Hero
+  eyebrow?: string
+  titleStart: string
+  titleEmphasized: string
+  subtitle?: string
+  infoLines?: ContactInfoLine[]
+  // Coordonnées
+  infoColumns?: ContactInfoColumn[]
+  // Formulaire
+  formEyebrow?: string
+  formTitleStart?: string
+  formTitleEmphasized?: string
+  formLede?: string
+  formMeta?: ContactFormMeta[]
+  subjects: ContactSubject[]
+  paxOptions?: string[]
+  consentText?: string
+  submitLabel?: string
+  submitHint?: string
+  successMessage?: string
+  errorMessage?: string
+  // Lieu / Carte
+  lieuEyebrow?: string
+  lieuTitleStart?: string
+  lieuTitleEmphasized?: string
+  lieuLede?: string
+  lieuList?: string[]
+  mapEmbedUrl: string
+}
+
 export type Section =
   | HeroSection
   | StatsSection
@@ -220,6 +279,7 @@ export type Section =
   | ReviewsSection
   | FaqSection
   | CtaSectionContent
+  | ContactSection
   | RichTextSection
 
 // ============================================================

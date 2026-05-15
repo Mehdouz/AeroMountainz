@@ -29,6 +29,7 @@
     "next-sanity": "13.0.0-cache-components.37",
     "react": "^19",
     "react-dom": "^19",
+    "resend": "^6.12.3",
     "sanity": "^5.23.0"
   },
   "devDependencies": {

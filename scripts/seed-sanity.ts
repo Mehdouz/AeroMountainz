@@ -576,34 +576,104 @@ async function seedPages() {
     slug: { _type: 'slug', current: 'contact' },
     sections: [
       {
-        _type: 'richTextSection',
-        _key: 'intro',
-        eyebrow: 'Contact',
-        heading: 'Une question, un projet de vol ?',
-        body: [
-          lipsumBlock(
-            "Nous sommes joignables 7j/7 pour toute question sur nos vols, formules ou bons cadeaux. Yannick vous répond personnellement.",
-            'p1',
-          ),
-          headingBlock('Téléphone', 'h2'),
-          lipsumBlock(site.contact.phoneDisplay, 'p2'),
-          headingBlock('Email', 'h2'),
-          lipsumBlock(site.contact.email, 'p3'),
-          headingBlock('Lieu de décollage', 'h2'),
-          lipsumBlock(site.location.short, 'p4'),
+        _type: 'contactSection',
+        _key: 'contact',
+        // Hero
+        eyebrow: 'Contact · Aero Annecy',
+        titleStart: 'Parlons de',
+        titleEmphasized: 'votre vol',
+        subtitle:
+          "Une question, une date à caler, un cadeau à offrir, ou simplement l'envie d'en savoir plus avant de réserver. Écrivez-nous — on répond, par retour, dans la journée.",
+        infoLines: [
+          { _key: 'il1', _type: 'infoLine', label: 'Pilote · réponse directe', value: 'Yannick — sous 24h' },
+          { _key: 'il2', _type: 'infoLine', label: 'Saison de vol', value: 'Avril — Octobre' },
+          { _key: 'il3', _type: 'infoLine', label: 'Base de décollage', value: `${site.location.short}` },
         ],
+        // Coordonnées
+        infoColumns: [
+          {
+            _key: 'ic1',
+            _type: 'infoColumn',
+            num: '01 · Téléphone',
+            label: 'Le plus rapide pour une réponse →',
+            value: site.contact.phoneDisplay,
+            link: `tel:${site.contact.phone}`,
+            hint: 'Du lundi au samedi · 8h — 19h\nVols en soirée hors saison',
+          },
+          {
+            _key: 'ic2',
+            _type: 'infoColumn',
+            num: '02 · Email',
+            label: 'Pour les groupes, devis ou cadeaux →',
+            value: site.contact.email,
+            link: `mailto:${site.contact.email}`,
+            hint: 'Réponse sous 24h (jours ouvrés)',
+          },
+          {
+            _key: 'ic3',
+            _type: 'infoColumn',
+            num: '03 · Adresse',
+            label: 'Lieu de RDV avant chaque vol →',
+            value: site.location.addressLine1,
+            valueLine2: site.location.addressLine2,
+            hint: 'Briefing 1h avant l\'envol\nParking gratuit sur place',
+          },
+        ],
+        // Formulaire
+        formEyebrow: 'Formulaire · une question',
+        formTitleStart: 'Écrivez-nous,',
+        formTitleEmphasized: 'on répond.',
+        formLede:
+          "Plus vous précisez votre intention — date envisagée, nombre de passagers, occasion — plus la réponse arrive vite et juste. Six champs suffisent.",
+        formMeta: [
+          { _key: 'fm1', _type: 'formMetaRow', key: 'Réponse', value: 'Sous 24h, jours ouvrés' },
+          { _key: 'fm2', _type: 'formMetaRow', key: 'Urgent', value: `Appelez plutôt — ${site.contact.phoneDisplay}` },
+          { _key: 'fm3', _type: 'formMetaRow', key: 'Confidentiel', value: 'Vos données ne sortent pas d\'Aero. RGPD.' },
+        ],
+        subjects: [
+          { _key: 's1', _type: 'subjectOption', value: 'reservation', label: 'Réserver un vol' },
+          { _key: 's2', _type: 'subjectOption', value: 'cadeau', label: 'Bon cadeau' },
+          { _key: 's3', _type: 'subjectOption', value: 'prive', label: 'Vol privé / groupe' },
+          { _key: 's4', _type: 'subjectOption', value: 'info', label: 'Une question' },
+        ],
+        paxOptions: [
+          '1 personne',
+          '2 personnes',
+          '3 personnes',
+          '4 personnes',
+          '5 personnes',
+          'Plus de 5 (à préciser)',
+        ],
+        consentText:
+          "J'accepte que mes informations soient utilisées pour me répondre. Aucune newsletter, aucun partage avec des tiers.",
+        submitLabel: 'Envoyer le message',
+        submitHint: 'Réponse · sous 24h',
+        successMessage: 'Message envoyé ✓',
+        errorMessage: 'Erreur — réessayez ou appelez.',
+        // Lieu / Carte
+        lieuEyebrow: 'Le lieu · point de RDV',
+        lieuTitleStart: 'À Doussard,',
+        lieuTitleEmphasized: 'à la pointe sud du lac.',
+        lieuLede:
+          "Notre base de décollage se trouve au Bout-du-Lac, à 25 minutes d'Annecy. RDV 1h avant l'envol pour le briefing, le gonflage et un café — le plus beau moment du matin, après le vol.",
+        lieuList: [
+          `${site.location.addressLine1}, ${site.location.addressLine2}`,
+          'Parking gratuit sur place, sous les platanes',
+          '25 min depuis Annecy · 1h30 depuis Genève · 1h depuis Chambéry',
+          'Arrêt bus Lignes Lacustres à 200 m',
+        ],
+        mapEmbedUrl:
+          'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2785.7!2d6.2167!3d45.7747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zRG91c3NhcmQsIEZyYW5jZQ!5e0!3m2!1sfr!2sfr!4v1700000000000',
       },
       {
-        _type: 'ctaSection',
-        _key: 'cta',
-        eyebrow: 'Réserver',
-        titleStart: 'Prêt à',
-        titleEmphasized: 'décoller ?',
-        description: 'Confirmation par téléphone le matin du vol selon la météo.',
-        backgroundImage: imageRef(ctaBg),
-        primaryCtaLabel: 'Appeler',
-        secondaryCtaLabel: 'Envoyer un email',
-        locationLabel: site.location.short,
+        _type: 'faqSection',
+        _key: 'faq',
+        eyebrow: 'FAQ · les questions fréquentes',
+        heading: "Avant d'écrire, peut-être la réponse est là.",
+        lede:
+          "Quatre questions qu'on reçoit toutes les semaines. Si la vôtre n'y est pas, le formulaire est juste au-dessus.",
+        dark: true,
+        faqs: faqs.map((_, i) => ref(ids.faq(i), `contact-faq-${i}`)),
       },
     ],
     seo: {

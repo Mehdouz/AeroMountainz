@@ -20,6 +20,7 @@ import { gallerySection } from './sections/gallerySection'
 import { reviewsSection } from './sections/reviewsSection'
 import { faqSection } from './sections/faqSection'
 import { ctaSection } from './sections/ctaSection'
+import { contactSection } from './sections/contactSection'
 import { richTextSection } from './sections/richTextSection'
 
 // Documents — site
@@ -60,6 +61,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   reviewsSection,
   faqSection,
   ctaSection,
+  contactSection,
   richTextSection,
   // Documents — site
   siteSettings,
