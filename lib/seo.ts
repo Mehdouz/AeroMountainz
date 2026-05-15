@@ -2,34 +2,39 @@ import type { Metadata } from 'next'
 import type { Page, SiteSettings } from '@/lib/types/content'
 import type { Locale } from '@/lib/i18n'
 
+type PageLike = Pick<Page, 'title' | 'seo'> & { sections?: Page['sections'] }
+
 /**
  * Construit l'objet `Metadata` pour Next.js à partir d'une page Sanity et des
  * paramètres globaux. Choisit l'image OG dans cet ordre : seo.ogImage → première
- * heroSection.backgroundImage → null.
+ * heroSection.backgroundImage → ogImageFallback (utile pour les singletons sans `sections`).
  */
 export function buildPageMetadata({
   page,
   site,
   locale,
   path,
+  ogImageFallback,
 }: {
-  page: Page | null
+  page: PageLike | null
   site: SiteSettings
   locale: Locale
   path: string
+  ogImageFallback?: string
 }): Metadata {
   if (!page) return { metadataBase: new URL(site.url) }
 
   const title = page.seo?.title || page.title
   const description = page.seo?.description ?? undefined
 
-  // OG image fallback : section hero
-  const heroSection = page.sections.find((s) => s._type === 'heroSection')
+  // OG image fallback : section hero (pages avec sections) → fallback explicite (singletons)
+  const heroSection = page.sections?.find((s) => s._type === 'heroSection')
   const ogImage =
     page.seo?.ogImage ||
     (heroSection && '_type' in heroSection && heroSection._type === 'heroSection'
       ? heroSection.backgroundImage
-      : undefined)
+      : undefined) ||
+    ogImageFallback
 
   return {
     metadataBase: new URL(site.url),

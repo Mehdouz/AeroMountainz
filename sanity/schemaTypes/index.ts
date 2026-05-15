@@ -22,9 +22,29 @@ import { faqSection } from './sections/faqSection'
 import { ctaSection } from './sections/ctaSection'
 import { richTextSection } from './sections/richTextSection'
 
+// Bon Cadeau — objets de section
+import { bonCadeauReassuranceItem } from './objects/bonCadeauReassuranceItem'
+import { bonCadeauHero } from './objects/bonCadeauHero'
+import { bonCadeauOccasionItem } from './objects/bonCadeauOccasionItem'
+import { bonCadeauOccasions } from './objects/bonCadeauOccasions'
+import { bonCadeauGalleryItem } from './objects/bonCadeauGalleryItem'
+import { bonCadeauExperience } from './objects/bonCadeauExperience'
+import { bonCadeauContentBullet } from './objects/bonCadeauContentBullet'
+import { bonCadeauContents } from './objects/bonCadeauContents'
+import { bonCadeauStep } from './objects/bonCadeauStep'
+import { bonCadeauHowto } from './objects/bonCadeauHowto'
+import { bonCadeauFactItem } from './objects/bonCadeauFactItem'
+import { bonCadeauFacts } from './objects/bonCadeauFacts'
+import { bonCadeauTestimonialItem } from './objects/bonCadeauTestimonialItem'
+import { bonCadeauTestimonials } from './objects/bonCadeauTestimonials'
+import { bonCadeauFaqItem } from './objects/bonCadeauFaqItem'
+import { bonCadeauFaq } from './objects/bonCadeauFaq'
+import { bonCadeauFinalCta } from './objects/bonCadeauFinalCta'
+
 // Documents — site
 import { siteSettings } from './documents/siteSettings'
 import { page } from './documents/page'
+import { bonCadeauPage } from './documents/bonCadeauPage'
 
 // Documents — blog
 import { post } from './documents/post'
@@ -61,9 +81,28 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   faqSection,
   ctaSection,
   richTextSection,
+  // Bon Cadeau — objets de section
+  bonCadeauReassuranceItem,
+  bonCadeauHero,
+  bonCadeauOccasionItem,
+  bonCadeauOccasions,
+  bonCadeauGalleryItem,
+  bonCadeauExperience,
+  bonCadeauContentBullet,
+  bonCadeauContents,
+  bonCadeauStep,
+  bonCadeauHowto,
+  bonCadeauFactItem,
+  bonCadeauFacts,
+  bonCadeauTestimonialItem,
+  bonCadeauTestimonials,
+  bonCadeauFaqItem,
+  bonCadeauFaq,
+  bonCadeauFinalCta,
   // Documents — site
   siteSettings,
   page,
+  bonCadeauPage,
   // Documents — blog
   post,
   author,

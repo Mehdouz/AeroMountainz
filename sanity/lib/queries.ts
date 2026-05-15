@@ -130,6 +130,117 @@ export const allPageSlugsQuery = defineQuery(`
 `)
 
 // ============================================================
+// Bon Cadeau (singleton par locale)
+// ============================================================
+
+export const bonCadeauPageQuery = defineQuery(`
+  *[_type == "bonCadeauPage" && language == $locale][0]{
+    _id,
+    title,
+    language,
+    "seo": {
+      "title": seo.title,
+      "description": seo.description,
+      "ogImage": seo.ogImage.asset->url,
+      "noIndex": seo.noIndex
+    },
+    hero{
+      "backgroundImage": backgroundImage.asset->url,
+      backgroundAlt,
+      titleStart,
+      titleEmphasized,
+      titleEnd,
+      subtitle,
+      priceLabel,
+      priceAmount,
+      priceCurrency,
+      priceSubtext,
+      primaryCta,
+      secondaryCta,
+      "reassuranceItems": reassuranceItems[]{ label }
+    },
+    occasions{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      "items": items[]{ iconKey, label }
+    },
+    experience{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      subtitle,
+      body,
+      linkLabel,
+      linkHref,
+      "gallery": gallery[]{
+        "src": image.asset->url,
+        alt,
+        caption
+      }
+    },
+    contents{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      mockupEyebrow,
+      mockupTitleStart,
+      mockupTitleEmphasized,
+      mockupTitleEnd,
+      mockupRecipient,
+      mockupNumberLabel,
+      mockupValidityLabel,
+      "bullets": bullets[]{ body }
+    },
+    howto{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      subtitle,
+      "steps": steps[]{ number, title, description }
+    },
+    facts{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      "items": items[]{ iconKey, title, description }
+    },
+    testimonials{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      googleRatingStars,
+      googleRatingLabel,
+      "items": items[]{ quote, name, occasion, stars }
+    },
+    faq{
+      eyebrow,
+      headingStart,
+      headingEmphasized,
+      headingEnd,
+      "items": items[]{ question, answer }
+    },
+    finalCta{
+      eyebrow,
+      headingLine1,
+      headingLine2,
+      subtext,
+      primaryCta,
+      secondaryCta,
+      "reassuranceItems": reassuranceItems[]{ label },
+      "backgroundImage": backgroundImage.asset->url,
+      backgroundAlt
+    }
+  }
+`)
+
+// ============================================================
 // Blog posts
 // ============================================================
 

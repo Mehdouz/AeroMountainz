@@ -274,3 +274,171 @@ export type PostListItem = Pick<
   | 'coverImageAlt'
   | 'publishedAt'
 > & { author: Pick<Author, 'name' | 'slug'> }
+
+// ============================================================
+// Bon Cadeau (singleton)
+// ============================================================
+
+export type BonCadeauIconKey =
+  | 'heart'
+  | 'gift'
+  | 'cake'
+  | 'cup'
+  | 'tree'
+  | 'users'
+  | 'clock'
+  | 'star'
+  | 'calendar'
+  | 'pin'
+  | 'cloud'
+  | 'medal'
+
+export type BonCadeauReassuranceItem = { label: string }
+
+export type BonCadeauHero = {
+  backgroundImage: string
+  backgroundAlt: string
+  titleStart: string
+  titleEmphasized: string
+  titleEnd?: string
+  subtitle?: string
+  priceLabel?: string
+  priceAmount: number
+  priceCurrency?: string
+  priceSubtext?: string
+  primaryCta?: CtaButton
+  secondaryCta?: CtaButton
+  reassuranceItems?: BonCadeauReassuranceItem[]
+}
+
+export type BonCadeauOccasionItem = { iconKey: BonCadeauIconKey; label: string }
+
+export type BonCadeauOccasions = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  items: BonCadeauOccasionItem[]
+}
+
+export type BonCadeauGalleryItem = {
+  src: string
+  alt: string
+  caption?: string
+}
+
+export type BonCadeauExperience = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  subtitle?: string
+  body?: PortableTextBlock[]
+  linkLabel?: string
+  linkHref?: string
+  gallery: BonCadeauGalleryItem[]
+}
+
+export type BonCadeauContentBullet = { body: PortableTextBlock[] }
+
+export type BonCadeauContents = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  mockupEyebrow?: string
+  mockupTitleStart?: string
+  mockupTitleEmphasized?: string
+  mockupTitleEnd?: string
+  mockupRecipient?: string
+  mockupNumberLabel?: string
+  mockupValidityLabel?: string
+  bullets: BonCadeauContentBullet[]
+}
+
+export type BonCadeauStep = {
+  number: string
+  title: string
+  description: PortableTextBlock[]
+}
+
+export type BonCadeauHowto = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  subtitle?: string
+  steps: BonCadeauStep[]
+}
+
+export type BonCadeauFactItem = {
+  iconKey: BonCadeauIconKey
+  title: string
+  description: string
+}
+
+export type BonCadeauFacts = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  items: BonCadeauFactItem[]
+}
+
+export type BonCadeauTestimonialItem = {
+  quote: string
+  name: string
+  occasion?: string
+  stars: number
+}
+
+export type BonCadeauTestimonials = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  googleRatingStars?: string
+  googleRatingLabel?: string
+  items: BonCadeauTestimonialItem[]
+}
+
+export type BonCadeauFaqItem = {
+  question: string
+  answer: PortableTextBlock[]
+}
+
+export type BonCadeauFaqSection = {
+  eyebrow?: string
+  headingStart: string
+  headingEmphasized: string
+  headingEnd?: string
+  items: BonCadeauFaqItem[]
+}
+
+export type BonCadeauFinalCta = {
+  eyebrow?: string
+  headingLine1: string
+  headingLine2?: string
+  subtext?: string
+  primaryCta?: CtaButton
+  secondaryCta?: CtaButton
+  reassuranceItems?: BonCadeauReassuranceItem[]
+  backgroundImage?: string
+  backgroundAlt?: string
+}
+
+export type BonCadeauPage = {
+  _id: string
+  title: string
+  language: string
+  seo?: Seo
+  hero: BonCadeauHero
+  occasions?: BonCadeauOccasions
+  experience?: BonCadeauExperience
+  contents?: BonCadeauContents
+  howto?: BonCadeauHowto
+  facts?: BonCadeauFacts
+  testimonials?: BonCadeauTestimonials
+  faq?: BonCadeauFaqSection
+  finalCta?: BonCadeauFinalCta
+}

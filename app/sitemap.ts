@@ -5,7 +5,7 @@ import { getAllPostSlugs } from '@/lib/cms/posts'
 import { LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/i18n'
 import type { SlugEntry } from '@/lib/types/sitemap'
 
-const RESERVED_PAGE_SLUGS = new Set(['home', 'blog'])
+const RESERVED_PAGE_SLUGS = new Set(['home', 'blog', 'bon-cadeau'])
 
 const PRIORITY = {
   page: 0.6,
@@ -46,12 +46,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = []
   const now = new Date()
 
-  // Home + blog index — entrée canonique sur DEFAULT_LOCALE, alternates pour les autres locales.
+  // Home + blog index + bon-cadeau (singleton) — entrée canonique sur DEFAULT_LOCALE,
+  // alternates pour les autres locales.
   const homeLanguages = Object.fromEntries(
     LOCALES.map((l) => [l, `${baseUrl}/${l}`]),
   )
   const blogLanguages = Object.fromEntries(
     LOCALES.map((l) => [l, `${baseUrl}/${l}/blog`]),
+  )
+  const bonCadeauLanguages = Object.fromEntries(
+    LOCALES.map((l) => [l, `${baseUrl}/${l}/bon-cadeau`]),
   )
   entries.push(
     {
@@ -67,6 +71,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: { languages: blogLanguages },
+    },
+    {
+      url: `${baseUrl}/${DEFAULT_LOCALE}/bon-cadeau`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: { languages: bonCadeauLanguages },
     },
   )
 
