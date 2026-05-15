@@ -1,7 +1,6 @@
 import Hero from './hero'
 import Stats from './stats'
 import Formulas from './formulas'
-import CloudBreak from './cloud-break'
 import Journey from './journey'
 import Pilot from './pilot'
 import PilotHero from './pilot-hero'
@@ -65,15 +64,6 @@ export default function SectionRenderer({
                 subtext={section.subtext}
                 items={section.formulas}
                 phone={phone}
-              />
-            )
-
-          case 'cloudBreakQuoteSection':
-            return (
-              <CloudBreak
-                key={section._key}
-                quote={section.quote}
-                author={section.author}
               />
             )
 

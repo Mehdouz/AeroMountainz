@@ -139,13 +139,6 @@ export type FormulasSection = {
   formulas: Formula[]
 }
 
-export type CloudBreakQuoteSection = {
-  _type: 'cloudBreakQuoteSection'
-  _key: string
-  quote: string
-  author?: string
-}
-
 export type JourneySection = {
   _type: 'journeySection'
   _key: string
@@ -318,7 +311,6 @@ export type Section =
   | HeroSection
   | StatsSection
   | FormulasSection
-  | CloudBreakQuoteSection
   | JourneySection
   | PilotSection
   | PilotHeroSection

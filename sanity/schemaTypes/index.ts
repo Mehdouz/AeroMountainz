@@ -24,7 +24,6 @@ import { bonCadeauTestimonialItem } from './objects/bonCadeauTestimonialItem'
 import { heroSection } from './sections/heroSection'
 import { statsSection } from './sections/statsSection'
 import { formulasSection } from './sections/formulasSection'
-import { cloudBreakQuoteSection } from './sections/cloudBreakQuoteSection'
 import { journeySection } from './sections/journeySection'
 import { pilotSection } from './sections/pilotSection'
 import { pilotHeroSection } from './sections/pilotHeroSection'
@@ -87,7 +86,6 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   heroSection,
   statsSection,
   formulasSection,
-  cloudBreakQuoteSection,
   journeySection,
   pilotSection,
   pilotHeroSection,

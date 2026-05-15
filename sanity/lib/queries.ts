@@ -53,7 +53,6 @@ sections[]{
     subtext,
     "formulas": formulas[]->{ tag, title, price, priceDetail, description, features, highlight }
   },
-  _type == "cloudBreakQuoteSection" => { quote, author },
   _type == "journeySection" => {
     eyebrow,
     heading,

@@ -4,7 +4,6 @@ const SECTION_TYPES = [
   'heroSection',
   'statsSection',
   'formulasSection',
-  'cloudBreakQuoteSection',
   'journeySection',
   'pilotSection',
   'pilotHeroSection',

@@ -398,11 +398,6 @@ async function buildHomeSections() {
       formulas: formulas.map((_, i) => ref(ids.formula(i), `formula-${i}`)),
     },
     {
-      _type: 'cloudBreakQuoteSection',
-      _key: 'quote',
-      quote: site.cloudBreakQuote.quote,
-    },
-    {
       _type: 'journeySection',
       _key: 'journey',
       eyebrow: 'Le déroulé',

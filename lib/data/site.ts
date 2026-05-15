@@ -62,8 +62,4 @@ export const site = {
     countLabel: '+120 avis',
     source: 'Google Reviews',
   },
-  cloudBreakQuote: {
-    quote:
-      'Au-dessus des nuages, le lac d\'Annecy n\'est plus qu\'un miroir posé entre les Alpes.',
-  },
 }
