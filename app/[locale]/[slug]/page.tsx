@@ -104,7 +104,7 @@ async function CachedView({
   if (!page) notFound()
 
   return (
-    <main className="bg-bone min-h-screen">
+    <>
       <Navbar
         navLinks={site.navLinks}
         logo={site.brand.logo}
@@ -114,11 +114,13 @@ async function CachedView({
         locale={locale}
       />
 
-      <SectionRenderer
-        sections={page.sections}
-        siteSettings={site}
-        locale={locale}
-      />
+      <main className="bg-bone min-h-screen">
+        <SectionRenderer
+          sections={page.sections}
+          siteSettings={site}
+          locale={locale}
+        />
+      </main>
 
       <Footer
         logo={site.brand.logo}
@@ -134,6 +136,6 @@ async function CachedView({
         addressLine2={site.location.addressLine2}
         locale={locale}
       />
-    </main>
+    </>
   )
 }

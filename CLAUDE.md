@@ -83,11 +83,13 @@ async function Cached({ locale, perspective, stega }: { locale: Locale } & Fetch
   const { page, site } = await getData(locale, { perspective, stega })
   if (!page) notFound()
   return (
-    <main className="bg-bone min-h-screen">
+    <>
       <Navbar {...navbarProps(site, locale)} />
-      <SectionRenderer sections={page.sections} siteSettings={site} locale={locale} />
+      <main className="bg-bone min-h-screen">
+        <SectionRenderer sections={page.sections} siteSettings={site} locale={locale} />
+      </main>
       <Footer {...footerProps(site, locale)} />
-    </main>
+    </>
   )
 }
 ```
@@ -97,6 +99,7 @@ Règles :
 - `'use cache'` sur `generateMetadata` ET sur la fonction de fetch interne.
 - Branche `isDraftMode` obligatoire pour que le Visual Editing Sanity marche.
 - Pour pages dynamiques : ajouter `generateStaticParams` qui fetch via `client` direct, **pas** `sanityFetch` (voir règle ci-dessous).
+- `<Navbar>` et `<Footer>` sont **frères** de `<main>`, jamais imbriqués dedans : `<header>` et `<footer>` ne deviennent landmarks `banner` / `contentinfo` que s'ils sont descendants directs de `<body>`.
 
 ## Fetch Sanity — quel helper ?
 

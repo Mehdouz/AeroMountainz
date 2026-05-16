@@ -113,7 +113,7 @@ async function CachedPost({
   )
 
   return (
-    <main className="bg-bone min-h-screen">
+    <>
       <Navbar
         navLinks={site.navLinks}
         logo={site.brand.logo}
@@ -124,40 +124,42 @@ async function CachedPost({
         lightSurface
       />
 
-      <article className="pt-32 lg:pt-40 pb-20">
-        <header className="max-w-3xl mx-auto px-6 lg:px-10 text-center mb-12">
-          <Link
-            href={localizeHref('/blog', locale)}
-            className="font-mono text-xs tracking-[0.3em] text-gold uppercase hover:text-gold-light transition-colors"
-          >
-            ← {locale === 'fr' ? 'Tous les articles' : 'All articles'}
-          </Link>
-          <h1 className="font-serif text-4xl lg:text-6xl font-light text-text-primary leading-tight mt-6 mb-4">
-            {post.title}
-          </h1>
-          <p className="font-mono text-xs tracking-widest text-text-muted uppercase">
-            {dateStr}
-            {post.author?.name && <> · {post.author.name}</>}
-          </p>
-        </header>
+      <main className="bg-bone min-h-screen">
+        <article className="pt-32 lg:pt-40 pb-20">
+          <header className="max-w-3xl mx-auto px-6 lg:px-10 text-center mb-12">
+            <Link
+              href={localizeHref('/blog', locale)}
+              className="font-mono text-xs tracking-[0.3em] text-gold uppercase hover:text-gold-light transition-colors"
+            >
+              ← {locale === 'fr' ? 'Tous les articles' : 'All articles'}
+            </Link>
+            <h1 className="font-serif text-4xl lg:text-6xl font-light text-text-primary leading-tight mt-6 mb-4">
+              {post.title}
+            </h1>
+            <p className="font-mono text-xs tracking-widest text-text-muted uppercase">
+              {dateStr}
+              {post.author?.name && <> · {post.author.name}</>}
+            </p>
+          </header>
 
-        <div className="max-w-5xl mx-auto px-6 lg:px-10 mb-12">
-          <div className="relative aspect-[16/9] rounded-3xl overflow-hidden">
-            <Image
-              src={post.coverImage}
-              alt={post.coverImageAlt}
-              fill
-              sizes="(min-width: 1024px) 1024px, 100vw"
-              className="object-cover"
-              priority
-            />
+          <div className="max-w-5xl mx-auto px-6 lg:px-10 mb-12">
+            <div className="relative aspect-[16/9] rounded-3xl overflow-hidden">
+              <Image
+                src={post.coverImage}
+                alt={post.coverImageAlt}
+                fill
+                sizes="(min-width: 1024px) 1024px, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <RichText value={post.body} />
-        </div>
-      </article>
+          <div className="max-w-3xl mx-auto px-6 lg:px-10">
+            <RichText value={post.body} />
+          </div>
+        </article>
+      </main>
 
       <Footer
         logo={site.brand.logo}
@@ -173,6 +175,6 @@ async function CachedPost({
         addressLine2={site.location.addressLine2}
         locale={locale}
       />
-    </main>
+    </>
   )
 }

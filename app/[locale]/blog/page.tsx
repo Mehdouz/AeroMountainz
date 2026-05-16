@@ -96,7 +96,7 @@ async function CachedBlogIndex({
   const t = STRINGS[locale]
 
   return (
-    <main className="bg-bone min-h-screen">
+    <>
       <Navbar
         navLinks={site.navLinks}
         logo={site.brand.logo}
@@ -107,60 +107,62 @@ async function CachedBlogIndex({
         lightSurface
       />
 
-      <section className="pt-32 lg:pt-40 pb-20 lg:pb-28">
-        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
-            Blog
-          </p>
-          <h1 className="font-serif text-5xl lg:text-6xl font-light text-text-primary leading-tight mb-6">
-            {t.title}
-          </h1>
-          <p className="text-base text-text-secondary font-sans max-w-2xl mx-auto">
-            {t.description}
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto px-6 lg:px-10">
-          {posts.length === 0 ? (
-            <p className="text-center text-text-muted font-sans">
-              Aucun article pour le moment.
+      <main className="bg-bone min-h-screen">
+        <section className="pt-32 lg:pt-40 pb-20 lg:pb-28">
+          <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center mb-16">
+            <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-4">
+              Blog
             </p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <Link
-                  key={post._id}
-                  href={localizeHref(`/blog/${post.slug}`, locale)}
-                  className="group block"
-                >
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4">
-                    <Image
-                      src={post.coverImage}
-                      alt={post.coverImageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <p className="font-mono text-xs text-text-muted mb-2">
-                    {new Date(post.publishedAt).toLocaleDateString(
-                      locale === 'fr' ? 'fr-FR' : 'en-US',
-                      { year: 'numeric', month: 'long', day: 'numeric' },
-                    )}
-                    {post.author?.name && <> · {post.author.name}</>}
-                  </p>
-                  <h2 className="font-serif text-2xl font-medium text-text-primary group-hover:text-gold transition-colors leading-tight mb-3">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-text-secondary font-sans leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+            <h1 className="font-serif text-5xl lg:text-6xl font-light text-text-primary leading-tight mb-6">
+              {t.title}
+            </h1>
+            <p className="text-base text-text-secondary font-sans max-w-2xl mx-auto">
+              {t.description}
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto px-6 lg:px-10">
+            {posts.length === 0 ? (
+              <p className="text-center text-text-muted font-sans">
+                Aucun article pour le moment.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {posts.map((post) => (
+                  <Link
+                    key={post._id}
+                    href={localizeHref(`/blog/${post.slug}`, locale)}
+                    className="group block"
+                  >
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4">
+                      <Image
+                        src={post.coverImage}
+                        alt={post.coverImageAlt}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <p className="font-mono text-xs text-text-muted mb-2">
+                      {new Date(post.publishedAt).toLocaleDateString(
+                        locale === 'fr' ? 'fr-FR' : 'en-US',
+                        { year: 'numeric', month: 'long', day: 'numeric' },
+                      )}
+                      {post.author?.name && <> · {post.author.name}</>}
+                    </p>
+                    <h2 className="font-serif text-2xl font-medium text-text-primary group-hover:text-gold transition-colors leading-tight mb-3">
+                      {post.title}
+                    </h2>
+                    <p className="text-sm text-text-secondary font-sans leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
 
       <Footer
         logo={site.brand.logo}
@@ -176,6 +178,6 @@ async function CachedBlogIndex({
         addressLine2={site.location.addressLine2}
         locale={locale}
       />
-    </main>
+    </>
   )
 }
