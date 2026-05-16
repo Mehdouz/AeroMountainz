@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { VisualEditing } from 'next-sanity/visual-editing'
 import LenisProvider from '@/components/lenis-provider'
 import HtmlLang from '@/components/html-lang'
+import PageTransition from '@/components/page-transition'
 import { SanityLive } from '@/sanity/lib/live'
 import { LOCALES, isValidLocale, type Locale } from '@/lib/i18n'
 
@@ -25,6 +26,7 @@ export default async function LocaleLayout({
   return (
     <>
       <HtmlLang locale={locale as Locale} />
+      <PageTransition />
       <LenisProvider>{children}</LenisProvider>
       <SanityLive />
       <Suspense>

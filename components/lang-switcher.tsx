@@ -16,6 +16,7 @@ export default function LangSwitcher({
   const switchTo = (locale: Locale) => {
     if (locale === currentLocale) return
     const next = pathname.replace(/^\/(fr|en)(?=\/|$)/, `/${locale}`)
+    window.dispatchEvent(new CustomEvent('aero:nav-start'))
     router.push(next || `/${locale}`)
   }
 
