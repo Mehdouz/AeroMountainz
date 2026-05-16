@@ -139,14 +139,14 @@ export default function Navbar({
       </header>
 
       <div
-        className={`lg:hidden fixed inset-0 z-55 section-midnight transition-opacity duration-500 ${
+        className={`lg:hidden fixed inset-0 z-55 section-midnight flex flex-col transition-opacity duration-500 ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         aria-hidden={!open}
         role="dialog"
         aria-modal="true"
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+        <div className="max-w-7xl px-6 flex items-center justify-between h-20 shrink-0">
           <Link
             href={`/${locale}`}
             onClick={() => setOpen(false)}
@@ -169,7 +169,7 @@ export default function Navbar({
           </button>
         </div>
 
-        <nav className="px-6 mt-10 flex flex-col gap-7">
+        <nav className="flex-1 flex flex-col justify-center px-6 gap-7">
           {navLinks.map((link, i) => (
             <Link
               key={`${link.href}-${i}`}
@@ -185,7 +185,7 @@ export default function Navbar({
           ))}
         </nav>
 
-        <div className="absolute inset-x-0 bottom-0 px-6 pb-10 pt-6 border-t border-border-subtle flex flex-col gap-5">
+        <div className="shrink-0 px-6 pb-10 pt-6 border-t border-border-subtle flex flex-col gap-5">
           <div className="flex items-center justify-between gap-4">
             <a
               href={phoneHref}

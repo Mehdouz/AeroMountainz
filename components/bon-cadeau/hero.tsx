@@ -18,7 +18,7 @@ export default function BonCadeauHeroSection({
   const subtitleLines = (data.subtitle ?? '').split('\n')
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-midnight flex items-end">
+    <section className="relative min-h-screen overflow-hidden bg-midnight flex items-center">
       <div className="absolute inset-0">
         <Image
           src={data.backgroundImage}
@@ -33,7 +33,7 @@ export default function BonCadeauHeroSection({
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-32 lg:pt-40 pb-28 lg:pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-center">
           <div>
             <Reveal threshold={0.01} delay={400} duration={1000} y={24}>
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light leading-[1.05] text-bone tracking-tight">
