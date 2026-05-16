@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, type FormEvent } from 'react'
+import BalloonSvg from './balloon-svg'
 import Reveal from './reveal'
 import type { ContactSection as ContactSectionData } from '@/lib/types/content'
 
@@ -19,21 +20,13 @@ export default function ContactSection({ data }: { data: ContactSectionData }) {
  * Hero — fond midnight + ballon (bob + parallax)
  * ============================================================ */
 function ContactHero({ data }: { data: ContactSectionData }) {
-  const parallaxRef = useRef<HTMLDivElement>(null)
-  const skyRef = useRef<HTMLDivElement>(null)
-  const mountainsRef = useRef<HTMLDivElement>(null)
+  const balloonRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY
-      if (parallaxRef.current) {
-        parallaxRef.current.style.transform = `translate3d(0, ${y * 0.15}px, 0)`
-      }
-      if (skyRef.current) {
-        skyRef.current.style.transform = `translate3d(0, ${y * 0.3}px, 0)`
-      }
-      if (mountainsRef.current) {
-        mountainsRef.current.style.transform = `translate3d(0, ${y * -0.15}px, 0)`
+      if (balloonRef.current) {
+        balloonRef.current.style.transform = `translate3d(0, ${y * -0.45}px, 0)`
       }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -45,39 +38,37 @@ function ContactHero({ data }: { data: ContactSectionData }) {
     <div
       className="relative w-full overflow-hidden pt-24 lg:pt-32 pb-16 lg:pb-20 flex items-end"
       style={{
-        minHeight: '78vh',
+        minHeight: '60vh',
         background:
           'radial-gradient(ellipse at 70% 30%, #2a3a6e 0%, transparent 50%), linear-gradient(180deg, #1a2a55 0%, var(--midnight) 60%, var(--midnight-2) 100%)',
       }}
     >
-      {/* Sky / atmosphere (parallax) */}
+      {/* Sky / atmosphere */}
       <div
-        ref={skyRef}
         aria-hidden
-        className="absolute inset-0 will-change-transform pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
             'radial-gradient(ellipse 60% 40% at 30% 80%, rgba(201,169,97,.08), transparent 70%), radial-gradient(ellipse 80% 50% at 80% 20%, rgba(120,150,220,.18), transparent 70%)',
         }}
       />
 
-      {/* Balloon — outer = parallax, inner = bob */}
+      {/* Balloon — outer = parallax (rises with scroll), inner = bob */}
       <div
-        ref={parallaxRef}
+        ref={balloonRef}
         aria-hidden
-        className="absolute top-[18%] right-[8%] z-[2] pointer-events-none will-change-transform"
-        style={{ width: 110, filter: 'drop-shadow(0 30px 40px rgba(0,0,0,.35))' }}
+        className="absolute bottom-[30%] right-[8%] z-[2] pointer-events-none will-change-transform"
+        style={{ width: 130, filter: 'drop-shadow(0 30px 40px rgba(0,0,0,.35))' }}
       >
         <div className="animate-balloon-bob">
-          <BalloonSvg />
+          <BalloonSvg className="block w-full h-auto text-champagne" />
         </div>
       </div>
 
-      {/* Mountains silhouette (parallax) */}
+      {/* Mountains silhouette */}
       <div
-        ref={mountainsRef}
         aria-hidden
-        className="absolute left-0 right-0 bottom-0 will-change-transform pointer-events-none"
+        className="absolute left-0 right-0 bottom-0 pointer-events-none"
         style={{
           height: '30%',
           background:
@@ -148,25 +139,6 @@ function ContactHero({ data }: { data: ContactSectionData }) {
         )}
       </div>
     </div>
-  )
-}
-
-function BalloonSvg() {
-  return (
-    <svg viewBox="0 0 100 140" className="block w-full h-auto" aria-hidden>
-      <ellipse cx="50" cy="55" rx="40" ry="48" fill="var(--champagne)" />
-      <ellipse cx="50" cy="55" rx="40" ry="48" fill="url(#balloonShade)" opacity=".4" />
-      <defs>
-        <linearGradient id="balloonShade" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity=".4" />
-          <stop offset="1" stopColor="#000" stopOpacity=".5" />
-        </linearGradient>
-      </defs>
-      <line x1="22" y1="92" x2="42" y2="115" stroke="var(--midnight)" strokeWidth="1.4" />
-      <line x1="78" y1="92" x2="58" y2="115" stroke="var(--midnight)" strokeWidth="1.4" />
-      <line x1="50" y1="103" x2="50" y2="115" stroke="var(--midnight)" strokeWidth="1.4" />
-      <rect x="38" y="115" width="24" height="16" fill="#3a2a14" rx="1" />
-    </svg>
   )
 }
 

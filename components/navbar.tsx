@@ -64,7 +64,7 @@ export default function Navbar({
         className={`fixed top-0 inset-x-0 z-50 transition-[background-color,background-image,backdrop-filter] duration-700 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-champagne-line after:transition-opacity after:duration-700 ${
           scrolled
             ? `backdrop-blur-md after:opacity-100 ${
-                lightSurface ? 'bg-(--bone)/85' : 'bg-black/50'
+                lightSurface ? 'bg-(--bone)/85' : 'bg-(--midnight)/70'
               }`
             : `after:opacity-0 ${
                 lightSurface
