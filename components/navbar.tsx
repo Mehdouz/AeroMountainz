@@ -81,8 +81,8 @@ export default function Navbar({
             <Image
               src={logo}
               alt={logoAlt}
-              width={240}
-              height={56}
+              width={64}
+              height={64}
               className="h-14 xl:h-16 w-auto"
               priority
             />
@@ -155,7 +155,7 @@ export default function Navbar({
             <Image
               src={logo}
               alt={logoAlt}
-              width={240}
+              width={56}
               height={56}
               className="h-14 w-auto"
             />

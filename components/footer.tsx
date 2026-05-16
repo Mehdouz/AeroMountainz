@@ -49,7 +49,7 @@ export default function Footer({
             <Image
               src={logo}
               alt={logoAlt}
-              width={280}
+              width={72}
               height={72}
               className="h-18 w-auto mb-5"
             />
