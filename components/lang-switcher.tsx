@@ -36,7 +36,7 @@ export default function LangSwitcher({
           type="button"
           onClick={() => switchTo(loc)}
           aria-pressed={loc === currentLocale}
-          className={`text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 rounded-full transition-colors ${
+          className={`text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 rounded-full cursor-pointer transition-colors ${
             loc === currentLocale
               ? 'bg-gold text-midnight'
               : inactiveClass

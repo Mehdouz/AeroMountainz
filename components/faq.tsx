@@ -25,7 +25,7 @@ function FaqItem({ faq, index, dark }: { faq: Faq; index: number; dark?: boolean
     >
       <button
         onClick={() => setOpen((p) => !p)}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left group"
+        className="w-full flex items-start justify-between gap-6 py-7 text-left cursor-pointer group"
         aria-expanded={open}
       >
         <span

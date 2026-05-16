@@ -10,7 +10,7 @@ export default function CtaParallax({ src }: { src: string }) {
     const handleScroll = () => {
       if (!bgRef.current) return
       const rect = bgRef.current.getBoundingClientRect()
-      const offset = rect.top * 0.25
+      const offset = rect.top * 0.15
       bgRef.current.style.transform = `translateY(${offset}px)`
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -23,7 +23,7 @@ export default function CtaParallax({ src }: { src: string }) {
         src={src}
         alt=""
         fill
-        sizes="100vw"
+        sizes="110vw"
         className="object-cover"
       />
       <div className="absolute inset-0 bg-(--midnight)/75" />
