@@ -15,7 +15,7 @@ export default function Hero({
   const subtitleLines = (data.subtitle ?? '').split('\n')
 
   return (
-    <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-end">
+    <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center">
       <HeroParallax
         backgroundImage={data.backgroundImage}
         backgroundAlt={data.backgroundAlt}
@@ -23,7 +23,7 @@ export default function Hero({
         videoMp4={data.videoMp4}
       />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 lg:pb-28">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10">
         {data.eyebrow && (
           <Reveal threshold={0.01} delay={300} duration={1000} y={16}>
             <p className="font-mono text-xs tracking-[0.4em] text-gold uppercase mb-6">
