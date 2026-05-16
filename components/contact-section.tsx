@@ -664,7 +664,7 @@ function ContactLieu({ data }: { data: ContactSectionData }) {
         </div>
 
         {/* Map */}
-        <div className="py-20 lg:py-24 lg:border-l border-t lg:border-t-0 border-(--bone)/10 flex items-center justify-center">
+        <div className="py-20 lg:py-24  flex items-center justify-center">
           <iframe
             src={data.mapEmbedUrl}
             title="Carte du lieu de rendez-vous"

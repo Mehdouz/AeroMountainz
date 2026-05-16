@@ -22,12 +22,12 @@ export default function HeroParallax({
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY
       if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${scrollY * 0.4}px)`
+        bgRef.current.style.transform = `translateY(${window.scrollY * 0.4}px)`
       }
     }
 
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
