@@ -19,6 +19,19 @@ export const galleryItem = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: 'caption',
+      title: 'Titre (lightbox)',
+      type: 'string',
+      description: 'Titre poétique affiché dans le lightbox. Optionnel — si vide, on retombe sur le texte alternatif.',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description (lightbox)',
+      type: 'text',
+      rows: 2,
+      description: 'Sous-titre court affiché sous le titre dans le lightbox. Optionnel.',
+    }),
+    defineField({
       name: 'span',
       title: 'Taille dans la grille',
       type: 'string',

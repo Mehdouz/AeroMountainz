@@ -46,6 +46,8 @@ export type GalleryItem = {
   src: string
   alt: string
   span: string
+  caption?: string
+  description?: string
 }
 
 export type PilotBadgeIconKey = 'award' | 'wind' | 'trophy'

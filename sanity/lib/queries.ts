@@ -102,7 +102,7 @@ sections[]{
   _type == "gallerySection" => {
     eyebrow,
     heading,
-    "items": items[]->{ "src": image.asset->url, alt, span }
+    "items": items[]->{ "src": image.asset->url, alt, span, caption, description }
   },
   _type == "reviewsSection" => {
     eyebrow,
